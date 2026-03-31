@@ -1,7 +1,5 @@
 import { NextRequest } from "next/server";
 
-export const runtime = "edge";
-
 interface ApplicationPayload {
   jurisdiction: string;
   experience: string;

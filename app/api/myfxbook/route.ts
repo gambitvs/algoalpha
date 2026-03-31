@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 
-export const runtime = "edge";
-
 // Scrape the public AlgoAlpha profile — no auth needed
 const PROFILE_URL = "https://www.myfxbook.com/members/AlgoAlpha";
 
