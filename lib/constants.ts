@@ -120,7 +120,7 @@ export const team: TeamMember[] = [
     name: "Robert Miller",
     title: "CEO",
     bio: "Robert is the founder and CEO of Algo Alpha. With deep experience in algorithmic trading and hedge fund technology, he leads the company's mission to make institutional-grade trading accessible to individual investors.",
-    imagePath: "/images/robert-miller-profile.jpg",
+    imagePath: "/images/robert-miller-profile.png",
     socialLinks: [], // Placeholder until real links provided
   },
   {
