@@ -1,0 +1,6 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npx @opennextjs/cloudflare build",
+  "installCommand": "pnpm install",
+  "nodeVersion": "20"
+}
