@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath: "/staging",
-  assetPrefix: "/staging",
   async redirects() {
     return [
       {
