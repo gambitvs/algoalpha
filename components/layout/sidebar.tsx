@@ -80,7 +80,11 @@ export function Sidebar() {
       <div className="px-5 py-6">
         <Link href="/" className="block">
           <Image
-            src="/images/logo-header.png"
+            src={
+              theme === "dark"
+                ? "/images/logo-header.png"
+                : "/images/logo-header-dark.png"
+            }
             alt="Algo Alpha"
             width={140}
             height={32}
