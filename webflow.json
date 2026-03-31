@@ -1,6 +1,8 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "npx @opennextjs/cloudflare build",
-  "installCommand": "pnpm install",
-  "nodeVersion": "20"
+  "cloud": {
+    "framework": "nextjs",
+    "buildCommand": "npx @opennextjs/cloudflare build",
+    "installCommand": "pnpm install",
+    "nodeVersion": "20"
+  }
 }
