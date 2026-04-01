@@ -55,9 +55,16 @@ export default function Programs() {
               {/* Top amber accent bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber via-amber-glow to-amber" />
 
-              <h3 className="text-h3 font-serif text-text-primary mb-6 mt-2">
+              <h3 className="text-h3 font-serif text-text-primary mb-3 mt-2">
                 Straight Equity
               </h3>
+
+              <p className="text-sm text-text-secondary mb-6 leading-relaxed">
+                With straight equity strategies, what you deposit is what you
+                trade. We have a variety of strategies that suite all types of
+                traders and investors ranging from $5,000&ndash;$100,000
+                minimums.
+              </p>
 
               <ul className="space-y-3 mb-8 flex-1">
                 {steps.straightEquity.map((step, i) => (

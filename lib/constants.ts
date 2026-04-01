@@ -327,7 +327,7 @@ export const footerLinks = {
     },
     {
       label: "EBook",
-      href: "https://info.algoalpha.co/download",
+      href: "https://lp.algoalpha.co/investors-guide",
     },
   ],
   legalLinks: [
