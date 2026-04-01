@@ -16,6 +16,7 @@ const NO_SIDEBAR_ROUTES = [
   "/calendar",
   "/dq",
   "/referral-submission",
+  "/showcase",
 ];
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {

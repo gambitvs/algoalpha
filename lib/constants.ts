@@ -256,6 +256,12 @@ export const sidebarNavItems: NavItem[] = [
     icon: "Play",
   },
   {
+    label: "Showcase",
+    type: "route",
+    target: "/showcase",
+    icon: "Activity",
+  },
+  {
     label: "APPLY NOW",
     type: "external",
     target: "https://lp.algoalpha.co/portfolio-accelerator",
