@@ -1,0 +1,26 @@
+[2026-03-31 15:12:50] find /Users/shawnhenry/Documents/Projects/algoalpha -type f -name "*.tsx" -o -name "*.ts" | grep -E "(page\.tsx|components/home|lib)" | head -20
+[2026-03-31 15:12:53] ls -la /Users/shawnhenry/Documents/Projects/algoalpha/app/ | grep page
+[2026-03-31 15:12:54] find /Users/shawnhenry/Documents/Projects/algoalpha/app/components -type d | head -20
+[2026-03-31 15:12:55] find /Users/shawnhenry/Documents/Projects/algoalpha -type d -name components
+[2026-03-31 15:13:03] ls -la /Users/shawnhenry/Documents/Projects/algoalpha/components/
+[2026-03-31 15:13:04] ls -la /Users/shawnhenry/Documents/Projects/algoalpha/components/home/
+[2026-03-31 15:13:05] find /Users/shawnhenry/Documents/Projects/algoalpha/lib -type f \( -name "*.tsx" -o -name "*.ts" \) | head -20
+[2026-03-31 15:17:39] npx next build 2>&1 | tail -20
+[2026-03-31 15:18:06] git status
+[2026-03-31 15:18:07] git diff
+[2026-03-31 15:18:07] git log --oneline -5
+[2026-03-31 15:18:15] git add -A && git status --short | head -60
+[2026-03-31 15:18:18] git status --short | wc -l
+[2026-03-31 15:18:22] git reset HEAD .claude/command-history.log && echo "unstaged .claude/command-history.log"
+[2026-03-31 15:18:29] git commit -m "$(cat <<'EOF'
+feat: full site build with homepage updates
+
+Complete Algo Alpha site with all pages, components, and layouts.
+Includes homepage updates: Concierge Onboarding, 30+ trading pairs,
+CPA verification, Create Your Broker Account step, 6 strategies in
+CTA, and always-visible footer disclaimer.
+
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+EOF
+)"
+[2026-03-31 15:18:34] git push origin main
