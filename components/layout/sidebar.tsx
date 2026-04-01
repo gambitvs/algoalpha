@@ -29,13 +29,16 @@ const iconMap: Record<string, LucideIcon> = {
 
 export function Sidebar() {
   const pathname = usePathname();
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">("light");
 
   useEffect(() => {
     const stored = localStorage.getItem("theme") as "dark" | "light" | null;
     if (stored) {
       setTheme(stored);
       document.documentElement.classList.toggle("light", stored === "light");
+    } else {
+      // Default to light mode
+      document.documentElement.classList.add("light");
     }
   }, []);
 

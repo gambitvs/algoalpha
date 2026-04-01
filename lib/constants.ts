@@ -2,6 +2,7 @@
 
 import type {
   Strategy,
+  StrategyData,
   Testimonial,
   TeamMember,
   ClientResult,
@@ -11,74 +12,85 @@ import type {
 } from "./types";
 
 // ---------------------------------------------------------------------------
-// 7.2 Strategy Data
+// 7.2 Strategy Data (new flat model — ordered highest risk to lowest)
 // ---------------------------------------------------------------------------
 
-export const strategies: Strategy[] = [
+export const strategyCards: StrategyData[] = [
   {
-    name: "Alpha X",
-    slug: "alpha-x",
-    description:
-      "This trading software has two settings; Conservative and Moderate.",
-    variants: [
-      {
-        settings: "Conservative",
-        market: "21 Total Unique Pairs Between FX, Gold",
-        returnYTD: "35% YTD 2025",
-        positionSize: "Designed For $20,000+",
-        screenshotPath: "/images/alpha-x-conservative.png",
-      },
-      {
-        settings: "Moderate",
-        market: "21 Total Unique Pairs Between FX, Gold",
-        returnYTD: "350% YTD 2025",
-        positionSize: "Designed For $20,000+",
-        screenshotPath: "/images/alpha-x-moderate.png",
-      },
-    ],
+    name: "Gold Alpha",
+    slug: "gold-alpha",
+    myfxbookId: "11972920",
+    market: "Forex",
+    strategy: "Long HFT",
+    totalReturnLabel: "1306%*",
+    totalReturnFromApi: false,
+    return2025Label: "1306%*",
+    returnYTDFromApi: false,
+    maxDrawdownLabel: "10.8% / 41%",
+    maxDrawdownFromApi: false,
+    historicalDrawdown: "10.8%",
+    historicalDrawdown2: "41%",
+    minimum: "$5,000",
+    tradingActivity: "4-50 trades per day",
+    assetClass: "Gold",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11972920",
   },
   {
     name: "Crypto Alpha",
     slug: "crypto-alpha",
-    variants: [
-      {
-        settings: "Aggressive",
-        market: "Crypto FX",
-        returnYTD: "17.5% YTD 2025",
-        positionSize: "Designed For $50,000+",
-        screenshotPath: "/images/crypto-alpha.png",
-      },
-    ],
+    myfxbookId: "11758739",
+    market: "Forex",
+    strategy: "Dual Asset Long & Short",
+    totalReturnLabel: "710.53%",
+    totalReturnFromApi: true,
+    returnYTDFromApi: true,
+    maxDrawdownLabel: "19.03%",
+    maxDrawdownFromApi: false,
+    historicalDrawdown: "19.03%",
+    minimum: "$20,000",
+    tradingActivity: "6-25 trades per day",
+    tradeTypes: "Day Trades, Scalping, Swing",
+    assetClass: "BTC/USD, ETH/USD",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11758739",
   },
   {
-    name: "Alpha Trader",
-    slug: "alpha-trader",
-    variants: [
-      {
-        settings: "Aggressive",
-        market: "Crypto FX",
-        returnYTD: "18.35% YTD 2025",
-        positionSize: "Designed For $50,000+",
-        screenshotPath: "/images/alpha-trader.png",
-      },
-    ],
+    name: "Alpha Core",
+    slug: "alpha-core",
+    myfxbookId: "11980516",
+    market: "Forex",
+    strategy: "Portfolio; 14 pairs",
+    totalReturnLabel: "48.19%",
+    totalReturnFromApi: true,
+    returnYTDFromApi: true,
+    maxDrawdownFromApi: false,
+    historicalDrawdown: "6.43%",
+    minimum: "$30,000",
+    tradingActivity: "10-15 trades per day",
+    tradeTypes: "Day Trades, Swing trades",
+    assetClass: "Forex",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11980516",
   },
   {
-    name: "Gold Alpha",
-    slug: "gold-alpha",
-    description:
-      "This trading software is a single asset trading software with a moderate risk profile.",
-    variants: [
-      {
-        settings: "Conservative",
-        market: "XAU/USD",
-        returnYTD: "1306% for 2025, February 24th YTD: 93.5%",
-        positionSize: "Designed For $20,000+",
-        screenshotPath: "/images/gold-alpha.png",
-      },
-    ],
+    name: "Alpha X",
+    slug: "alpha-x",
+    myfxbookId: "11758658",
+    market: "Forex",
+    strategy: "Portfolio; 21 pairs",
+    totalReturnLabel: "88.09%",
+    totalReturnFromApi: true,
+    returnYTDFromApi: true,
+    maxDrawdownFromApi: true,
+    historicalDrawdown: "6.43%",
+    minimum: "$50,000",
+    tradingActivity: "20-80 trades per day",
+    tradeTypes: "Day Trades, Swing trades",
+    assetClass: "Forex",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11758658",
   },
 ];
+
+// Legacy strategies array kept for any other pages that still reference it
+export const strategies: Strategy[] = [];
 
 // ---------------------------------------------------------------------------
 // 7.3 Testimonial Data

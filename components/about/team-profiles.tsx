@@ -18,7 +18,7 @@ export default function TeamProfiles() {
             Leadership
           </p>
           <h2 className="text-h2 font-serif text-text-primary max-w-3xl">
-            The People Behind the Algorithms
+            Meet Our Executive Team
           </h2>
         </div>
 

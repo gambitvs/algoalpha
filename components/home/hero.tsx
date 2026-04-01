@@ -60,7 +60,7 @@ export default function Hero() {
           <div className="flex flex-col">
             <MotionFade delay={0}>
               <span className="text-micro font-mono uppercase tracking-widest text-amber">
-                ALGORITHMIC TRADING
+                A New Era of Strategy for Markets
               </span>
             </MotionFade>
 
@@ -77,7 +77,7 @@ export default function Hero() {
             </MotionFade>
 
             <MotionFade delay={400} className="mt-6">
-              <p className="max-w-[540px] text-body text-text-secondary">
+              <p className="max-w-[540px] text-body text-text-primary">
                 Algo Alpha&apos;s market-agnostic trading systems reduce
                 emotion, standardize execution, and seek consistent performance
                 across forex, crypto, and metals.

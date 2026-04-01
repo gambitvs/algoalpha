@@ -1,31 +1,97 @@
-import Image from "next/image";
-import { AlertTriangle } from "lucide-react";
+"use client";
 
-const performanceImages = [
+import { useEffect, useState } from "react";
+import { AlertTriangle, ExternalLink } from "lucide-react";
+
+interface AccountData {
+  name: string;
+  slug: string;
+  id: string;
+  gain: string;
+  drawdown: string;
+  url: string;
+  sparklineUrl: string;
+}
+
+const ACCOUNTS: AccountData[] = [
   {
-    src: "/images/performance-alltime-feb2023.png",
-    alt: "All Time Return February 2023 to July 2024",
-    caption:
-      "Cumulative return since inception — February 2023 through July 2024",
+    name: "Intelligent Portfolio",
+    slug: "intelligent-portfolio",
+    id: "11755904",
+    gain: "191.20",
+    drawdown: "15.32",
+    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-intelligent-portfolio/11755904",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11755904",
   },
   {
-    src: "/images/performance-daniel.png",
-    alt: "Performance Results — Daniel — March 2024",
-    caption: "Live client account performance — Daniel, March 2024",
+    name: "Alpha Trader",
+    slug: "alpha-trader",
+    id: "11756098",
+    gain: "406.18",
+    drawdown: "19.55",
+    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-trader/11756098",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11756098",
   },
   {
-    src: "/images/performance-adam.png",
-    alt: "Performance Results — Adam — March 2024",
-    caption: "Live client account performance — Adam, March 2024",
+    name: "Alpha X",
+    slug: "alpha-x",
+    id: "11758658",
+    gain: "88.09",
+    drawdown: "6.24",
+    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-x/11758658",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11758658",
   },
   {
-    src: "/images/performance-alltime.png",
-    alt: "All Time Return",
-    caption: "All-time verified track record across all trading pairs",
+    name: "Crypto Alpha",
+    slug: "crypto-alpha",
+    id: "11758739",
+    gain: "710.53",
+    drawdown: "19.02",
+    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-crypto-alpha/11758739",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11758739",
+  },
+  {
+    name: "Gold Alpha",
+    slug: "gold-alpha",
+    id: "11972920",
+    gain: "4.40",
+    drawdown: "2.58",
+    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-gold-alpha/11972920",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11972920",
+  },
+  {
+    name: "Alpha Core",
+    slug: "alpha-core",
+    id: "11980516",
+    gain: "48.19",
+    drawdown: "6.40",
+    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-core/11980516",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11980516",
   },
 ];
 
 export default function PerformanceGallery() {
+  const [accounts, setAccounts] = useState<AccountData[]>(ACCOUNTS);
+  const [lastUpdated, setLastUpdated] = useState("Mar 31, 2026");
+
+  useEffect(() => {
+    fetch("/api/myfxbook")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data?.accounts?.length > 0) {
+          setAccounts(data.accounts);
+          setLastUpdated(
+            new Date(data.lastScraped).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            }),
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <section className="px-6 lg:px-8 py-16 lg:py-24">
       <div className="mx-auto max-w-7xl">
@@ -59,24 +125,71 @@ export default function PerformanceGallery() {
           </p>
         </div>
 
-        {/* Screenshot grid */}
-        <div className="grid gap-6 sm:grid-cols-2">
-          {performanceImages.map((image) => (
-            <div key={image.src} className="group">
-              <div className="relative aspect-[4/3] overflow-hidden border border-border bg-bg-surface">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className="object-contain p-3 transition-opacity group-hover:opacity-90"
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                />
-              </div>
-              <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.1em] text-text-muted">
-                {image.caption}
-              </p>
+        {/* Account cards */}
+        <div className="rounded-lg border border-border bg-bg-surface p-4 sm:p-5">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
+              Verified Accounts
+            </span>
+            <div className="flex items-center gap-1.5">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              <span className="font-mono text-[9px] uppercase tracking-wider text-text-muted">
+                Live
+              </span>
             </div>
-          ))}
+          </div>
+
+          {/* Account rows */}
+          <div className="space-y-2">
+            {accounts.map((account) => (
+              <a
+                key={account.id}
+                href={account.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-sm border border-border bg-bg-deep p-3 transition-colors hover:border-amber/30 group"
+              >
+                {/* Sparkline */}
+                <img
+                  src={account.sparklineUrl}
+                  alt={`${account.name} performance`}
+                  className="h-8 w-20 object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+                />
+                {/* Name */}
+                <div className="flex-1 min-w-0">
+                  <div className="font-mono text-[11px] text-text-primary truncate">
+                    {account.name}
+                  </div>
+                  <div className="font-mono text-[9px] text-text-muted uppercase tracking-wider">
+                    DD: {account.drawdown}%
+                  </div>
+                </div>
+                {/* Gain */}
+                <div className="font-mono text-sm font-medium text-amber shrink-0">
+                  +{account.gain}%
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Last updated */}
+          <p className="mt-3 text-center font-mono text-[9px] uppercase tracking-wider text-text-muted">
+            Data via MyFXBook &middot; Updated {lastUpdated}
+          </p>
+        </div>
+
+        {/* View all link */}
+        <div className="mt-6">
+          <a
+            href="https://www.myfxbook.com/members/AlgoAlpha"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 border border-border px-5 py-3 text-sm font-medium text-text-primary transition-all hover:border-amber hover:text-amber group"
+          >
+            <span>View All on MyFXBook</span>
+            <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
         </div>
       </div>
     </section>

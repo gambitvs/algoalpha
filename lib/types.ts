@@ -15,6 +15,31 @@ export interface StrategyVariant {
   screenshotPath: string; // path in /public/images/
 }
 
+/** New flat strategy card data — replaces the variant-based model on the homepage */
+export interface StrategyData {
+  name: string;
+  slug: string;
+  myfxbookId: string;
+  market: string;
+  strategy: string;
+  /** Hardcoded total return label — for Gold Alpha this is "1306%*" */
+  totalReturnLabel: string;
+  /** If true, fetch gain from the API/ACCOUNTS data instead of using totalReturnLabel */
+  totalReturnFromApi: boolean;
+  /** Hardcoded 2025 return label (Gold Alpha only) */
+  return2025Label?: string;
+  returnYTDFromApi: boolean;
+  maxDrawdownLabel?: string;
+  maxDrawdownFromApi: boolean;
+  historicalDrawdown?: string;
+  historicalDrawdown2?: string;
+  minimum: string;
+  tradingActivity: string;
+  tradeTypes?: string;
+  assetClass: string;
+  sparklineUrl: string;
+}
+
 export interface Testimonial {
   name: string;
   title: string;

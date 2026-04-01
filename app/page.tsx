@@ -1,23 +1,23 @@
 import Hero from "@/components/home/hero";
-import Differentiators from "@/components/home/differentiators";
-import HowItWorks from "@/components/home/how-it-works";
 import StrategySuite from "@/components/home/strategy-suite";
+import Differentiators from "@/components/home/differentiators";
 import Results from "@/components/home/results";
-import Testimonials from "@/components/home/testimonials";
-import Resources from "@/components/home/resources";
 import CtaBanner from "@/components/home/cta-banner";
+import Programs from "@/components/home/programs";
+import FAQs from "@/components/home/faqs";
+import Resources from "@/components/home/resources";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Differentiators />
-      <HowItWorks />
       <StrategySuite />
+      <Differentiators />
       <Results />
-      <Testimonials />
-      <Resources />
       <CtaBanner />
+      <Programs />
+      <FAQs />
+      <Resources />
     </>
   );
 }

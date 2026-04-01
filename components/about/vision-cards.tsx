@@ -1,21 +1,21 @@
 const visionBlocks = [
   {
     number: "01",
-    title: "Increased Money Supply",
+    title: "Markets Are Largely Controlled By Trading Algorithms",
     description:
-      "The federal reserve continues to expand the money supply, keeping the U.S. dollar at the backbone of FOREX and other global markets. This macro environment creates persistent opportunities for algorithmic strategies that can identify and act on currency movements faster than any human trader.",
+      "Nearly everything in our life has an algorithm and in financial markets over 70% of the activity in day in and day out is by algorithms.",
   },
   {
     number: "02",
-    title: "Portfolio Diversification",
+    title: "Modernize Portfolio Diversification",
     description:
-      "The traditional 60/40 portfolio is outdated. New technological developments in algorithmic trading have created an entirely new asset class — one that can generate returns uncorrelated to equities, bonds, or real estate. This is the diversification opportunity of a generation.",
+      "The old 60/40 portfolio has silently eroded portfolio growth for too long. We're in a new era, one that requires algorithmic trading strategies to outperform traditional performance.",
   },
   {
     number: "03",
-    title: "Compounding Growth",
+    title: "Outperform Traditional Performance",
     description:
-      "With profitable trades compounding over time, our goal is to increase buying power through consistent, risk-managed returns. Small, steady gains compound into transformative portfolio growth — the same principle that built every great institutional fund.",
+      "With profitable trades compounding over time, our goal is to increase buying power through consistent, risk-managed returns. Small, steady gains compound into transformative portfolio growth, the same principle that built every great institutional fund.",
   },
 ];
 
@@ -29,7 +29,7 @@ export default function VisionCards() {
             Our Vision
           </p>
           <h2 className="text-h2 font-serif text-text-primary max-w-3xl">
-            The Thesis Behind Algo Alpha
+            AI &amp; Algorithmic Trading Is Here
           </h2>
         </div>
 

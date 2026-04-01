@@ -1,16 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { strategies } from "@/lib/constants";
+import { strategyCards } from "@/lib/constants";
 import StrategyCard from "@/components/home/strategy-card";
 import SectionEntrance from "@/components/layout/section-entrance";
+
+interface MyfxbookAccount {
+  name: string;
+  slug: string;
+  id: string;
+  gain: string;
+  drawdown: string;
+}
 
 export default function StrategySuite() {
   const [activeIndex, setActiveIndex] = useState(0);
   const prefersReducedMotion = useReducedMotion();
+  const [apiData, setApiData] = useState<Record<string, MyfxbookAccount>>({});
 
-  const active = strategies[activeIndex];
+  // Fetch live data from the myfxbook API
+  useEffect(() => {
+    fetch("/api/myfxbook")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data?.accounts?.length > 0) {
+          const map: Record<string, MyfxbookAccount> = {};
+          for (const acc of data.accounts) {
+            map[acc.id] = acc;
+          }
+          setApiData(map);
+        }
+      })
+      .catch(() => {
+        // Fallback data in constants is fine
+      });
+  }, []);
+
+  const active = strategyCards[activeIndex];
 
   return (
     <section id="strategies" className="py-16 lg:py-24">
@@ -18,7 +45,7 @@ export default function StrategySuite() {
         <SectionEntrance>
           <div className="mb-4 max-w-3xl">
             <h2 className="text-h2 font-serif text-text-primary">
-              Choose Your Strategy
+              Our Strategies
             </h2>
             <p className="mt-4 text-body text-text-secondary">
               Algo Alpha&apos;s Strategy Suite Makes It Simple for Investors to
@@ -36,13 +63,13 @@ export default function StrategySuite() {
           {/* Tab selector */}
           <div className="mb-8 overflow-x-auto">
             <div className="inline-flex min-w-full gap-1 rounded-lg bg-bg-surface p-1">
-              {strategies.map((strategy, i) => {
-                const isGold = strategy.slug === "gold-alpha";
+              {strategyCards.map((s, i) => {
+                const isGold = s.slug === "gold-alpha";
                 const isActive = activeIndex === i;
 
                 return (
                   <button
-                    key={strategy.slug}
+                    key={s.slug}
                     onClick={() => setActiveIndex(i)}
                     className={`relative whitespace-nowrap px-3 py-2 text-xs sm:text-sm sm:px-4 font-medium uppercase tracking-wide transition-all ${
                       isActive
@@ -63,7 +90,7 @@ export default function StrategySuite() {
                         : undefined
                     }
                   >
-                    {strategy.name}
+                    {s.name}
                     {isActive && (
                       <motion.div
                         layoutId="strategy-tab-indicator"
@@ -90,30 +117,10 @@ export default function StrategySuite() {
               exit={prefersReducedMotion ? {} : { opacity: 0, y: -8 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* Description if present */}
-              {active.description && (
-                <p className="mb-6 text-body text-text-secondary">
-                  {active.description}
-                </p>
-              )}
-
-              {/* Alpha X: side-by-side variants */}
-              {active.variants.length > 1 ? (
-                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                  {active.variants.map((variant) => (
-                    <StrategyCard
-                      key={`${active.slug}-${variant.settings}`}
-                      strategyName={active.name}
-                      variant={variant}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <StrategyCard
-                  strategyName={active.name}
-                  variant={active.variants[0]}
-                />
-              )}
+              <StrategyCard
+                strategy={active}
+                apiAccount={apiData[active.myfxbookId]}
+              />
             </motion.div>
           </AnimatePresence>
         </SectionEntrance>
