@@ -269,22 +269,49 @@
 }
 
 /* ─── Light Mode: Contrast Section Inversion ─── */
-/* The white CTA section in dark mode becomes dark in light mode */
 
+/* CTA banner: warm gradient in light mode */
 .light .bg-warm-white {
-  color: var(--aa-warm-white); /* text becomes warm white */
+  background: linear-gradient(
+    135deg,
+    oklch(0.97 0.01 70),
+    oklch(0.94 0.02 65),
+    oklch(0.97 0.005 80)
+  );
+  color: oklch(0.13 0.01 60);
 }
 
 .light .bg-warm-white .text-bg-deep {
-  color: oklch(0.93 0.01 80);
+  color: oklch(0.13 0.01 60);
+}
+
+.light .bg-warm-white .text-bg-deep\/60 {
+  color: oklch(0.13 0.01 60 / 0.6);
+}
+
+.light .bg-warm-white .text-bg-deep\/40 {
+  color: oklch(0.13 0.01 60 / 0.4);
+}
+
+.light .bg-warm-white .border-bg-deep\/10 {
+  border-color: oklch(0.13 0.01 60 / 0.1);
 }
 
 .light .bg-warm-white .bg-bg-deep {
-  background-color: oklch(0.97 0.005 80);
+  background-color: oklch(0.13 0.01 60);
 }
 
 .light .bg-warm-white .text-warm-white {
-  color: oklch(0.1 0.01 60);
+  color: oklch(0.97 0.005 80);
+}
+
+/* Programs section: light gray bg in light mode */
+:root {
+  --programs-bg: oklch(0.12 0.01 60);
+}
+
+.light {
+  --programs-bg: oklch(0.95 0.005 75);
 }
 
 /* ─── Light Mode: Wave Background ─── */
