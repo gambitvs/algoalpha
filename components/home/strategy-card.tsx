@@ -144,17 +144,23 @@ export default function StrategyCard({
           </div>
         </div>
 
-        {/* Right: MyFXBook sparkline chart */}
+        {/* Right: MyFXBook full chart widget */}
         <div className="flex items-start justify-center lg:justify-end">
-          <div className="w-full max-w-[280px] rounded-lg border border-border bg-bg-deep p-3">
+          <div className="w-full max-w-[320px] rounded-lg border border-border bg-bg-deep p-3">
             <p className="mb-2 font-mono text-[9px] uppercase tracking-wider text-text-muted text-center">
               MyFXBook Verified
             </p>
-            <img
-              src={s.sparklineUrl}
-              alt={`${s.name} performance chart`}
-              className="w-full h-auto object-contain"
-            />
+            <a
+              href={`https://www.myfxbook.com/members/AlgoAlpha`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={`https://widgets.myfxbook.com/api/get-custom-widget.png?id=${s.myfxbookId}&width=600&height=300&bart=0&linet=1&bgColor=0C0A08&gridColor=2A2520&lineColor=FE9716&barColor=FE9716&fontColor=EDE8E0&title=&titles=12&chartbgc=12100E`}
+                alt={`${s.name} MyFXBook performance chart`}
+                className="w-full h-auto object-contain rounded"
+              />
+            </a>
           </div>
         </div>
       </div>
