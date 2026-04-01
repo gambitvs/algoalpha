@@ -313,7 +313,10 @@ export const mobileNavItems: NavItem[] = [
 export const footerLinks = {
   siteLinks: [
     { label: "About", href: "/about" },
-    { label: "Resources", href: "/#resources" },
+    { label: "Showcase", href: "/showcase" },
+    { label: "Program Overview", href: "/program-overview" },
+    { label: "Reviews", href: "/reviews" },
+    { label: "CPA Certifications", href: "/cpa-certifications" },
     { label: "Support", href: "mailto:support@algoalpha.co" },
   ],
   productLinks: [

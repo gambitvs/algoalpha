@@ -28,6 +28,14 @@ export const STRATEGY_COLORS: Record<string, StrategyColor> = {
     accent: "oklch(0.70 0.13 170)",
     accentDim: "oklch(0.50 0.09 170)",
   },
+  "alpha-yen": {
+    accent: "oklch(0.72 0.14 90)",
+    accentDim: "oklch(0.52 0.10 90)",
+  },
+  "alpha-y": {
+    accent: "oklch(0.68 0.12 240)",
+    accentDim: "oklch(0.48 0.08 240)",
+  },
 };
 
 export function getStrategyColor(slug: string): StrategyColor {

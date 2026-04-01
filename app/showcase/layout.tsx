@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Performance Showcase",
   description:
-    "Live performance data for all 6 Algo Alpha trading strategies. Verified by MyFXBook.",
+    "Live performance data for all 8 Algo Alpha trading strategies — Straight Equity and Funded Trading. Verified by MyFXBook.",
 };
 
 export default function ShowcaseLayout({
