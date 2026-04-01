@@ -4,6 +4,9 @@ import { ClientLayout } from "@/components/layout/client-layout";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://algoalpha.co",
+  ),
   title: {
     default:
       "Algo Alpha - Institutional Trading Technology Made Available For Every Investor",
