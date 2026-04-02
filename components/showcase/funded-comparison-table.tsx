@@ -1,47 +1,41 @@
 "use client";
 
 import { useRef } from "react";
-import { useInView } from "framer-motion";
-import SectionEntrance from "@/components/layout/section-entrance";
+import { motion, useInView } from "framer-motion";
+import { Crown, TrendingUp, ArrowRight } from "lucide-react";
 
 const strategies = [
   {
     name: "Alpha Core",
-    totalReturn: "510%*",
+    totalReturn: "510%",
     capitalMin: "$3,000",
-    avgReturn: "35.3%/mo*",
-    yearsActive: "1.25 years",
+    avgReturn: "35.3%/mo",
+    yearsActive: "1.25 yrs",
     market: "FX",
-    reason: "AUD, NZD and XAU core, 18 Currency Pairs",
+    reason: "AUD, NZD & XAU core — 18 pairs",
+    color: "oklch(0.70 0.13 170)",
   },
   {
     name: "Alpha Y",
-    totalReturn: "280.12%*",
+    totalReturn: "280%",
     capitalMin: "$2,000",
-    avgReturn: "3.80%/mo*",
-    yearsActive: "1.25 years",
+    avgReturn: "3.80%/mo",
+    yearsActive: "1.25 yrs",
     market: "FX",
     reason: "Conservative, diversified",
+    color: "oklch(0.68 0.12 240)",
   },
   {
     name: "Alpha X",
-    totalReturn: "823%*",
+    totalReturn: "823%",
     capitalMin: "$10,000",
-    avgReturn: "18.9%/mo*",
-    yearsActive: "2.5 years",
+    avgReturn: "18.9%/mo",
+    yearsActive: "2.5 yrs",
     market: "FX + Gold",
     reason: "Conservative, diversified",
-    highlight: true,
+    color: "oklch(0.75 0.16 65)",
+    featured: true,
   },
-];
-
-const rows: { label: string; key: keyof (typeof strategies)[0] }[] = [
-  { label: "Total Returns %", key: "totalReturn" },
-  { label: "Capital Min", key: "capitalMin" },
-  { label: "Avg Return", key: "avgReturn" },
-  { label: "Years Active", key: "yearsActive" },
-  { label: "Market", key: "market" },
-  { label: "Reason for Returns", key: "reason" },
 ];
 
 export default function FundedComparisonTable() {
@@ -49,135 +43,192 @@ export default function FundedComparisonTable() {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <SectionEntrance>
-      <div ref={ref}>
-        {/* ── Desktop: 3-column card layout ── */}
-        <div className="hidden md:grid md:grid-cols-3 gap-6">
-          {strategies.map((s, si) => (
+    <div ref={ref}>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-0 rounded-2xl overflow-hidden border border-white/[0.08]">
+        {strategies.map((s, i) => (
+          <motion.div
+            key={s.name}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{
+              duration: 0.6,
+              delay: i * 0.15,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className={`relative ${
+              s.featured ? "md:-my-4 md:z-10 md:scale-[1.02]" : ""
+            }`}
+          >
             <div
-              key={s.name}
-              className={`relative rounded-xl p-6 lg:p-8 transition-all duration-300 ${
-                s.highlight
-                  ? "border-2 border-amber/40 bg-amber/5"
-                  : "border border-amber/10 bg-white/[0.02]"
+              className={`h-full flex flex-col ${
+                s.featured
+                  ? "md:rounded-2xl md:shadow-[0_0_60px_oklch(0.75_0.16_65/0.15)]"
+                  : ""
               }`}
               style={{
-                transitionDelay: `${si * 100}ms`,
-                opacity: isInView ? 1 : 0,
-                transform: isInView ? "translateY(0)" : "translateY(16px)",
+                background: s.featured
+                  ? "linear-gradient(180deg, oklch(0.14 0.03 60) 0%, oklch(0.10 0.02 55) 100%)"
+                  : "oklch(0.11 0.015 60)",
+                borderLeft:
+                  i > 0 && !s.featured
+                    ? "1px solid oklch(0.2 0.01 60)"
+                    : undefined,
               }}
             >
-              {/* Highlight badge */}
-              {s.highlight && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber font-mono text-[9px] uppercase tracking-wider text-bg-deep font-medium">
-                    Top Performer
-                  </span>
-                </div>
+              {/* Featured crown */}
+              {s.featured && (
+                <div
+                  className="absolute -top-0 left-0 right-0 h-1"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${s.color}, transparent)`,
+                  }}
+                />
               )}
 
-              {/* Strategy name */}
-              <h3 className="font-serif text-2xl text-white text-center mb-6 mt-1">
-                {s.name}
-              </h3>
+              <div className="p-8 lg:p-10 flex flex-col flex-1">
+                {/* Header */}
+                <div className="text-center mb-8">
+                  {s.featured && (
+                    <div
+                      className="inline-flex items-center gap-1.5 mb-3 px-3 py-1 rounded-full"
+                      style={{
+                        background: "oklch(0.75 0.16 65 / 0.15)",
+                        border: "1px solid oklch(0.75 0.16 65 / 0.3)",
+                      }}
+                    >
+                      <Crown
+                        className="w-3 h-3"
+                        style={{ color: "oklch(0.75 0.16 65)" }}
+                      />
+                      <span
+                        className="font-mono text-[9px] uppercase tracking-widest font-medium"
+                        style={{ color: "oklch(0.75 0.16 65)" }}
+                      >
+                        Top Performer
+                      </span>
+                    </div>
+                  )}
 
-              {/* Total return — hero number */}
-              <div className="text-center mb-8 pb-6 border-b border-amber/10">
-                <p
-                  className={`font-mono font-bold tracking-tight ${
-                    s.highlight
-                      ? "text-4xl lg:text-5xl text-amber"
-                      : "text-3xl lg:text-4xl text-amber"
-                  }`}
-                >
-                  {s.totalReturn}
-                </p>
-                <p className="font-mono text-[9px] uppercase tracking-wider text-amber/60 mt-2">
-                  Total Returns
-                </p>
-              </div>
-
-              {/* Stats list */}
-              <div className="space-y-4">
-                {rows.slice(1).map((row) => (
-                  <div
-                    key={row.label}
-                    className="flex justify-between items-baseline gap-3"
+                  <h3
+                    className="font-serif text-2xl mb-1"
+                    style={{ color: "oklch(0.95 0.005 80)" }}
                   >
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-amber/80 shrink-0">
-                      {row.label}
-                    </span>
-                    <span className="font-mono text-sm text-white font-medium text-right">
-                      {String(s[row.key])}
+                    {s.name}
+                  </h3>
+
+                  <p
+                    className="font-mono text-[10px] uppercase tracking-wider"
+                    style={{ color: "oklch(0.45 0.02 60)" }}
+                  >
+                    Funded Trader Software
+                  </p>
+                </div>
+
+                {/* Hero number */}
+                <div className="text-center mb-8">
+                  <div
+                    className={`font-mono font-bold tracking-tight leading-none ${
+                      s.featured
+                        ? "text-6xl lg:text-7xl"
+                        : "text-5xl lg:text-6xl"
+                    }`}
+                    style={{ color: s.color }}
+                  >
+                    {s.totalReturn}
+                    <span className="text-[0.4em] align-super opacity-60">
+                      *
                     </span>
                   </div>
-                ))}
-              </div>
-
-              {/* CTA */}
-              <div className="mt-8 pt-6 border-t border-amber/10 text-center">
-                <a
-                  href="https://lp.algoalpha.co/portfolio-accelerator"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider transition-colors ${
-                    s.highlight
-                      ? "text-amber hover:text-amber-glow"
-                      : "text-amber/60 hover:text-amber"
-                  }`}
-                >
-                  Get Started
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                    <path
-                      d="M1 7h12M8 2l5 5-5 5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* ── Mobile: stacked cards ── */}
-        <div className="md:hidden space-y-4">
-          {strategies.map((s) => (
-            <div
-              key={s.name}
-              className={`rounded-xl p-5 ${
-                s.highlight
-                  ? "border-2 border-amber/40 bg-amber/5"
-                  : "border border-amber/10 bg-white/[0.02]"
-              }`}
-            >
-              <div className="flex items-baseline justify-between mb-4">
-                <h3 className="font-serif text-xl text-white">{s.name}</h3>
-                <span className="font-mono text-2xl font-bold text-amber">
-                  {s.totalReturn}
-                </span>
-              </div>
-              <div className="space-y-2.5">
-                {rows.slice(1).map((row) => (
-                  <div
-                    key={row.label}
-                    className="flex justify-between items-baseline"
+                  <p
+                    className="font-mono text-[9px] uppercase tracking-widest mt-3"
+                    style={{ color: "oklch(0.5 0.02 60)" }}
                   >
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-amber/50">
-                      {row.label}
-                    </span>
-                    <span className="font-mono text-sm text-white font-medium">
-                      {String(s[row.key])}
-                    </span>
-                  </div>
-                ))}
+                    Total Returns
+                  </p>
+                </div>
+
+                {/* Divider */}
+                <div
+                  className="h-px mx-auto w-16 mb-8"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${s.color}, transparent)`,
+                  }}
+                />
+
+                {/* Stats */}
+                <div className="space-y-5 flex-1">
+                  {[
+                    { label: "Capital Minimum", value: s.capitalMin },
+                    { label: "Avg Monthly Return", value: s.avgReturn },
+                    { label: "Years Active", value: s.yearsActive },
+                    { label: "Market", value: s.market },
+                    { label: "Strategy", value: s.reason },
+                  ].map((row) => (
+                    <div
+                      key={row.label}
+                      className="flex justify-between items-start gap-4"
+                    >
+                      <span
+                        className="font-mono text-[10px] uppercase tracking-wider shrink-0"
+                        style={{ color: "oklch(0.5 0.02 60)" }}
+                      >
+                        {row.label}
+                      </span>
+                      <span
+                        className="font-mono text-sm text-right font-medium"
+                        style={{ color: "oklch(0.88 0.01 80)" }}
+                      >
+                        {row.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <div
+                  className="mt-8 pt-6 text-center"
+                  style={{ borderTop: `1px solid oklch(0.2 0.01 60)` }}
+                >
+                  <a
+                    href="https://lp.algoalpha.co/portfolio-accelerator"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center justify-center gap-2 font-mono text-[11px] uppercase tracking-wider transition-all duration-300 ${
+                      s.featured ? "w-full py-3 rounded-lg font-medium" : "py-2"
+                    }`}
+                    style={
+                      s.featured
+                        ? {
+                            background: s.color,
+                            color: "oklch(0.08 0.01 60)",
+                          }
+                        : { color: s.color }
+                    }
+                    onMouseEnter={(e) => {
+                      if (!s.featured) e.currentTarget.style.opacity = "0.7";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!s.featured) e.currentTarget.style.opacity = "1";
+                    }}
+                  >
+                    {s.featured ? "Get Started" : "Learn More"}
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
+          </motion.div>
+        ))}
       </div>
-    </SectionEntrance>
+
+      {/* Disclaimer */}
+      <p
+        className="mt-4 font-mono text-[10px] italic text-center"
+        style={{ color: "oklch(0.4 0.01 60)" }}
+      >
+        *Performance from inception to March 2026. Past performance ≠ future
+        results.
+      </p>
+    </div>
   );
 }
