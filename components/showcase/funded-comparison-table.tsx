@@ -7,32 +7,22 @@ import { Crown, TrendingUp, ArrowRight } from "lucide-react";
 const strategies = [
   {
     name: "Alpha Core",
-    totalReturn: "510%",
-    capitalMin: "$3,000",
-    avgReturn: "35.3%/mo",
+    totalReturn: "48%",
+    capitalMin: "$30,000",
+    avgReturn: "1.84%/mo",
     yearsActive: "1.25 yrs",
     market: "FX",
-    reason: "AUD, NZD & XAU core — 18 pairs",
+    reason: "AUD, NZD & XAU core — 14 pairs",
     color: "oklch(0.70 0.13 170)",
   },
   {
-    name: "Alpha Y",
-    totalReturn: "280%",
-    capitalMin: "$2,000",
-    avgReturn: "3.80%/mo",
-    yearsActive: "1.25 yrs",
-    market: "FX",
-    reason: "Conservative, diversified",
-    color: "oklch(0.68 0.12 240)",
-  },
-  {
     name: "Alpha X",
-    totalReturn: "823%",
-    capitalMin: "$10,000",
-    avgReturn: "18.9%/mo",
+    totalReturn: "88%",
+    capitalMin: "$50,000",
+    avgReturn: "2.48%/mo",
     yearsActive: "2.5 yrs",
     market: "FX + Gold",
-    reason: "Conservative, diversified",
+    reason: "Conservative, diversified — 21 pairs",
     color: "oklch(0.75 0.16 65)",
     featured: true,
   },
@@ -44,7 +34,7 @@ export default function FundedComparisonTable() {
 
   return (
     <div ref={ref}>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6 max-w-3xl mx-auto">
         {strategies.map((s, i) => (
           <motion.div
             key={s.name}

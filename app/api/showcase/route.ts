@@ -212,7 +212,12 @@ async function scrapeAllAccounts(): Promise<ShowcaseData | null> {
 
     for (let i = 0; i < results.length; i++) {
       const result = results[i];
-      if (result.status === "fulfilled" && result.value) {
+      if (
+        result.status === "fulfilled" &&
+        result.value &&
+        result.value.gain !== "—" &&
+        result.value.gain !== ""
+      ) {
         accounts.push(result.value);
         anySuccess = true;
       } else {

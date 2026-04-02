@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import SectionEntrance from "@/components/layout/section-entrance";
 import CPATable from "@/components/cpa/cpa-table";
-import TrustpilotPlaceholder from "@/components/shared/trustpilot-placeholder";
+import TrustpilotReviews from "@/components/shared/trustpilot-placeholder";
 import FAQs from "@/components/home/faqs";
 import GetStartedSteps from "@/components/shared/get-started-steps";
 import ResourceCTA from "@/components/shared/resource-cta";
@@ -132,7 +132,7 @@ export default function CPAClient() {
         </div>
       </section>
 
-      <TrustpilotPlaceholder />
+      <TrustpilotReviews />
       <FAQs />
       <GetStartedSteps />
       <ResourceCTA />

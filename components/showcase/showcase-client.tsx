@@ -9,7 +9,7 @@ import ShowcaseHero from "@/components/showcase/showcase-hero";
 import FeaturedStrategy from "@/components/showcase/featured-strategy";
 import StrategyCard from "@/components/showcase/strategy-card";
 import StrategyDetail from "@/components/showcase/strategy-detail";
-import ComingSoonCard from "@/components/showcase/coming-soon-card";
+// ComingSoonCard removed — no coming-soon strategies currently
 import FundedComparisonTable from "@/components/showcase/funded-comparison-table";
 import GetStartedSteps from "@/components/shared/get-started-steps";
 import ResourceCTA from "@/components/shared/resource-cta";
@@ -23,17 +23,12 @@ const STRAIGHT_EQUITY_ORDER = [
   "alpha-trader",
   "intelligent-portfolio",
   "alpha-core",
-  "alpha-yen",
-  "alpha-y",
   "alpha-x",
 ];
 
-const FUNDED_SLUGS = ["alpha-core", "alpha-y", "alpha-x"];
+const FUNDED_SLUGS = ["alpha-core", "alpha-x"];
 
-const COMING_SOON = [
-  { slug: "alpha-yen", name: "Alpha Yen", strategy: "Yen Focused" },
-  { slug: "alpha-y", name: "Alpha Y", strategy: "Conservative FX" },
-];
+const COMING_SOON: { slug: string; name: string; strategy: string }[] = [];
 
 const COMING_SOON_SLUGS = new Set(COMING_SOON.map((s) => s.slug));
 
@@ -52,8 +47,14 @@ export default function ShowcaseClient() {
       .then((res) => res.json())
       .then((data) => {
         if (data?.accounts?.length) {
-          setAccounts(data.accounts);
-          setLastScraped(data.lastScraped);
+          // Only use API data if it has real values (not all dashes)
+          const hasRealData = data.accounts.some(
+            (a: { gain: string }) => a.gain && a.gain !== "—" && a.gain !== "",
+          );
+          if (hasRealData) {
+            setAccounts(data.accounts);
+            setLastScraped(data.lastScraped);
+          }
         }
       })
       .catch(() => {});
@@ -112,15 +113,7 @@ export default function ShowcaseClient() {
           const elements: React.ReactNode[] = [];
 
           if (card.type === "coming-soon") {
-            const cs = COMING_SOON.find((c) => c.slug === card.slug);
-            elements.push(
-              <SectionEntrance key={card.slug} delay={i * 75}>
-                <ComingSoonCard
-                  name={cs?.name ?? card.slug}
-                  strategy={cs?.strategy ?? "Coming Soon"}
-                />
-              </SectionEntrance>,
-            );
+            // No coming-soon cards currently
           } else {
             const isExpanded = expandedSlug === card.slug;
             elements.push(
@@ -156,7 +149,7 @@ export default function ShowcaseClient() {
       <ShowcaseHero
         aggregateStats={aggregateStats}
         lastScraped={lastScraped}
-        accountCount={8}
+        accountCount={6}
       />
 
       {/* ═══ STRAIGHT EQUITY SECTION ═══ */}
@@ -184,52 +177,23 @@ export default function ShowcaseClient() {
       </section>
 
       {/* ═══ FUNDED TRADING SECTION ═══ */}
-      <section
-        className="relative py-16 lg:py-24"
-        style={{
-          backgroundColor: "oklch(0.08 0.01 60)",
-          color: "oklch(0.93 0.01 80)",
-        }}
-      >
-        <div
-          className="absolute inset-x-0 top-0 h-20 z-10"
-          style={{
-            background:
-              "linear-gradient(to bottom, oklch(0.08 0.01 60), transparent)",
-          }}
-        />
-        <div
-          className="absolute inset-x-0 bottom-0 h-20 z-10"
-          style={{
-            background:
-              "linear-gradient(to top, oklch(0.08 0.01 60), transparent)",
-          }}
-        />
-
-        <div className="relative z-20 mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="py-12 lg:py-16 border-t border-border">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionEntrance>
             <div className="mb-8">
-              <p
-                className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em]"
-                style={{ color: "oklch(0.75 0.16 65)" }}
-              >
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
                 Funded Trading
               </p>
-              <p
-                className="text-small max-w-xl"
-                style={{ color: "oklch(0.6 0.02 60)" }}
-              >
-                All strategies are laid out below from highest risk highest
-                return to lowest risk lowest return.
+              <p className="text-small text-text-secondary max-w-xl">
+                Strategies designed for funded trading accounts — lower risk,
+                consistent returns.
               </p>
             </div>
           </SectionEntrance>
 
-          <div className="mb-12">
+          <div className="mb-8">
             <FundedComparisonTable />
           </div>
-
-          {renderCardGrid(fundedCards, "grid-cols-1 md:grid-cols-3")}
         </div>
       </section>
 

@@ -2,7 +2,7 @@
 
 import { ArrowRight, Play, Quote, Shield, Star } from "lucide-react";
 import SectionEntrance from "@/components/layout/section-entrance";
-import TrustpilotPlaceholder from "@/components/shared/trustpilot-placeholder";
+import TrustpilotReviews from "@/components/shared/trustpilot-placeholder";
 import FAQs from "@/components/home/faqs";
 import GetStartedSteps from "@/components/shared/get-started-steps";
 import ResourceCTA from "@/components/shared/resource-cta";
@@ -216,12 +216,12 @@ export default function ReviewsClient() {
                   </p>
 
                   <a
-                    href="#"
+                    href="https://lp.algoalpha.co/portfolio-accelerator"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.15em] text-amber hover:text-amber-glow transition-colors group/link"
                   >
-                    View Full Case Study
+                    Learn More
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
                   </a>
                 </div>
@@ -261,7 +261,7 @@ export default function ReviewsClient() {
         </div>
       </section>
 
-      <TrustpilotPlaceholder />
+      <TrustpilotReviews />
       <FAQs />
       <GetStartedSteps />
       <ResourceCTA />
