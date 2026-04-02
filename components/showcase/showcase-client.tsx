@@ -78,7 +78,7 @@ export default function ShowcaseClient() {
               : { type: "coming-soon" as const, slug };
           });
 
-      const totalAUM = accounts.reduce(
+      const totalAUA = accounts.reduce(
         (sum, a) => sum + parseCurrency(a.equity),
         0,
       );
@@ -88,7 +88,7 @@ export default function ShowcaseClient() {
         straightEquityCards: buildCards(STRAIGHT_EQUITY_ORDER, top.slug),
         fundedCards: buildCards(FUNDED_SLUGS),
         aggregateStats: {
-          totalAUM,
+          totalAUA,
           topGain: parsePercent(top.gain),
           avgWinRate:
             accounts.reduce((sum, a) => sum + parsePercent(a.winRate), 0) /

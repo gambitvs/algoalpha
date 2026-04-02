@@ -4,7 +4,7 @@ import SectionEntrance from "@/components/layout/section-entrance";
 import StatCounter from "@/components/showcase/stat-counter";
 
 interface AggregateStats {
-  totalAUM: number;
+  totalAUA: number;
   topGain: number;
   avgWinRate: number;
   totalTrades: number;
@@ -86,10 +86,10 @@ export default function ShowcaseHero({
         <SectionEntrance delay={200}>
           <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-8 border-t border-b border-border py-8">
             <StatCounter
-              value={aggregateStats.totalAUM}
+              value={aggregateStats.totalAUA}
               prefix="$"
               format="compact"
-              label="Total AUM"
+              label="Total AUA"
               delay={0}
             />
             <StatCounter
