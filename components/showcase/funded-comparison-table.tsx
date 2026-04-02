@@ -87,12 +87,12 @@ export default function FundedComparisonTable() {
                   className={`font-mono font-bold tracking-tight ${
                     s.highlight
                       ? "text-4xl lg:text-5xl text-amber"
-                      : "text-3xl lg:text-4xl text-amber/80"
+                      : "text-3xl lg:text-4xl text-amber"
                   }`}
                 >
                   {s.totalReturn}
                 </p>
-                <p className="font-mono text-[9px] uppercase tracking-wider text-amber/40 mt-2">
+                <p className="font-mono text-[9px] uppercase tracking-wider text-amber/60 mt-2">
                   Total Returns
                 </p>
               </div>
@@ -104,10 +104,10 @@ export default function FundedComparisonTable() {
                     key={row.label}
                     className="flex justify-between items-baseline gap-3"
                   >
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-amber/50 shrink-0">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-amber/80 shrink-0">
                       {row.label}
                     </span>
-                    <span className="font-mono text-sm text-white/90 text-right">
+                    <span className="font-mono text-sm text-white font-medium text-right">
                       {String(s[row.key])}
                     </span>
                   </div>
@@ -168,7 +168,7 @@ export default function FundedComparisonTable() {
                     <span className="font-mono text-[10px] uppercase tracking-wider text-amber/50">
                       {row.label}
                     </span>
-                    <span className="font-mono text-sm text-white/90">
+                    <span className="font-mono text-sm text-white font-medium">
                       {String(s[row.key])}
                     </span>
                   </div>
