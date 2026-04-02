@@ -184,21 +184,41 @@ export default function ShowcaseClient() {
       </section>
 
       {/* ═══ FUNDED TRADING SECTION ═══ */}
-      <section className="relative py-16 lg:py-24">
-        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-bg-deep to-transparent z-10" />
+      <section
+        className="relative py-16 lg:py-24"
+        style={{
+          backgroundColor: "oklch(0.08 0.01 60)",
+          color: "oklch(0.93 0.01 80)",
+        }}
+      >
         <div
-          className="absolute inset-0 -z-0"
-          style={{ backgroundColor: "oklch(0.10 0.02 60)" }}
+          className="absolute inset-x-0 top-0 h-20 z-10"
+          style={{
+            background:
+              "linear-gradient(to bottom, oklch(0.08 0.01 60), transparent)",
+          }}
         />
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-bg-deep to-transparent z-10" />
+        <div
+          className="absolute inset-x-0 bottom-0 h-20 z-10"
+          style={{
+            background:
+              "linear-gradient(to top, oklch(0.08 0.01 60), transparent)",
+          }}
+        />
 
         <div className="relative z-20 mx-auto max-w-7xl px-6 lg:px-8">
           <SectionEntrance>
             <div className="mb-8">
-              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
+              <p
+                className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em]"
+                style={{ color: "oklch(0.75 0.16 65)" }}
+              >
                 Funded Trading
               </p>
-              <p className="text-small text-text-secondary max-w-xl">
+              <p
+                className="text-small max-w-xl"
+                style={{ color: "oklch(0.6 0.02 60)" }}
+              >
                 All strategies are laid out below from highest risk highest
                 return to lowest risk lowest return.
               </p>
