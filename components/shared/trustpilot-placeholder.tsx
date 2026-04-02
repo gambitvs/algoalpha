@@ -1,7 +1,10 @@
 "use client";
 
+import { useRef } from "react";
 import { Star } from "lucide-react";
 import SectionEntrance from "@/components/layout/section-entrance";
+
+// ── Review data ──────────────────────────────────────────────────────────────
 
 const trustpilotReviews = [
   {
@@ -146,40 +149,42 @@ const trustpilotReviews = [
   },
 ];
 
-function ReviewCard({
+// ── Split reviews into 3 rows for the marquee ───────────────────────────────
+
+const ROW_1 = trustpilotReviews.slice(0, 7);
+const ROW_2 = trustpilotReviews.slice(7, 14);
+const ROW_3 = trustpilotReviews.slice(14);
+
+// ── Marquee card ─────────────────────────────────────────────────────────────
+
+function MarqueeCard({
   review,
 }: {
   review: (typeof trustpilotReviews)[number];
 }) {
   return (
-    <div className="rounded-lg border border-border bg-bg-surface p-5 flex flex-col justify-between h-full transition-colors hover:border-amber/20">
-      {/* Stars */}
-      <div>
-        <div className="flex gap-0.5 mb-3">
-          {Array.from({ length: review.stars }).map((_, i) => (
-            <Star key={i} className="w-4 h-4 fill-amber text-amber" />
-          ))}
-        </div>
-        <h4 className="font-mono text-xs font-medium text-text-primary mb-2">
-          {review.title}
-        </h4>
-        <p className="text-small text-text-secondary leading-relaxed line-clamp-4">
-          {review.text}
-        </p>
+    <div className="w-[340px] shrink-0 rounded-lg bg-bg-surface/80 backdrop-blur-sm border border-border/50 p-5 transition-all duration-300 hover:border-amber/25 hover:bg-bg-elevated/60">
+      <div className="flex items-center gap-1 mb-3">
+        {Array.from({ length: review.stars }).map((_, i) => (
+          <Star key={i} className="w-3.5 h-3.5 fill-amber text-amber" />
+        ))}
       </div>
-      {/* Author + date */}
-      <div className="mt-4 flex items-center justify-between pt-3 border-t border-border">
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-amber/15 flex items-center justify-center">
-            <span className="text-[10px] font-medium text-amber">
-              {review.name.charAt(0).toUpperCase()}
-            </span>
-          </div>
-          <span className="font-mono text-[11px] text-text-primary">
-            {review.name}
+      <h4 className="font-sans text-[13px] font-semibold text-text-primary mb-1.5 leading-snug">
+        {review.title}
+      </h4>
+      <p className="text-[12.5px] text-text-secondary leading-relaxed line-clamp-3">
+        {review.text}
+      </p>
+      <div className="mt-3.5 flex items-center gap-2.5">
+        <div className="w-5 h-5 rounded-full bg-amber/12 flex items-center justify-center">
+          <span className="text-[9px] font-semibold text-amber leading-none">
+            {review.name.charAt(0).toUpperCase()}
           </span>
         </div>
-        <span className="font-mono text-[10px] text-text-muted">
+        <span className="font-mono text-[10px] text-text-primary/80">
+          {review.name}
+        </span>
+        <span className="font-mono text-[9px] text-text-muted ml-auto">
           {review.date}
         </span>
       </div>
@@ -187,12 +192,56 @@ function ReviewCard({
   );
 }
 
+// ── Marquee row ──────────────────────────────────────────────────────────────
+
+function MarqueeRow({
+  reviews,
+  direction,
+  speed,
+}: {
+  reviews: (typeof trustpilotReviews)[number][];
+  direction: "left" | "right";
+  speed: number;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Duplicate the reviews so the strip can loop seamlessly
+  const items = [...reviews, ...reviews];
+
+  return (
+    <div
+      ref={containerRef}
+      className="group relative flex overflow-hidden"
+      aria-label="Scrolling reviews"
+    >
+      <div
+        className="flex gap-4 will-change-transform"
+        style={{
+          animation: `marquee-${direction} ${speed}s linear infinite`,
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.animationPlayState = "paused";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.animationPlayState = "running";
+        }}
+      >
+        {items.map((review, i) => (
+          <MarqueeCard key={`${review.name}-${i}`} review={review} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Main export ──────────────────────────────────────────────────────────────
+
 export default function TrustpilotReviews() {
   return (
-    <section className="py-16 lg:py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section className="py-16 lg:py-24 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 mb-10">
         <SectionEntrance>
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-end justify-between">
             <div>
               <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
                 What Our Clients Say
@@ -200,6 +249,9 @@ export default function TrustpilotReviews() {
               <h2 className="text-h3 font-serif text-text-primary">
                 Trustpilot Reviews
               </h2>
+              <p className="mt-2 text-small text-text-secondary">
+                {trustpilotReviews.length} verified reviews from real clients
+              </p>
             </div>
             <a
               href="https://www.trustpilot.com/review/algoalpha.co"
@@ -212,30 +264,65 @@ export default function TrustpilotReviews() {
             </a>
           </div>
         </SectionEntrance>
-
-        <SectionEntrance delay={100}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {trustpilotReviews.map((review) => (
-              <ReviewCard
-                key={`${review.name}-${review.date}`}
-                review={review}
-              />
-            ))}
-          </div>
-
-          <div className="mt-8 text-center sm:hidden">
-            <a
-              href="https://www.trustpilot.com/review/algoalpha.co"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.15em] text-amber hover:text-amber-glow transition-colors"
-            >
-              View all on Trustpilot
-              <span aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
-        </SectionEntrance>
       </div>
+
+      {/* Marquee wall — full bleed, no max-width constraint */}
+      <div className="relative">
+        {/* Edge fades */}
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 lg:w-40"
+          style={{
+            background:
+              "linear-gradient(to right, var(--aa-bg-deep), transparent)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 lg:w-40"
+          style={{
+            background:
+              "linear-gradient(to left, var(--aa-bg-deep), transparent)",
+          }}
+        />
+
+        <div className="flex flex-col gap-4">
+          <MarqueeRow reviews={ROW_1} direction="left" speed={45} />
+          <MarqueeRow reviews={ROW_2} direction="right" speed={55} />
+          <MarqueeRow reviews={ROW_3} direction="left" speed={50} />
+        </div>
+      </div>
+
+      {/* Mobile link */}
+      <div className="mt-8 text-center sm:hidden">
+        <a
+          href="https://www.trustpilot.com/review/algoalpha.co"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.15em] text-amber hover:text-amber-glow transition-colors"
+        >
+          View all on Trustpilot
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      {/* Keyframe animations */}
+      <style jsx>{`
+        @keyframes marquee-left {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        @keyframes marquee-right {
+          0% {
+            transform: translateX(-50%);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }
