@@ -211,13 +211,16 @@ function MarqueeRow({
   return (
     <div
       ref={containerRef}
-      className="group relative flex overflow-hidden"
+      className="group"
+      style={{ width: "100%", overflow: "hidden" }}
       aria-label="Scrolling reviews"
     >
       <div
-        className="flex gap-4 will-change-transform"
+        className="flex gap-4"
         style={{
+          width: "max-content",
           animation: `marquee-${direction} ${speed}s linear infinite`,
+          willChange: "transform",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.animationPlayState = "paused";
@@ -238,7 +241,7 @@ function MarqueeRow({
 
 export default function TrustpilotReviews() {
   return (
-    <section className="py-16 lg:py-24 overflow-hidden">
+    <section className="py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 mb-10">
         <SectionEntrance>
           <div className="flex items-end justify-between">
@@ -266,8 +269,11 @@ export default function TrustpilotReviews() {
         </SectionEntrance>
       </div>
 
-      {/* Marquee wall — full bleed, no max-width constraint */}
-      <div className="relative">
+      {/* Marquee wall — full bleed, hard-constrained to viewport */}
+      <div
+        className="relative"
+        style={{ maxWidth: "100vw", overflow: "hidden" }}
+      >
         {/* Edge fades */}
         <div
           className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 lg:w-40"

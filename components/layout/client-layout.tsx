@@ -34,7 +34,10 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
     <>
       <div className="flex min-h-screen">
         <Sidebar />
-        <div className="flex-1 flex flex-col min-h-screen lg:ml-[200px]">
+        <div
+          className="flex-1 flex flex-col min-h-screen lg:ml-[200px]"
+          style={{ minWidth: 0, overflowX: "clip" }}
+        >
           <main className="flex-1 pb-20 lg:pb-0">{children}</main>
           <Footer />
         </div>
