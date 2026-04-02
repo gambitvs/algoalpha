@@ -44,7 +44,7 @@ export default function FundedComparisonTable() {
 
   return (
     <div ref={ref}>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-0 rounded-2xl overflow-hidden border border-white/[0.08]">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
         {strategies.map((s, i) => (
           <motion.div
             key={s.name}
@@ -60,19 +60,19 @@ export default function FundedComparisonTable() {
             }`}
           >
             <div
-              className={`h-full flex flex-col ${
-                s.featured
-                  ? "md:rounded-2xl md:shadow-[0_0_60px_oklch(0.75_0.16_65/0.15)]"
-                  : ""
+              className={`h-full flex flex-col rounded-2xl ${
+                s.featured ? "shadow-[0_0_60px_oklch(0.75_0.16_65/0.15)]" : ""
               }`}
               style={{
                 background: s.featured
-                  ? "linear-gradient(180deg, oklch(0.14 0.03 60) 0%, oklch(0.10 0.02 55) 100%)"
-                  : "oklch(0.11 0.015 60)",
-                borderLeft:
-                  i > 0 && !s.featured
-                    ? "1px solid oklch(0.2 0.01 60)"
-                    : undefined,
+                  ? `linear-gradient(170deg, oklch(0.18 0.04 60) 0%, oklch(0.12 0.025 55) 50%, oklch(0.09 0.015 50) 100%)`
+                  : `linear-gradient(170deg, oklch(0.16 0.015 ${60 + i * 20}) 0%, oklch(0.12 0.01 60) 100%)`,
+                border: s.featured
+                  ? `1px solid oklch(0.75 0.16 65 / 0.3)`
+                  : `1px solid oklch(0.25 0.01 60)`,
+                boxShadow: s.featured
+                  ? "0 0 60px oklch(0.75 0.16 65 / 0.1), inset 0 1px 0 oklch(1 0 0 / 0.04)"
+                  : "inset 0 1px 0 oklch(1 0 0 / 0.03)",
               }}
             >
               {/* Featured crown */}
