@@ -76,6 +76,8 @@ export default function CPATable() {
                   {strategy.status === "verified" && strategy.href ? (
                     <a
                       href={strategy.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 font-mono text-sm text-amber hover:text-amber-glow transition-colors group"
                     >
                       View CPA Letter
