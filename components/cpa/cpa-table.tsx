@@ -13,27 +13,27 @@ const strategies: Strategy[] = [
   {
     name: "Intelligent Portfolio",
     status: "verified",
-    href: "/docs/cpa/Algo Alpha Report - Intelligent Portfolio 2025_Q4.pdf",
+    href: "/docs/cpa/intelligent-portfolio-2025-q4.pdf",
   },
   {
     name: "Alpha Trader",
     status: "verified",
-    href: "/docs/cpa/Algo Alpha Report - Alpha Trader 2025_Q4.pdf",
+    href: "/docs/cpa/alpha-trader-2025-q4.pdf",
   },
   {
     name: "Alpha X",
     status: "verified",
-    href: "/docs/cpa/Algo Alpha Report - Alpha X 2025_Q4.pdf",
+    href: "/docs/cpa/alpha-x-2025-q4.pdf",
   },
   {
     name: "Crypto Alpha",
     status: "verified",
-    href: "/docs/cpa/Algo Alpha Report - Crypto Alpha 2025_Q4.pdf",
+    href: "/docs/cpa/crypto-alpha-2025-q4.pdf",
   },
   {
     name: "Alpha Y",
     status: "verified",
-    href: "/docs/cpa/Algo Alpha Report - Alpha Y 2026_Q1.pdf",
+    href: "/docs/cpa/alpha-y-2026-q1.pdf",
   },
   { name: "Gold Alpha", status: "in-progress", href: null },
 ];
