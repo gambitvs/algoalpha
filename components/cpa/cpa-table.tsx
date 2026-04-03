@@ -13,27 +13,27 @@ const strategies: Strategy[] = [
   {
     name: "Intelligent Portfolio",
     status: "verified",
-    href: "/docs/cpa/intelligent-portfolio-2025-q4.pdf",
+    href: "https://cdn.prod.website-files.com/65bc6f55990ebb3f0ef246f5/69cfcb6f3c1209452c114a48_Algo%20Alpha%20Report%20-%20Intelligent%20Portfolio%202025_Q4.pdf",
   },
   {
     name: "Alpha Trader",
     status: "verified",
-    href: "/docs/cpa/alpha-trader-2025-q4.pdf",
+    href: "https://cdn.prod.website-files.com/65bc6f55990ebb3f0ef246f5/69cfcb6f60dec34a521036a6_Algo%20Alpha%20Report%20-%20Alpha%20Trader%202025_Q4.pdf",
   },
   {
     name: "Alpha X",
     status: "verified",
-    href: "/docs/cpa/alpha-x-2025-q4.pdf",
+    href: "https://cdn.prod.website-files.com/65bc6f55990ebb3f0ef246f5/69cfcb6fe2517172c5006cc3_Algo%20Alpha%20Report%20-%20Alpha%20X%202025_Q4.pdf",
   },
   {
     name: "Crypto Alpha",
     status: "verified",
-    href: "/docs/cpa/crypto-alpha-2025-q4.pdf",
+    href: "https://cdn.prod.website-files.com/65bc6f55990ebb3f0ef246f5/69cfcb6f2ca68f0748cd6c3f_Algo%20Alpha%20Report%20-%20Crypto%20Alpha%202025_Q4.pdf",
   },
   {
     name: "Alpha Y",
     status: "verified",
-    href: "/docs/cpa/alpha-y-2026-q1.pdf",
+    href: "https://cdn.prod.website-files.com/65bc6f55990ebb3f0ef246f5/69cfcb6fa69f163598ab7ca1_Algo%20Alpha%20Report%20-%20Alpha%20Y%202026_Q1.pdf",
   },
   { name: "Gold Alpha", status: "in-progress", href: null },
 ];
