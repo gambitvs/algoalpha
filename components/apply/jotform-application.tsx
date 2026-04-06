@@ -109,7 +109,7 @@ export default function JotFormApplication() {
 
           {/* Iframe container */}
           {prefersReducedMotion ? (
-            <div className="rounded-lg overflow-hidden bg-bg-surface border border-border">
+            <div className="overflow-hidden">
               <iframe
                 ref={iframeRef}
                 id={`JotFormIFrame-${JOTFORM_ID}`}
@@ -123,7 +123,7 @@ export default function JotFormApplication() {
             </div>
           ) : (
             <motion.div
-              className="rounded-lg overflow-hidden bg-bg-surface border border-border"
+              className="overflow-hidden"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE_OUT_EXPO, delay: 0.15 }}

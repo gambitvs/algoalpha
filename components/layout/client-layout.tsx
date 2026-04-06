@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Footer } from "@/components/layout/footer";
@@ -22,6 +23,16 @@ const NO_SIDEBAR_ROUTES = [
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+
+  // Initialize theme on all pages (sidebar only mounts on non-funnel pages)
+  useEffect(() => {
+    const stored = localStorage.getItem("theme") as "dark" | "light" | null;
+    if (stored) {
+      document.documentElement.classList.toggle("light", stored === "light");
+    } else {
+      document.documentElement.classList.add("light");
+    }
+  }, []);
 
   const hideSidebar = NO_SIDEBAR_ROUTES.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`),
