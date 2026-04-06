@@ -1,7 +1,11 @@
 "use client";
 
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Info } from "lucide-react";
 import SectionEntrance from "@/components/layout/section-entrance";
+
+const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const bullets = [
   "100% of upside is yours",
@@ -11,6 +15,10 @@ const bullets = [
 ];
 
 export default function RiskGauge() {
+  const gaugeRef = useRef<HTMLDivElement>(null);
+  const gaugeInView = useInView(gaugeRef, { once: true, amount: 0.5 });
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section className="py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -23,8 +31,8 @@ export default function RiskGauge() {
             Understand the Rules
           </h2>
 
-          {/* Gauge — authoritative, visible */}
-          <div className="relative mt-10">
+          {/* Gauge — animated fill */}
+          <div ref={gaugeRef} className="relative mt-10">
             {/* Labels above the gauge */}
             <div className="flex justify-between mb-2">
               <span className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
@@ -35,24 +43,56 @@ export default function RiskGauge() {
               </span>
             </div>
 
+            {/* Track background */}
             <div
-              className="h-5 w-full rounded-full relative"
-              style={{
-                background:
-                  "linear-gradient(to right, oklch(0.65 0.08 145 / 0.15) 90%, oklch(0.65 0.14 25 / 0.15) 90%)",
-              }}
-            />
-
-            {/* Marker at 90% — prominent */}
-            <div
-              className="absolute bottom-0 flex flex-col items-center"
-              style={{ left: "90%", transform: "translateX(-50%)" }}
+              className="h-5 w-full rounded-full relative overflow-hidden"
+              style={{ backgroundColor: "oklch(0.65 0.14 25 / 0.08)" }}
             >
-              <div className="w-[2px] h-8 bg-amber" />
-              <span className="mt-1 font-mono text-xs font-medium text-amber">
-                10%
-              </span>
+              {/* Safe zone fill — animates to 90% width */}
+              {prefersReducedMotion ? (
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full"
+                  style={{
+                    width: "90%",
+                    backgroundColor: "oklch(0.65 0.08 145 / 0.15)",
+                  }}
+                />
+              ) : (
+                <motion.div
+                  className="absolute inset-y-0 left-0 rounded-full"
+                  style={{ backgroundColor: "oklch(0.65 0.08 145 / 0.15)" }}
+                  initial={{ width: "0%" }}
+                  animate={gaugeInView ? { width: "90%" } : {}}
+                  transition={{ duration: 1, ease: EASE_OUT_EXPO, delay: 0.1 }}
+                />
+              )}
             </div>
+
+            {/* Marker at 90% — fades in after gauge fills */}
+            {prefersReducedMotion ? (
+              <div
+                className="absolute bottom-0 flex flex-col items-center"
+                style={{ left: "90%", transform: "translateX(-50%)" }}
+              >
+                <div className="w-[2px] h-8 bg-amber" />
+                <span className="mt-1 font-mono text-xs font-medium text-amber">
+                  10%
+                </span>
+              </div>
+            ) : (
+              <motion.div
+                className="absolute bottom-0 flex flex-col items-center"
+                style={{ left: "90%", x: "-50%" }}
+                initial={{ opacity: 0 }}
+                animate={gaugeInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.4, ease: EASE_OUT_EXPO, delay: 0.8 }}
+              >
+                <div className="w-[2px] h-8 bg-amber" />
+                <span className="mt-1 font-mono text-xs font-medium text-amber">
+                  10%
+                </span>
+              </motion.div>
+            )}
           </div>
 
           {/* 2x2 grid */}

@@ -1,13 +1,16 @@
 "use client";
 
 import { useRef } from "react";
-import { useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import NumberFlow from "@number-flow/react";
 import SectionEntrance from "@/components/layout/section-entrance";
+
+const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function CapitalMultiplier() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.5 });
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section className="py-16 lg:py-24">
@@ -17,15 +20,32 @@ export default function CapitalMultiplier() {
             HOW IT WORKS
           </p>
 
-          {/* Bar — tall enough to command attention */}
+          {/* Bar — the amber deposit portion grows from 0→10% on scroll */}
           <div
             ref={ref}
             className="relative mt-10 flex h-20 lg:h-24 items-center rounded-lg overflow-hidden"
             style={{
-              background:
-                "linear-gradient(to right, oklch(0.75 0.16 65) 10%, oklch(0.75 0.16 65 / 0.08) 10%)",
+              backgroundColor: "oklch(0.75 0.16 65 / 0.08)",
             }}
           >
+            {/* Animated amber fill — grows from 0% to 10% width */}
+            {prefersReducedMotion ? (
+              <div
+                className="absolute inset-y-0 left-0 rounded-l-lg"
+                style={{
+                  width: "10%",
+                  backgroundColor: "oklch(0.75 0.16 65)",
+                }}
+              />
+            ) : (
+              <motion.div
+                className="absolute inset-y-0 left-0 rounded-l-lg"
+                style={{ backgroundColor: "oklch(0.75 0.16 65)" }}
+                initial={{ width: "0%" }}
+                animate={inView ? { width: "10%" } : {}}
+                transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 0.2 }}
+              />
+            )}
             {/* 10x badge on the bar itself */}
             <div className="absolute left-[10%] top-1/2 -translate-y-1/2 -translate-x-1/2 z-10">
               <span

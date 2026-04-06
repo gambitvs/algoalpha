@@ -56,8 +56,8 @@ export default function FundedHero() {
           </p>
         </Wrapper>
 
-        {/* The "10x" — the focal point of the entire page */}
-        <Wrapper delay={0.08} isInView={isInView}>
+        {/* The "10x" — the focal point. Breathes into existence with a slower, larger entrance. */}
+        {prefersReducedMotion ? (
           <p
             className="mt-6 font-serif font-medium leading-none tracking-tight select-none"
             style={{
@@ -68,7 +68,21 @@ export default function FundedHero() {
           >
             10x
           </p>
-        </Wrapper>
+        ) : (
+          <motion.p
+            className="mt-6 font-serif font-medium leading-none tracking-tight select-none"
+            style={{
+              fontSize: "clamp(5rem, 14vw, 12rem)",
+              color: "oklch(0.75 0.16 65 / 0.12)",
+            }}
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1.2, ease: EASE_OUT_EXPO, delay: 0.05 }}
+            aria-hidden="true"
+          >
+            10x
+          </motion.p>
+        )}
 
         {/* Headline — overlaps the 10x slightly for depth */}
         <Wrapper delay={0.15} isInView={isInView}>
