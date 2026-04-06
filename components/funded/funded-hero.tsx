@@ -94,8 +94,9 @@ export default function FundedHero() {
         {/* Body */}
         <Wrapper delay={0.25} isInView={isInView}>
           <p className="mt-6 text-body text-text-secondary max-w-lg leading-relaxed">
-            Discover how our funded trader program allows you to 10x your
-            capital and pair the account with compatible trading algorithms.
+            Algo Alpha provides the trading software — we connect you with a
+            compatible broker that contributes 10x your deposit. Pair the funded
+            account with our algorithms and keep 100% of the profits.
           </p>
         </Wrapper>
 

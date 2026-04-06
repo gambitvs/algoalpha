@@ -96,10 +96,14 @@ export default function CapitalMultiplier() {
               className="font-serif text-h2 text-amber"
             />
             <p className="mt-4 max-w-lg text-body text-text-secondary">
-              Put down just 10% and trade with the full amount. Your $5,000
-              deposit unlocks $50,000 in live trading capital — a 10× multiplier
-              that lets you capture larger moves without risking more of your
-              own money.
+              Deposit as little as $5,000 — or significantly more — and the
+              broker contributes 10× that amount in live trading capital. Algo
+              Alpha provides the software; the broker provides the funded
+              account. You keep 100% of the profits.
+            </p>
+            <p className="mt-2 text-small text-text-muted italic">
+              $5,000 shown as an example. Deposit amounts vary by strategy and
+              investor.
             </p>
           </div>
         </SectionEntrance>
