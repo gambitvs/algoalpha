@@ -101,7 +101,7 @@ export default function FundedHero() {
       />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_45%] gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_45%] gap-12 lg:gap-16 items-center">
           {/* Left — text content */}
           <div>
             {/* Label */}
@@ -198,7 +198,7 @@ export default function FundedHero() {
 
           {/* Right — video */}
           <Wrapper delay={0.3} isInView={isInView}>
-            <div className="mt-4 lg:mt-20">
+            <div>
               <VideoEmbed />
             </div>
           </Wrapper>
