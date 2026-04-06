@@ -87,14 +87,15 @@ export default function FundedHero() {
         {/* Headline — overlaps the 10x slightly for depth */}
         <Wrapper delay={0.15} isInView={isInView}>
           <h1 className="-mt-8 lg:-mt-14 text-h1 font-serif text-text-primary max-w-2xl relative">
-            Deploy 10x Your Capital.
+            Less Capital Deployed, More Return Potential.
           </h1>
         </Wrapper>
 
         {/* Body */}
         <Wrapper delay={0.25} isInView={isInView}>
           <p className="mt-6 text-body text-text-secondary max-w-lg leading-relaxed">
-            Deposit $5,000. Trade with $50,000. Keep 100% of the profits.
+            Discover how our funded trader program allows you to 10x your
+            capital and pair the account with compatible trading algorithms.
           </p>
         </Wrapper>
 
