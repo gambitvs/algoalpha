@@ -325,13 +325,16 @@
   --tw-gradient-to: oklch(0.97 0.005 80);
 }
 
-/* ─── Footer Logo: theme-aware ─── */
-.footer-logo-light {
+/* ─── Logos: theme-aware ─── */
+.footer-logo-light,
+.header-logo-light {
   display: none;
 }
-.light .footer-logo-dark {
+.light .footer-logo-dark,
+.light .header-logo-dark {
   display: none;
 }
-.light .footer-logo-light {
+.light .footer-logo-light,
+.light .header-logo-light {
   display: block;
 }

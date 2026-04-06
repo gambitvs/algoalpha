@@ -52,7 +52,14 @@ export default function JotFormApplication() {
             alt="Algo Alpha"
             width={120}
             height={30}
-            className="h-auto w-24 opacity-60"
+            className="h-auto w-24 opacity-60 header-logo-dark"
+          />
+          <Image
+            src="/images/logo-header-dark.png"
+            alt="Algo Alpha"
+            width={120}
+            height={30}
+            className="h-auto w-24 opacity-60 header-logo-light"
           />
         </div>
       </header>
@@ -61,7 +68,7 @@ export default function JotFormApplication() {
       <div className="mx-auto max-w-4xl px-6 py-12 lg:py-20">
         {/* Section header */}
         {prefersReducedMotion ? (
-          <div className="text-center mb-10">
+          <div className="text-center mb-4">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
               Application
             </p>
@@ -75,7 +82,7 @@ export default function JotFormApplication() {
           </div>
         ) : (
           <motion.div
-            className="text-center mb-10"
+            className="text-center mb-4"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE_OUT_EXPO }}
