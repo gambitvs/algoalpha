@@ -38,32 +38,55 @@ export default function FundedHero() {
     : AnimatedBlock;
 
   return (
-    <section ref={ref} className="py-20 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section ref={ref} className="relative py-24 lg:py-40 overflow-hidden">
+      {/* Subtle radial glow behind the 10x */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(ellipse at 30% 40%, oklch(0.75 0.16 65 / 0.04), transparent 60%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Label */}
         <Wrapper delay={0} isInView={isInView}>
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
-            FUNDED TRADER PROGRAM
+            Funded Trader Program
           </p>
         </Wrapper>
 
-        {/* Headline */}
-        <Wrapper delay={0.1} isInView={isInView}>
-          <h1 className="text-display font-serif text-text-primary max-w-3xl">
+        {/* The "10x" — the focal point of the entire page */}
+        <Wrapper delay={0.08} isInView={isInView}>
+          <p
+            className="mt-6 font-serif font-medium leading-none tracking-tight select-none"
+            style={{
+              fontSize: "clamp(5rem, 14vw, 12rem)",
+              color: "oklch(0.75 0.16 65 / 0.12)",
+            }}
+            aria-hidden="true"
+          >
+            10x
+          </p>
+        </Wrapper>
+
+        {/* Headline — overlaps the 10x slightly for depth */}
+        <Wrapper delay={0.15} isInView={isInView}>
+          <h1 className="-mt-8 lg:-mt-14 text-h1 font-serif text-text-primary max-w-2xl relative">
             Deploy 10x Your Capital.
           </h1>
         </Wrapper>
 
         {/* Body */}
-        <Wrapper delay={0.2} isInView={isInView}>
+        <Wrapper delay={0.25} isInView={isInView}>
           <p className="mt-6 text-body text-text-secondary max-w-lg leading-relaxed">
             Deposit $5,000. Trade with $50,000. Keep 100% of the profits.
           </p>
         </Wrapper>
 
         {/* Pills */}
-        <Wrapper delay={0.35} isInView={isInView}>
-          <div className="mt-8 flex flex-wrap gap-2">
+        <Wrapper delay={0.4} isInView={isInView}>
+          <div className="mt-10 flex flex-wrap gap-2">
             {pills.map((pill) => (
               <span
                 key={pill}
@@ -76,22 +99,22 @@ export default function FundedHero() {
         </Wrapper>
 
         {/* CTA */}
-        <Wrapper delay={0.5} isInView={isInView}>
-          <div className="mt-8">
+        <Wrapper delay={0.55} isInView={isInView}>
+          <div className="mt-10">
             <a
               href="https://lp.algoalpha.co/portfolio-accelerator"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex h-12 items-center gap-3 bg-amber px-8 text-sm font-medium uppercase tracking-wide text-bg-deep transition-colors hover:bg-amber-glow"
+              className="group inline-flex h-14 items-center gap-3 bg-amber px-10 text-sm font-medium uppercase tracking-wide text-bg-deep transition-all hover:bg-amber-glow hover:gap-5"
             >
-              BOOK A CALL{" "}
+              Book a Call
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
         </Wrapper>
 
         {/* Disclaimer */}
-        <Wrapper delay={0.6} isInView={isInView}>
+        <Wrapper delay={0.65} isInView={isInView}>
           <p className="mt-6 text-xs italic text-text-muted">
             Past performance is not indicative of future results.
           </p>

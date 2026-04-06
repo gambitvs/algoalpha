@@ -70,11 +70,11 @@ function DesktopTimeline() {
     <div ref={containerRef} className="hidden lg:grid grid-cols-[48px_1fr]">
       {/* Line column */}
       <div className="relative">
-        {/* Background track */}
-        <div className="absolute left-1/2 -translate-x-1/2 w-px h-full bg-border top-0" />
+        {/* Background track — thicker for visibility */}
+        <div className="absolute left-1/2 -translate-x-1/2 w-[2px] h-full bg-border top-0" />
         {/* Foreground fill */}
         <motion.div
-          className="absolute left-1/2 -translate-x-1/2 w-px bg-amber top-0"
+          className="absolute left-1/2 -translate-x-1/2 w-[2px] bg-amber top-0"
           style={{ height: scrollHeight }}
         />
 
@@ -134,7 +134,7 @@ function TimelineDot({
 
   return (
     <motion.div
-      className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 z-10"
+      className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 z-10"
       style={{
         top: `${topPercent}%`,
         borderColor,

@@ -104,12 +104,12 @@ export default function PropFirmComparison() {
         </h2>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-0">
-          {/* Left column — Traditional */}
-          <div className="md:border-r border-border md:pr-12">
-            <p className="font-mono text-sm text-text-muted uppercase tracking-wider mb-6">
+          {/* Left column — Traditional (diminished, loses) */}
+          <div className="md:border-r border-border md:pr-12 opacity-70">
+            <p className="font-mono text-sm text-text-muted uppercase tracking-wider mb-8">
               Traditional Prop Firm
             </p>
-            <div className="space-y-4">
+            <div className="space-y-5">
               {leftItems.map((item, i) => (
                 <StaggerItem
                   key={item}
@@ -118,14 +118,21 @@ export default function PropFirmComparison() {
                   isInView={isInView}
                   reduced={reduced}
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-center gap-3">
                     <span
-                      className="text-lg font-medium leading-6 shrink-0"
-                      style={{ color: "oklch(0.65 0.14 25)" }}
+                      className="flex items-center justify-center w-6 h-6 rounded-full shrink-0"
+                      style={{
+                        backgroundColor: "oklch(0.65 0.14 25 / 0.10)",
+                      }}
                     >
-                      &times;
+                      <span
+                        className="text-sm font-medium"
+                        style={{ color: "oklch(0.65 0.14 25)" }}
+                      >
+                        &times;
+                      </span>
                     </span>
-                    <span className="text-sm text-text-muted line-through">
+                    <span className="text-sm text-text-muted line-through decoration-text-muted/30">
                       {item}
                     </span>
                   </div>
@@ -137,12 +144,12 @@ export default function PropFirmComparison() {
           {/* Mobile divider */}
           <div className="md:hidden border-t border-border" />
 
-          {/* Right column — Algo Alpha */}
-          <div className="md:pl-12">
-            <p className="font-mono text-sm text-amber uppercase tracking-wider mb-6">
+          {/* Right column — Algo Alpha (elevated, wins) */}
+          <div className="md:pl-12 md:-my-4 md:py-4 rounded-lg">
+            <p className="font-mono text-sm text-amber uppercase tracking-wider mb-8">
               Algo Alpha Funded
             </p>
-            <div className="space-y-4">
+            <div className="space-y-5">
               {rightItems.map((item, i) => (
                 <StaggerItemRight
                   key={item}
@@ -151,11 +158,15 @@ export default function PropFirmComparison() {
                   isInView={isInView}
                   reduced={reduced}
                 >
-                  <div className="flex items-start gap-3">
-                    <span className="text-lg font-medium leading-6 text-amber shrink-0">
-                      &#10003;
+                  <div className="flex items-center gap-3">
+                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-amber/10 shrink-0">
+                      <span className="text-sm font-medium text-amber">
+                        &#10003;
+                      </span>
                     </span>
-                    <span className="text-sm text-text-primary">{item}</span>
+                    <span className="text-body text-text-primary font-medium">
+                      {item}
+                    </span>
                   </div>
                 </StaggerItemRight>
               ))}

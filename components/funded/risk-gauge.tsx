@@ -23,25 +23,35 @@ export default function RiskGauge() {
             Understand the Rules
           </h2>
 
-          {/* Gauge */}
+          {/* Gauge — authoritative, visible */}
           <div className="relative mt-10">
+            {/* Labels above the gauge */}
+            <div className="flex justify-between mb-2">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
+                Safe Zone
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
+                Threshold
+              </span>
+            </div>
+
             <div
-              className="h-3 w-full rounded-full"
+              className="h-5 w-full rounded-full relative"
               style={{
                 background:
-                  "linear-gradient(to right, oklch(0.65 0.08 145 / 0.12) 90%, oklch(0.65 0.14 25 / 0.12) 90%)",
+                  "linear-gradient(to right, oklch(0.65 0.08 145 / 0.15) 90%, oklch(0.65 0.14 25 / 0.15) 90%)",
               }}
             />
 
-            {/* Marker at 90% */}
+            {/* Marker at 90% — prominent */}
             <div
-              className="absolute top-0 flex flex-col items-center"
+              className="absolute bottom-0 flex flex-col items-center"
               style={{ left: "90%", transform: "translateX(-50%)" }}
             >
-              <span className="font-mono text-[10px] text-amber -translate-y-5">
+              <div className="w-[2px] h-8 bg-amber" />
+              <span className="mt-1 font-mono text-xs font-medium text-amber">
                 10%
               </span>
-              <div className="w-0.5 h-6 bg-amber -translate-y-4" />
             </div>
           </div>
 

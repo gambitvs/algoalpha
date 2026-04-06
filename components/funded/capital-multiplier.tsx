@@ -17,27 +17,49 @@ export default function CapitalMultiplier() {
             HOW IT WORKS
           </p>
 
-          {/* Bar */}
+          {/* Bar — tall enough to command attention */}
           <div
             ref={ref}
-            className="relative mt-10 flex h-12 items-center rounded-lg"
+            className="relative mt-10 flex h-20 lg:h-24 items-center rounded-lg overflow-hidden"
             style={{
               background:
-                "linear-gradient(to right, oklch(0.75 0.16 65) 10%, oklch(0.75 0.16 65 / 0.10) 10%)",
+                "linear-gradient(to right, oklch(0.75 0.16 65) 10%, oklch(0.75 0.16 65 / 0.08) 10%)",
             }}
           >
-            {/* Left label — short on mobile, full on md+ */}
-            <span className="absolute left-4 text-sm font-medium text-white md:hidden">
-              $5K
-            </span>
-            <span className="absolute left-4 hidden text-sm font-medium text-white md:block">
-              $5,000 Your Deposit
-            </span>
+            {/* 10x badge on the bar itself */}
+            <div className="absolute left-[10%] top-1/2 -translate-y-1/2 -translate-x-1/2 z-10">
+              <span
+                className="flex items-center justify-center w-10 h-10 rounded-full font-mono text-[11px] font-semibold"
+                style={{
+                  backgroundColor: "oklch(0.75 0.16 65)",
+                  color: "oklch(0.08 0.01 60)",
+                  boxShadow: "0 0 20px oklch(0.75 0.16 65 / 0.3)",
+                }}
+              >
+                10×
+              </span>
+            </div>
 
-            {/* Right label */}
-            <span className="absolute right-4 text-sm font-medium text-amber/50">
-              $45,000 Broker Contribution
-            </span>
+            {/* Left label — your deposit */}
+            <div className="absolute left-3 lg:left-4 flex flex-col">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-bg-deep/60">
+                Your Deposit
+              </span>
+              <span className="font-mono text-sm font-semibold text-bg-deep md:text-base">
+                <span className="md:hidden">$5K</span>
+                <span className="hidden md:inline">$5,000</span>
+              </span>
+            </div>
+
+            {/* Right label — broker contribution */}
+            <div className="absolute right-4 flex flex-col items-end">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-amber/40">
+                Broker Contribution
+              </span>
+              <span className="font-mono text-sm font-medium text-amber/50">
+                $45,000
+              </span>
+            </div>
           </div>
 
           {/* Number section */}
