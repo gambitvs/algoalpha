@@ -47,7 +47,9 @@ export default function FundedFAQ() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
           {faqs.map((faq, i) => (
             <SectionEntrance key={i} delay={i * 80}>
-              <div className="rounded-lg bg-bg-surface/50 p-6 hover:bg-bg-elevated/40 transition-colors h-full">
+              <div className="group/faq relative rounded-lg bg-bg-surface/50 p-6 hover:bg-bg-elevated/40 transition-colors h-full overflow-hidden">
+                {/* Hover accent — thin amber line slides in from left */}
+                <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-amber scale-y-0 group-hover/faq:scale-y-100 transition-transform duration-300 origin-top" />
                 <p className="font-mono text-sm font-medium text-text-primary mb-3">
                   {faq.question}
                 </p>

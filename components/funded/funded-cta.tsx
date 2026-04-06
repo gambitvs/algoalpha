@@ -32,7 +32,7 @@ export default function FundedCTA() {
                 href="https://lp.algoalpha.co/portfolio-accelerator"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 bg-bg-deep px-8 py-4 text-sm font-medium uppercase tracking-wide text-warm-white transition-all hover:gap-5"
+                className="group inline-flex items-center gap-3 bg-bg-deep px-8 py-4 text-sm font-medium uppercase tracking-wide text-warm-white transition-all hover:gap-5 active:translate-y-px"
               >
                 Book Your Consultation
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

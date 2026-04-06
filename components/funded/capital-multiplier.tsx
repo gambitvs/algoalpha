@@ -67,6 +67,7 @@ export default function CapitalMultiplier() {
             <p className="font-mono text-sm text-text-muted">Trading Power:</p>
             <NumberFlow
               value={inView ? 50000 : 5000}
+              trend={1}
               format={{
                 style: "currency",
                 currency: "USD",

@@ -90,7 +90,7 @@ export default function FundedHero() {
             {pills.map((pill) => (
               <span
                 key={pill}
-                className="px-3 py-1.5 border border-border/30 font-mono text-[11px] text-text-secondary"
+                className="px-3 py-1.5 border border-border/30 font-mono text-[11px] text-text-secondary transition-colors duration-300 hover:border-amber/40 hover:text-text-primary cursor-default"
               >
                 {pill}
               </span>
@@ -105,7 +105,7 @@ export default function FundedHero() {
               href="https://lp.algoalpha.co/portfolio-accelerator"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex h-14 items-center gap-3 bg-amber px-10 text-sm font-medium uppercase tracking-wide text-bg-deep transition-all hover:bg-amber-glow hover:gap-5"
+              className="group inline-flex h-14 items-center gap-3 bg-amber px-10 text-sm font-medium uppercase tracking-wide text-bg-deep transition-all hover:bg-amber-glow hover:gap-5 active:translate-y-px"
             >
               Book a Call
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

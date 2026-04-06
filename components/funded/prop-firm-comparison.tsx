@@ -68,8 +68,8 @@ function StaggerItemRight({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -8 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      initial={{ opacity: 0, x: 8, scale: 0.98 }}
+      animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
       transition={{
         duration: 0.5,
         ease: EASE_OUT_EXPO,
