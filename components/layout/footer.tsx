@@ -91,12 +91,20 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
           {/* Column 1 — Brand */}
           <div className="flex flex-col gap-6">
+            {/* White logo for dark mode (default), black logo for light mode */}
             <Image
               src="/images/logo-footer-white.png"
               alt="Algo Alpha"
               width={160}
               height={40}
-              className="h-auto w-40"
+              className="h-auto w-40 footer-logo-dark"
+            />
+            <Image
+              src="/images/logo-footer-black.png"
+              alt="Algo Alpha"
+              width={160}
+              height={40}
+              className="h-auto w-40 footer-logo-light"
             />
             <p className="text-sm text-text-secondary">
               Follow Us on Social Media

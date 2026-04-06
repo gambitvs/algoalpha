@@ -324,3 +324,14 @@
 .light .to-bg-deep {
   --tw-gradient-to: oklch(0.97 0.005 80);
 }
+
+/* ─── Footer Logo: theme-aware ─── */
+.footer-logo-light {
+  display: none;
+}
+.light .footer-logo-dark {
+  display: none;
+}
+.light .footer-logo-light {
+  display: block;
+}
