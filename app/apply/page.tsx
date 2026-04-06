@@ -1,5 +1,5 @@
-import { ApplicationWizard } from "@/components/apply/application-wizard";
 import type { Metadata } from "next";
+import JotFormApplication from "@/components/apply/jotform-application";
 
 export const metadata: Metadata = {
   title: "Apply",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function ApplyPage() {
-  return <ApplicationWizard />;
+  return <JotFormApplication />;
 }
