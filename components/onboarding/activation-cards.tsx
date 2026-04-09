@@ -12,6 +12,8 @@ export interface AlgoData {
   name: string;
   slug: string;
   broker: string;
+  brokerSignupUrl?: string;
+  brokerSignupLabel?: string;
   platform: string;
   leverage?: string;
   setupDocUrl: string;
@@ -33,6 +35,8 @@ export const SE_ALGOS: AlgoData[] = [
     name: "Gold Alpha",
     slug: "gold-alpha",
     broker: "US: GODO, OX Securities · International: most brokers",
+    brokerSignupUrl: "https://signup.godocm.com/?rm=47&ref=2000185240",
+    brokerSignupLabel: "Sign Up with GODO",
     platform: "MT4/MT5",
     leverage: "1:500 to 1:1000 recommended",
     setupDocUrl:
@@ -50,6 +54,8 @@ export const SE_ALGOS: AlgoData[] = [
     name: "Crypto Alpha",
     slug: "crypto-alpha",
     broker: "GNT only (via specific tracking link)",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupLabel: "Sign Up with GNT",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/1HAa9WEbldnkKgVgpHtIFKlbNnao3fX4hEmyQM9QCaMA/edit",
@@ -66,6 +72,8 @@ export const SE_ALGOS: AlgoData[] = [
     name: "Alpha Core",
     slug: "alpha-core",
     broker: "US: GNT, GODO, OX Securities · International: most brokers",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupLabel: "Sign Up with GNT",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/1RF-fbbtkdo4iBLYV27FKFEFpyi5_JWpt6OtpEVk0k08/edit",
@@ -82,6 +90,8 @@ export const SE_ALGOS: AlgoData[] = [
     name: "Alpha Trader",
     slug: "alpha-trader",
     broker: "US: GNT, GODO, OX Securities · International: most brokers",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupLabel: "Sign Up with GNT",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/1rqw0kmSdTGp4gCb_VJarFkdCuAN-lKfnJc96hHjbN2s/edit",
@@ -98,6 +108,8 @@ export const SE_ALGOS: AlgoData[] = [
     name: "Intelligent Portfolio",
     slug: "intelligent-portfolio",
     broker: "US: GNT, GODO, OX Securities · International: most brokers",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupLabel: "Sign Up with GNT",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/forms/d/1d09MwHYybm_zQ0bsdG3MRkQ_7NRuUHrluVRFqrDkjng/edit",
@@ -117,6 +129,8 @@ export const FTP_ALGOS: AlgoData[] = [
     name: "Alpha X Funded",
     slug: "alpha-x-funded",
     broker: "GNT X only (Funded Trader Program)",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupLabel: "Sign Up with GNT X",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/10zCzng51_A7HmyompG1Pxpc_cIoutHrgaftPtB3jiOU/edit",
@@ -133,6 +147,8 @@ export const FTP_ALGOS: AlgoData[] = [
     name: "Alpha Y Funded",
     slug: "alpha-y-funded",
     broker: "GNT X only",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupLabel: "Sign Up with GNT X",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/1NGnXrUmoKFiUR_S3ziHjdn4T1PEw0r7h4ws8sPzFhYQ/edit",
@@ -149,6 +165,8 @@ export const FTP_ALGOS: AlgoData[] = [
     name: "Alpha Core Funded",
     slug: "alpha-core-funded",
     broker: "GNT X only",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupLabel: "Sign Up with GNT X",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/1RF-fbbtkdo4iBLYV27FKFEFpyi5_JWpt6OtpEVk0k08/edit",
@@ -238,6 +256,18 @@ function CollapsedCard({
             Leverage: {algo.leverage}
           </p>
         )}
+        {algo.brokerSignupUrl && (
+          <a
+            href={algo.brokerSignupUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="mt-1 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-amber hover:text-amber-glow transition-colors"
+          >
+            {algo.brokerSignupLabel ?? "Sign Up with Broker"}
+            <ExternalLink className="h-3 w-3" />
+          </a>
+        )}
       </div>
 
       <button className="mt-4 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.15em] text-amber">
@@ -286,6 +316,17 @@ function ExpandedCard({
               <p className="font-mono text-[12px] text-text-secondary">
                 Leverage: {algo.leverage}
               </p>
+            )}
+            {algo.brokerSignupUrl && (
+              <a
+                href={algo.brokerSignupUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-amber hover:text-amber-glow transition-colors"
+              >
+                {algo.brokerSignupLabel ?? "Sign Up with Broker"}
+                <ExternalLink className="h-3 w-3" />
+              </a>
             )}
           </div>
         </div>
