@@ -54,7 +54,7 @@ export const SE_ALGOS: AlgoData[] = [
     name: "Crypto Alpha",
     slug: "crypto-alpha",
     broker: "GNT only (via specific tracking link)",
-    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/register/?lid=599&pid=22692",
     brokerSignupLabel: "Sign Up with GNT",
     platform: "MT5",
     setupDocUrl:
@@ -72,7 +72,7 @@ export const SE_ALGOS: AlgoData[] = [
     name: "Alpha Core",
     slug: "alpha-core",
     broker: "US: GNT, GODO, OX Securities · International: most brokers",
-    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/register/?lid=599&pid=22692",
     brokerSignupLabel: "Sign Up with GNT",
     platform: "MT5",
     setupDocUrl:
@@ -90,7 +90,7 @@ export const SE_ALGOS: AlgoData[] = [
     name: "Alpha Trader",
     slug: "alpha-trader",
     broker: "US: GNT, GODO, OX Securities · International: most brokers",
-    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/register/?lid=599&pid=22692",
     brokerSignupLabel: "Sign Up with GNT",
     platform: "MT5",
     setupDocUrl:
@@ -108,7 +108,7 @@ export const SE_ALGOS: AlgoData[] = [
     name: "Intelligent Portfolio",
     slug: "intelligent-portfolio",
     broker: "US: GNT, GODO, OX Securities · International: most brokers",
-    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/register/?lid=599&pid=22692",
     brokerSignupLabel: "Sign Up with GNT",
     platform: "MT5",
     setupDocUrl:
@@ -129,7 +129,7 @@ export const FTP_ALGOS: AlgoData[] = [
     name: "Alpha X Funded",
     slug: "alpha-x-funded",
     broker: "GNT X only (Funded Trader Program)",
-    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/register/?lid=599&pid=22692",
     brokerSignupLabel: "Sign Up with GNT X",
     platform: "MT5",
     setupDocUrl:
@@ -147,7 +147,7 @@ export const FTP_ALGOS: AlgoData[] = [
     name: "Alpha Y Funded",
     slug: "alpha-y-funded",
     broker: "GNT X only",
-    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/register/?lid=599&pid=22692",
     brokerSignupLabel: "Sign Up with GNT X",
     platform: "MT5",
     setupDocUrl:
@@ -165,7 +165,7 @@ export const FTP_ALGOS: AlgoData[] = [
     name: "Alpha Core Funded",
     slug: "alpha-core-funded",
     broker: "GNT X only",
-    brokerSignupUrl: "https://myaccount.gntcapital.com/links/go/599",
+    brokerSignupUrl: "https://myaccount.gntcapital.com/register/?lid=599&pid=22692",
     brokerSignupLabel: "Sign Up with GNT X",
     platform: "MT5",
     setupDocUrl:
