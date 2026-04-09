@@ -13,7 +13,7 @@ export default function EquityCurve({
 }: EquityCurveProps) {
   const width = large ? 1200 : 900;
   const height = large ? 400 : 300;
-  const chartUrl = `https://widgets.myfxbook.com/api/get-custom-widget.png?id=${accountId}&width=${width}&height=${height}&bart=0&linet=1&bgColor=0C0A08&gridColor=1A1714&lineColor=FE9716&barColor=FE9716&fontColor=8A8070&title=&titles=11&chartbgc=0C0A08`;
+  const chartUrl = `https://widgets.myfxbook.com/api/get-custom-widget.png?id=${accountId}&width=${width}&height=${height}&bart=0&linet=1&bgColor=0C0A08&gridColor=1A1714&lineColor=FE9716&barColor=FE9716&fontColor=8A8070&title=&titles=1&chartbgc=0C0A08`;
 
   return (
     <div className="rounded-lg border border-border bg-bg-deep overflow-hidden">

@@ -29,7 +29,7 @@ export default function StrategyCard({
 }: StrategyCardProps) {
   const colors = getStrategyColor(account.slug);
   const gainNum = parsePercent(account.gain);
-  const chartUrl = `https://widgets.myfxbook.com/api/get-custom-widget.png?id=${account.id}&width=600&height=200&bart=0&linet=1&bgColor=0C0A08&gridColor=1A1714&lineColor=FE9716&barColor=FE9716&fontColor=8A8070&title=&titles=11&chartbgc=0C0A08`;
+  const chartUrl = `https://widgets.myfxbook.com/api/get-custom-widget.png?id=${account.id}&width=600&height=200&bart=0&linet=1&bgColor=0C0A08&gridColor=1A1714&lineColor=FE9716&barColor=FE9716&fontColor=8A8070&title=&titles=1&chartbgc=0C0A08`;
 
   return (
     <button

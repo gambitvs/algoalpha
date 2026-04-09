@@ -154,7 +154,7 @@ export default function StrategyCard({
               rel="noopener noreferrer"
             >
               <img
-                src={`https://widgets.myfxbook.com/api/get-custom-widget.png?id=${s.myfxbookId}&width=600&height=300&bart=0&linet=1&bgColor=0C0A08&gridColor=2A2520&lineColor=FE9716&barColor=FE9716&fontColor=EDE8E0&title=&titles=12&chartbgc=12100E`}
+                src={`https://widgets.myfxbook.com/api/get-custom-widget.png?id=${s.myfxbookId}&width=600&height=300&bart=0&linet=1&bgColor=0C0A08&gridColor=2A2520&lineColor=FE9716&barColor=FE9716&fontColor=EDE8E0&title=&titles=1&chartbgc=12100E`}
                 alt={`${s.name} MyFXBook performance chart`}
                 className="w-full h-auto object-contain rounded"
               />
