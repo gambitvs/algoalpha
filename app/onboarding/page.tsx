@@ -51,7 +51,7 @@ export default function OnboardingPage() {
   const algos = activeTab === "straight-equity" ? SE_ALGOS : FTP_ALGOS;
 
   return (
-    <main className="min-h-screen bg-bg-deep text-text-primary">
+    <main className="min-h-screen bg-bg-deep text-text-primary pt-10">
       <ScrollProgressTracker
         sectionRefs={{
           video: videoRef,

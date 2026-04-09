@@ -17,7 +17,7 @@ export default function SetupVideo({ youtubeId }: SetupVideoProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="py-8 lg:py-12"
+      className="py-8 lg:py-12 px-6 lg:px-8"
     >
       {playing ? (
         <div className="relative aspect-video w-full max-w-4xl mx-auto rounded-lg overflow-hidden">

@@ -320,25 +320,15 @@ function ExpandedCard({
         ))}
       </ol>
 
-      {/* Action buttons */}
-      <div className="mt-8 flex flex-wrap items-center gap-4">
+      {/* Action button */}
+      <div className="mt-8">
         <a
           href={algo.setupDocUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.15em] text-amber hover:text-amber-glow transition-colors"
+          className="inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.15em] bg-amber text-bg-deep px-6 py-3 hover:bg-amber-glow transition-colors active:translate-y-px"
         >
-          Open Setup Guide
-          <ExternalLink className="h-3.5 w-3.5" />
-        </a>
-
-        <a
-          href={algo.setupDocUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.15em] bg-amber text-bg-deep px-6 py-3 rounded-md hover:brightness-110 transition-all"
-        >
-          Submit Activation Form
+          Open Setup Guide & Activate
           <ArrowRight className="h-3.5 w-3.5" />
         </a>
       </div>
