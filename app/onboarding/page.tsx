@@ -105,9 +105,8 @@ export default function OnboardingPage() {
       </div>
 
       {/* Shared sections — always visible regardless of tab */}
-      <div ref={portalRef}>
-        <PortalManagement />
-      </div>
+      {/* Portal section removed — Wistia video c58qtx8rgr is unavailable */}
+      <div ref={portalRef} />
 
       <div ref={resourcesRef}>
         <HelpfulResources />

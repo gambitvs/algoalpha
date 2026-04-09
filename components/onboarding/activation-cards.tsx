@@ -32,30 +32,30 @@ export const SE_ALGOS: AlgoData[] = [
   {
     name: "Gold Alpha",
     slug: "gold-alpha",
-    broker: "GODO, OX Securities, GNT",
+    broker: "US: GODO, OX Securities · International: most brokers",
     platform: "MT4/MT5",
-    leverage: "1:500 recommended (min 1:200)",
+    leverage: "1:500 to 1:1000 recommended",
     setupDocUrl:
       "https://docs.google.com/document/d/1k8gJKiuzE61c8XJojO1YqS9YK3B7HhdYcpLIhbrUP88/edit",
     steps: [
       "Register at app.algoalpha.co/register and verify email",
-      "Open broker account with 1:500 leverage (minimum 1:200)",
+      "Open broker account — GODO or OX Securities for US clients (use tracking link in setup guide)",
+      "Set leverage to 1:500–1:1000 recommended",
       "Create MT5 live account — save login, password, and investor password",
       "Deposit funds and allow clearing before proceeding",
       "Submit activation form with purchase email and MT5 login",
-      "Go live — trades execute automatically; optional MT5 mobile app",
     ],
   },
   {
     name: "Crypto Alpha",
     slug: "crypto-alpha",
-    broker: "GNT, GODO, OX Securities",
+    broker: "GNT only (via specific tracking link)",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/1HAa9WEbldnkKgVgpHtIFKlbNnao3fX4hEmyQM9QCaMA/edit",
     steps: [
       "Register at app.algoalpha.co/register and verify email",
-      "Open broker account using provided tracking link",
+      "Open GNT broker account using the tracking link in setup guide",
       "Create MT5 live account — save all credentials securely",
       "Deposit funds and wait for clearing",
       "Submit activation form with purchase email and MT5 login",
@@ -65,13 +65,13 @@ export const SE_ALGOS: AlgoData[] = [
   {
     name: "Alpha Core",
     slug: "alpha-core",
-    broker: "GNT, GODO, OX Securities",
+    broker: "US: GNT, GODO, OX Securities · International: most brokers",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/1RF-fbbtkdo4iBLYV27FKFEFpyi5_JWpt6OtpEVk0k08/edit",
     steps: [
       "Register at app.algoalpha.co/register and verify email",
-      "Open broker account using provided tracking link",
+      "Open broker account using provided tracking link in setup guide",
       "Create MT5 live account — save all credentials securely",
       "Deposit funds and wait for clearing",
       "Submit activation form with purchase email and MT5 login",
@@ -81,13 +81,13 @@ export const SE_ALGOS: AlgoData[] = [
   {
     name: "Alpha Trader",
     slug: "alpha-trader",
-    broker: "GNT, GODO, OX Securities",
+    broker: "US: GNT, GODO, OX Securities · International: most brokers",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/1rqw0kmSdTGp4gCb_VJarFkdCuAN-lKfnJc96hHjbN2s/edit",
     steps: [
       "Register at app.algoalpha.co/register and verify email",
-      "Open broker account using provided tracking link",
+      "Open broker account using provided tracking link in setup guide",
       "Create MT5 live account — save all credentials securely",
       "Deposit funds and wait for clearing",
       "Submit activation form with purchase email and MT5 login",
@@ -97,13 +97,13 @@ export const SE_ALGOS: AlgoData[] = [
   {
     name: "Intelligent Portfolio",
     slug: "intelligent-portfolio",
-    broker: "GNT, GODO, OX Securities",
+    broker: "US: GNT, GODO, OX Securities · International: most brokers",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/forms/d/1d09MwHYybm_zQ0bsdG3MRkQ_7NRuUHrluVRFqrDkjng/edit",
     steps: [
       "Register at app.algoalpha.co/register and verify email",
-      "Open broker account using provided tracking link",
+      "Open broker account using provided tracking link in setup guide",
       "Create MT5 live account — save all credentials securely",
       "Deposit funds and wait for clearing",
       "Submit activation form with purchase email and MT5 login",
@@ -116,13 +116,13 @@ export const FTP_ALGOS: AlgoData[] = [
   {
     name: "Alpha X Funded",
     slug: "alpha-x-funded",
-    broker: "GNT X (Funded Trader Program)",
+    broker: "GNT X only (Funded Trader Program)",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/10zCzng51_A7HmyompG1Pxpc_cIoutHrgaftPtB3jiOU/edit",
     steps: [
       "Register at app.algoalpha.co/register and verify email",
-      "Sign up for GNT X account using the provided tracking link",
+      "Sign up for GNT X account using the tracking link in setup guide",
       "Create MT5 live account — save login, password, investor password",
       "Deposit funds and wait for clearing",
       "Submit activation form with purchase email and MT5 login",
@@ -132,13 +132,13 @@ export const FTP_ALGOS: AlgoData[] = [
   {
     name: "Alpha Y Funded",
     slug: "alpha-y-funded",
-    broker: "GNT X (via GNT X Account)",
+    broker: "GNT X only",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/1NGnXrUmoKFiUR_S3ziHjdn4T1PEw0r7h4ws8sPzFhYQ/edit",
     steps: [
       "Register at app.algoalpha.co/register and verify email",
-      "Sign up for GNT X account using the provided tracking link",
+      "Sign up for GNT X account using the tracking link in setup guide",
       "Create MT5 live account — save all credentials securely",
       "Deposit funds and wait for clearing",
       "Submit activation form with purchase email and MT5 login",
@@ -148,13 +148,13 @@ export const FTP_ALGOS: AlgoData[] = [
   {
     name: "Alpha Core Funded",
     slug: "alpha-core-funded",
-    broker: "GNT X",
+    broker: "GNT X only",
     platform: "MT5",
     setupDocUrl:
       "https://docs.google.com/document/d/1RF-fbbtkdo4iBLYV27FKFEFpyi5_JWpt6OtpEVk0k08/edit",
     steps: [
       "Register at app.algoalpha.co/register and verify email",
-      "Sign up for GNT X account using the provided tracking link",
+      "Sign up for GNT X account using the tracking link in setup guide",
       "Create MT5 live account — save all credentials securely",
       "Deposit funds and wait for clearing",
       "Submit activation form with purchase email and MT5 login",
