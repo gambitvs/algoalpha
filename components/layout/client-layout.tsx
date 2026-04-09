@@ -19,6 +19,7 @@ const NO_SIDEBAR_ROUTES = [
   "/referral-submission",
   "/showcase",
   "/funded",
+  "/onboarding",
 ];
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
