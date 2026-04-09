@@ -43,11 +43,18 @@ export default function PortalManagement() {
                 onClick={() => setPlaying(true)}
                 className="group relative aspect-video w-full rounded-lg bg-bg-surface border border-border overflow-hidden cursor-pointer"
               >
+                {/* Wistia thumbnail */}
+                <img
+                  src="https://fast.wistia.com/embed/medias/c58qtx8rgr/swatch"
+                  alt="Portal demo preview"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <div className="absolute inset-0 bg-black/30 transition-colors duration-300 group-hover:bg-black/20" />
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
                   <div className="flex items-center justify-center w-14 h-14 rounded-full bg-amber/90 transition-transform duration-300 group-hover:scale-110">
                     <Play className="w-5 h-5 text-bg-deep fill-bg-deep ml-0.5" />
                   </div>
-                  <p className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
+                  <p className="font-mono text-[10px] uppercase tracking-wider text-white/70">
                     Watch Portal Demo
                   </p>
                 </div>
