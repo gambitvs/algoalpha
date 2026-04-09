@@ -33,9 +33,7 @@ export default function ResourceCTA() {
               </p>
               <div className="mt-8">
                 <a
-                  href="https://lp.algoalpha.co/portfolio-accelerator"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/apply"
                   className="group inline-flex items-center gap-3 bg-bg-deep px-8 py-4 text-sm font-medium uppercase tracking-wide text-warm-white transition-all hover:gap-5"
                 >
                   Get Started

@@ -46,9 +46,7 @@ export default function ComingSoonCard({
           </p>
 
           <a
-            href="https://lp.algoalpha.co/portfolio-accelerator"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/apply"
             className="mt-4 font-mono text-micro text-amber/60 hover:text-amber transition-colors"
           >
             Get Notified &rarr;

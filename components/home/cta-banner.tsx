@@ -38,9 +38,7 @@ export default function CtaBanner() {
             {/* Right — CTA */}
             <div className="lg:col-span-5 flex lg:justify-end">
               <a
-                href="https://lp.algoalpha.co/portfolio-accelerator"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/apply"
                 className="group inline-flex items-center gap-3 bg-bg-deep px-8 py-4 text-sm font-medium uppercase tracking-wide text-warm-white transition-all hover:gap-5"
               >
                 Request Private Consultation

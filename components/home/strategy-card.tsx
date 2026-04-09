@@ -134,9 +134,7 @@ export default function StrategyCard({
           {/* CTA */}
           <div className="mt-6">
             <a
-              href="https://lp.algoalpha.co/portfolio-accelerator"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/apply"
               className="inline-flex h-10 items-center justify-center border border-amber px-6 text-sm font-medium text-amber transition-colors hover:bg-amber/10"
             >
               Learn More

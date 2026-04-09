@@ -216,9 +216,7 @@ export default function ReviewsClient() {
                   </p>
 
                   <a
-                    href="https://lp.algoalpha.co/portfolio-accelerator"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/apply"
                     className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.15em] text-amber hover:text-amber-glow transition-colors group/link"
                   >
                     Learn More

@@ -180,9 +180,7 @@ export default function FundedComparisonTable() {
                   style={{ borderTop: `1px solid oklch(0.2 0.01 60)` }}
                 >
                   <a
-                    href="https://lp.algoalpha.co/portfolio-accelerator"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/apply"
                     className={`inline-flex items-center justify-center gap-2 font-mono text-[11px] uppercase tracking-wider transition-all duration-300 ${
                       s.featured ? "w-full py-3 rounded-lg font-medium" : "py-2"
                     }`}

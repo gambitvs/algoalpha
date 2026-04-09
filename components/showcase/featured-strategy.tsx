@@ -88,9 +88,7 @@ export default function FeaturedStrategy({
 
               {/* CTA */}
               <a
-                href="https://lp.algoalpha.co/portfolio-accelerator"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/apply"
                 className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-wider text-amber transition-colors hover:text-amber-glow group"
               >
                 Start Trading with {account.name}

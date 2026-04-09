@@ -87,6 +87,40 @@ export const strategyCards: StrategyData[] = [
     assetClass: "Forex",
     sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11758658",
   },
+  {
+    name: "Intelligent Portfolio",
+    slug: "intelligent-portfolio",
+    myfxbookId: "11755904",
+    market: "Forex",
+    strategy: "Multi-Strategy Portfolio",
+    totalReturnLabel: "191.20%",
+    totalReturnFromApi: true,
+    returnYTDFromApi: true,
+    maxDrawdownFromApi: false,
+    historicalDrawdown: "15.32%",
+    minimum: "$15,000",
+    tradingActivity: "10-30 trades per day",
+    tradeTypes: "Day Trades, Swing trades",
+    assetClass: "Forex, Gold",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11755904",
+  },
+  {
+    name: "Alpha Trader",
+    slug: "alpha-trader",
+    myfxbookId: "11756098",
+    market: "Forex",
+    strategy: "Trend Following",
+    totalReturnLabel: "406.18%",
+    totalReturnFromApi: true,
+    returnYTDFromApi: true,
+    maxDrawdownFromApi: false,
+    historicalDrawdown: "19.55%",
+    minimum: "$10,000",
+    tradingActivity: "5-20 trades per day",
+    tradeTypes: "Day Trades, Swing trades",
+    assetClass: "Forex",
+    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11756098",
+  },
 ];
 
 // Legacy strategies array kept for any other pages that still reference it
@@ -258,7 +292,7 @@ export const sidebarNavItems: NavItem[] = [
   {
     label: "APPLY NOW",
     type: "external",
-    target: "https://lp.algoalpha.co/portfolio-accelerator",
+    target: "/apply",
     icon: "", // Button style, not an icon link
   },
   {
@@ -295,7 +329,7 @@ export const mobileNavItems: NavItem[] = [
   {
     label: "Apply",
     type: "external",
-    target: "https://lp.algoalpha.co/portfolio-accelerator",
+    target: "/apply",
     icon: "Sparkles", // Highlighted amber
   },
   {

@@ -86,9 +86,7 @@ export default function Programs() {
 
               <div className="mt-6">
                 <a
-                  href="https://lp.algoalpha.co/portfolio-accelerator"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/apply"
                   className="group inline-flex items-center gap-2 text-sm font-medium text-amber transition-colors hover:text-amber-glow"
                 >
                   Get Started
@@ -146,9 +144,7 @@ export default function Programs() {
 
               <div className="mt-6">
                 <a
-                  href="https://lp.algoalpha.co/portfolio-accelerator"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/apply"
                   className="group inline-flex items-center gap-2 text-sm font-medium text-amber transition-colors hover:text-amber-glow"
                 >
                   Get Started
@@ -204,9 +200,7 @@ export default function Programs() {
 
                 <div className="mt-auto">
                   <a
-                    href="https://lp.algoalpha.co/portfolio-accelerator"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/apply"
                     className="group inline-flex items-center gap-3 bg-amber px-6 py-3 text-sm font-medium uppercase tracking-wide transition-all hover:bg-amber-glow hover:gap-5"
                     style={{ color: "oklch(0.10 0.01 60)" }}
                   >

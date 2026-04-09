@@ -53,9 +53,7 @@ export default function AboutHero() {
         {/* CTA */}
         <div className="mt-8">
           <a
-            href="https://lp.algoalpha.co/portfolio-accelerator"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/apply"
           >
             <Button
               className="h-11 bg-amber px-8 text-sm font-medium uppercase tracking-wide text-bg-deep transition-colors hover:bg-amber-glow"

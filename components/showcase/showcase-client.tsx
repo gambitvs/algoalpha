@@ -211,9 +211,7 @@ export default function ShowcaseClient() {
           Join Algo Alpha Today
         </h2>
         <a
-          href="https://lp.algoalpha.co/portfolio-accelerator"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/apply"
           className="inline-flex items-center gap-3 px-8 py-4 font-mono text-sm uppercase tracking-wider bg-amber text-bg-deep transition-colors hover:bg-amber-glow"
         >
           Apply Now

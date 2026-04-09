@@ -75,9 +75,7 @@ export default function CPAClient() {
               <SectionEntrance delay={200}>
                 <div className="mt-8 flex flex-wrap gap-4">
                   <a
-                    href="https://lp.algoalpha.co/portfolio-accelerator"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/apply"
                     className="inline-flex h-12 items-center gap-3 bg-amber px-8 text-sm font-medium uppercase tracking-wide text-bg-deep transition-colors hover:bg-amber-glow"
                   >
                     View Live Performance

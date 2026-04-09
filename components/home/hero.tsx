@@ -86,9 +86,7 @@ export default function Hero() {
 
             <MotionFade delay={550} className="mt-8">
               <a
-                href="https://lp.algoalpha.co/portfolio-accelerator"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/apply"
                 className="inline-flex h-12 w-fit items-center justify-center bg-amber px-8 text-sm font-medium uppercase tracking-wide text-bg-deep transition-colors hover:bg-amber-glow"
               >
                 Request a Consultation
