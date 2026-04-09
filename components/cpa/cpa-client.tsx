@@ -75,7 +75,7 @@ export default function CPAClient() {
               <SectionEntrance delay={200}>
                 <div className="mt-8 flex flex-wrap gap-4">
                   <a
-                    href="/apply"
+                    href="/join/apply"
                     className="inline-flex h-12 items-center gap-3 bg-amber px-8 text-sm font-medium uppercase tracking-wide text-bg-deep transition-colors hover:bg-amber-glow"
                   >
                     View Live Performance

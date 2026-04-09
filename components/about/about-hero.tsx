@@ -53,7 +53,7 @@ export default function AboutHero() {
         {/* CTA */}
         <div className="mt-8">
           <a
-            href="/apply"
+            href="/join/apply"
           >
             <Button
               className="h-11 bg-amber px-8 text-sm font-medium uppercase tracking-wide text-bg-deep transition-colors hover:bg-amber-glow"

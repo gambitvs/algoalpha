@@ -38,7 +38,7 @@ export default function CtaBanner() {
             {/* Right — CTA */}
             <div className="lg:col-span-5 flex lg:justify-end">
               <a
-                href="/apply"
+                href="/join/apply"
                 className="group inline-flex items-center gap-3 bg-bg-deep px-8 py-4 text-sm font-medium uppercase tracking-wide text-warm-white transition-all hover:gap-5"
               >
                 Request Private Consultation

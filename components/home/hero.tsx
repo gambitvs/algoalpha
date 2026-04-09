@@ -86,7 +86,7 @@ export default function Hero() {
 
             <MotionFade delay={550} className="mt-8">
               <a
-                href="/apply"
+                href="/join/apply"
                 className="inline-flex h-12 w-fit items-center justify-center bg-amber px-8 text-sm font-medium uppercase tracking-wide text-bg-deep transition-colors hover:bg-amber-glow"
               >
                 Request a Consultation

@@ -177,7 +177,7 @@ export default function FundedHero() {
             <Wrapper delay={0.55} isInView={isInView}>
               <div className="mt-8">
                 <a
-                  href="/apply"
+                  href="/join/apply"
                   className="group inline-flex h-14 items-center gap-3 bg-amber px-10 text-sm font-medium uppercase tracking-wide text-bg-deep transition-all hover:bg-amber-glow hover:gap-5 active:translate-y-px"
                 >
                   Book a Call

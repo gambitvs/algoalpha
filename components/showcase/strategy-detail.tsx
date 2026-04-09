@@ -164,7 +164,7 @@ export default function StrategyDetail({
       {/* CTA */}
       <div className="mt-8 pt-6 border-t border-border">
         <a
-          href="/apply"
+          href="/join/apply"
           className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-wider text-amber transition-colors hover:text-amber-glow"
         >
           Start Trading with {account.name}

@@ -16,7 +16,15 @@ export default function ApplyLayout({
             alt="Algo Alpha"
             width={140}
             height={32}
-            className="h-8 w-auto"
+            className="h-8 w-auto header-logo-dark"
+            priority
+          />
+          <Image
+            src="/images/logo-header-dark.png"
+            alt="Algo Alpha"
+            width={140}
+            height={32}
+            className="h-8 w-auto header-logo-light"
             priority
           />
         </Link>

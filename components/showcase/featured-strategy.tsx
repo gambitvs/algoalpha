@@ -88,7 +88,7 @@ export default function FeaturedStrategy({
 
               {/* CTA */}
               <a
-                href="/apply"
+                href="/join/apply"
                 className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-wider text-amber transition-colors hover:text-amber-glow group"
               >
                 Start Trading with {account.name}
