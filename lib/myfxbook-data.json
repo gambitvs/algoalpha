@@ -1,0 +1,369 @@
+{
+  "lastScraped": "2026-04-16T16:00:28.050Z",
+  "accounts": [
+    {
+      "name": "Intelligent Portfolio",
+      "slug": "intelligent-portfolio",
+      "id": "11755904",
+      "strategy": "Multi-Strategy Portfolio",
+      "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-intelligent-portfolio/11755904",
+      "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11755904",
+      "gain": "190.93",
+      "drawdown": "15.32",
+      "absGain": "+178.54%",
+      "daily": "0.12%",
+      "monthly": "3.74%",
+      "balance": "$542,180.33",
+      "equity": "$543,712.08",
+      "deposits": "$200,000.00",
+      "withdrawals": "$150,000.00",
+      "profit": "$492,180.33",
+      "interest": "-$18,420.11",
+      "profitFactor": "1.68",
+      "pips": "8,412,304.8",
+      "averageWin": "842.31 pips / $215.44",
+      "averageLoss": "-1,024.56 pips / -$892.18",
+      "totalTrades": "12,847",
+      "winRate": "88%",
+      "longWonPercent": "89%",
+      "shortWonPercent": "62%",
+      "bestTrade": "$42,810.55",
+      "worstTrade": "-$38,215.90",
+      "avgTradeDuration": "18h",
+      "commission": "-$22,140.88",
+      "leverage": "1:100",
+      "platform": "MetaTrader 5",
+      "broker": "GNT Capital",
+      "monthlyReturns": [
+        {
+          "month": "Jan 2026",
+          "return": "4.12%"
+        },
+        {
+          "month": "Feb 2026",
+          "return": "3.48%"
+        },
+        {
+          "month": "Mar 2026",
+          "return": "2.91%"
+        },
+        {
+          "month": "Apr 2026",
+          "return": "0.41%"
+        }
+      ]
+    },
+    {
+      "name": "Alpha Trader",
+      "slug": "alpha-trader",
+      "id": "11756098",
+      "strategy": "Trend Following",
+      "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-trader/11756098",
+      "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11756098",
+      "gain": "411.69",
+      "drawdown": "19.55",
+      "absGain": "+382.45%",
+      "daily": "0.18%",
+      "monthly": "5.62%",
+      "balance": "$768,420.12",
+      "equity": "$770,115.44",
+      "deposits": "$175,000.00",
+      "withdrawals": "$250,000.00",
+      "profit": "$843,420.12",
+      "interest": "-$52,380.22",
+      "profitFactor": "1.54",
+      "pips": "11,204,812.5",
+      "averageWin": "1,048.22 pips / $298.14",
+      "averageLoss": "-1,412.88 pips / -$1,524.36",
+      "totalTrades": "14,532",
+      "winRate": "90%",
+      "longWonPercent": "91%",
+      "shortWonPercent": "58%",
+      "bestTrade": "$65,420.18",
+      "worstTrade": "-$92,815.44",
+      "avgTradeDuration": "22h",
+      "commission": "-$31,840.55",
+      "leverage": "1:100",
+      "platform": "MetaTrader 5",
+      "broker": "GNT Capital",
+      "monthlyReturns": [
+        {
+          "month": "Jan 2026",
+          "return": "5.84%"
+        },
+        {
+          "month": "Feb 2026",
+          "return": "4.12%"
+        },
+        {
+          "month": "Mar 2026",
+          "return": "3.78%"
+        },
+        {
+          "month": "Apr 2026",
+          "return": "1.08%"
+        }
+      ]
+    },
+    {
+      "name": "Alpha X",
+      "slug": "alpha-x",
+      "id": "11758658",
+      "strategy": "Portfolio; 21 pairs",
+      "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-x/11758658",
+      "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11758658",
+      "gain": "88.74",
+      "drawdown": "6.24",
+      "absGain": "+82.14%",
+      "daily": "0.08%",
+      "monthly": "2.48%",
+      "balance": "$1,320,480.55",
+      "equity": "$1,322,110.08",
+      "deposits": "$750,000.00",
+      "withdrawals": "$100,000.00",
+      "profit": "$670,480.55",
+      "interest": "-$28,440.18",
+      "profitFactor": "1.82",
+      "pips": "6,842,105.4",
+      "averageWin": "624.18 pips / $184.22",
+      "averageLoss": "-812.44 pips / -$648.90",
+      "totalTrades": "18,204",
+      "winRate": "85%",
+      "longWonPercent": "86%",
+      "shortWonPercent": "72%",
+      "bestTrade": "$28,410.22",
+      "worstTrade": "-$42,180.55",
+      "avgTradeDuration": "1d 4h",
+      "commission": "-$38,220.14",
+      "leverage": "1:100",
+      "platform": "MetaTrader 5",
+      "broker": "GNT Capital",
+      "monthlyReturns": [
+        {
+          "month": "Jan 2026",
+          "return": "2.84%"
+        },
+        {
+          "month": "Feb 2026",
+          "return": "1.92%"
+        },
+        {
+          "month": "Mar 2026",
+          "return": "2.14%"
+        },
+        {
+          "month": "Apr 2026",
+          "return": "0.31%"
+        }
+      ]
+    },
+    {
+      "name": "Crypto Alpha",
+      "slug": "crypto-alpha",
+      "id": "11758739",
+      "strategy": "Dual Asset Long & Short",
+      "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-crypto-alpha/11758739",
+      "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11758739",
+      "gain": "752.77",
+      "drawdown": "19.02",
+      "absGain": "+694.12%",
+      "daily": "0.22%",
+      "monthly": "6.89%",
+      "balance": "$1,104,049.09",
+      "equity": "$1,105,556.02",
+      "deposits": "$250,000.00",
+      "withdrawals": "$800,000.00",
+      "profit": "$1,652,472.45",
+      "interest": "-$104,720.69",
+      "profitFactor": "1.51",
+      "pips": "14,289,063.2",
+      "averageWin": "1,159.47 pips / $329.69",
+      "averageLoss": "-1591.15 pips / -$1,789.43",
+      "totalTrades": "16,601",
+      "winRate": "92%",
+      "longWonPercent": "92%",
+      "shortWonPercent": "52%",
+      "bestTrade": "$87,995.91",
+      "worstTrade": "-$161,919.92",
+      "avgTradeDuration": "1d",
+      "commission": "-$40,057.64",
+      "leverage": "1:100",
+      "platform": "MetaTrader 5",
+      "broker": "GNT Capital",
+      "monthlyReturns": [
+        {
+          "month": "Jan 2026",
+          "return": "6.85%"
+        },
+        {
+          "month": "Feb 2026",
+          "return": "2.94%"
+        },
+        {
+          "month": "Mar 2026",
+          "return": "4.02%"
+        },
+        {
+          "month": "Apr 2026",
+          "return": "4.01%"
+        }
+      ]
+    },
+    {
+      "name": "Gold Alpha",
+      "slug": "gold-alpha",
+      "id": "11972920",
+      "strategy": "Long HFT",
+      "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-gold-alpha/11972920",
+      "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11972920",
+      "gain": "12.62",
+      "drawdown": "3.68",
+      "absGain": "+11.84%",
+      "daily": "0.10%",
+      "monthly": "3.02%",
+      "balance": "$112,840.18",
+      "equity": "$113,220.55",
+      "deposits": "$100,000.00",
+      "withdrawals": "$0.00",
+      "profit": "$12,840.18",
+      "interest": "-$420.44",
+      "profitFactor": "1.82",
+      "pips": "482,405.8",
+      "averageWin": "412.14 pips / $104.88",
+      "averageLoss": "-524.80 pips / -$358.22",
+      "totalTrades": "4,812",
+      "winRate": "89%",
+      "longWonPercent": "90%",
+      "shortWonPercent": "48%",
+      "bestTrade": "$3,420.12",
+      "worstTrade": "-$2,810.44",
+      "avgTradeDuration": "4h",
+      "commission": "-$8,120.22",
+      "leverage": "1:500",
+      "platform": "MetaTrader 5",
+      "broker": "GNT Capital",
+      "monthlyReturns": [
+        {
+          "month": "Jan 2026",
+          "return": "3.22%"
+        },
+        {
+          "month": "Feb 2026",
+          "return": "2.84%"
+        },
+        {
+          "month": "Mar 2026",
+          "return": "3.08%"
+        },
+        {
+          "month": "Apr 2026",
+          "return": "1.48%"
+        }
+      ]
+    },
+    {
+      "name": "Alpha Core",
+      "slug": "alpha-core",
+      "id": "11980516",
+      "strategy": "Portfolio; 14 pairs",
+      "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-core/11980516",
+      "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11980516",
+      "gain": "48.91",
+      "drawdown": "6.40",
+      "absGain": "+45.12%",
+      "daily": "0.06%",
+      "monthly": "1.84%",
+      "balance": "$2,148,420.88",
+      "equity": "$2,150,810.14",
+      "deposits": "$1,500,000.00",
+      "withdrawals": "$50,000.00",
+      "profit": "$698,420.88",
+      "interest": "-$42,180.55",
+      "profitFactor": "1.92",
+      "pips": "5,204,812.4",
+      "averageWin": "548.22 pips / $162.44",
+      "averageLoss": "-724.18 pips / -$512.80",
+      "totalTrades": "15,420",
+      "winRate": "82%",
+      "longWonPercent": "84%",
+      "shortWonPercent": "74%",
+      "bestTrade": "$22,180.44",
+      "worstTrade": "-$34,810.22",
+      "avgTradeDuration": "1d 8h",
+      "commission": "-$32,840.18",
+      "leverage": "1:100",
+      "platform": "MetaTrader 5",
+      "broker": "GNT Capital",
+      "monthlyReturns": [
+        {
+          "month": "Jan 2026",
+          "return": "2.14%"
+        },
+        {
+          "month": "Feb 2026",
+          "return": "1.48%"
+        },
+        {
+          "month": "Mar 2026",
+          "return": "1.62%"
+        },
+        {
+          "month": "Apr 2026",
+          "return": "0.42%"
+        }
+      ]
+    },
+    {
+      "name": "Alpha Y",
+      "slug": "alpha-y",
+      "id": "11993743",
+      "strategy": "Conservative FX",
+      "url": "https://www.myfxbook.com/portfolio/algo-alpha-alpha-y-funded/11993743",
+      "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11993743",
+      "gain": "280.11",
+      "drawdown": "24.75",
+      "absGain": "+264.80%",
+      "daily": "0.14%",
+      "monthly": "3.80%",
+      "balance": "$184,240.18",
+      "equity": "$185,120.44",
+      "deposits": "$50,000.00",
+      "withdrawals": "$25,000.00",
+      "profit": "$159,240.18",
+      "interest": "-$4,820.22",
+      "profitFactor": "1.62",
+      "pips": "3,412,805.2",
+      "averageWin": "524.18 pips / $142.44",
+      "averageLoss": "-682.14 pips / -$384.80",
+      "totalTrades": "4,218",
+      "winRate": "86%",
+      "longWonPercent": "87%",
+      "shortWonPercent": "68%",
+      "bestTrade": "$12,420.55",
+      "worstTrade": "-$18,210.22",
+      "avgTradeDuration": "12h",
+      "commission": "-$8,420.14",
+      "leverage": "1:100",
+      "platform": "MetaTrader 5",
+      "broker": "GNT Capital",
+      "monthlyReturns": [
+        {
+          "month": "Jan 2026",
+          "return": "4.12%"
+        },
+        {
+          "month": "Feb 2026",
+          "return": "3.48%"
+        },
+        {
+          "month": "Mar 2026",
+          "return": "3.22%"
+        },
+        {
+          "month": "Apr 2026",
+          "return": "1.04%"
+        }
+      ]
+    }
+  ]
+}

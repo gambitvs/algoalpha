@@ -14,68 +14,42 @@ interface AccountData {
   sparklineUrl: string;
 }
 
-// Real data from myfxbook.com/members/AlgoAlpha (scraped March 31 2026)
-const ACCOUNTS: AccountData[] = [
-  {
-    name: "Intelligent Portfolio",
-    slug: "intelligent-portfolio",
-    id: "11755904",
-    gain: "191.20",
-    drawdown: "15.32",
-    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-intelligent-portfolio/11755904",
-    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11755904",
-  },
-  {
-    name: "Alpha Trader",
-    slug: "alpha-trader",
-    id: "11756098",
-    gain: "406.18",
-    drawdown: "19.55",
-    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-trader/11756098",
-    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11756098",
-  },
-  {
-    name: "Alpha X",
-    slug: "alpha-x",
-    id: "11758658",
-    gain: "88.09",
-    drawdown: "6.24",
-    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-x/11758658",
-    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11758658",
-  },
-  {
-    name: "Crypto Alpha",
-    slug: "crypto-alpha",
-    id: "11758739",
-    gain: "710.53",
-    drawdown: "19.02",
-    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-crypto-alpha/11758739",
-    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11758739",
-  },
-  {
-    name: "Gold Alpha",
-    slug: "gold-alpha",
-    id: "11972920",
-    gain: "4.40",
-    drawdown: "2.58",
-    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-gold-alpha/11972920",
-    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11972920",
-  },
-  {
-    name: "Alpha Core",
-    slug: "alpha-core",
-    id: "11980516",
-    gain: "48.19",
-    drawdown: "6.40",
-    url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-core/11980516",
-    sparklineUrl: "https://widgets.myfxbook.com/system-spark.png?id=11980516",
-  },
-];
+// Pre-hydration fallback — imported from the daily-refreshed JSON source of
+// truth (lib/myfxbook-data.json). Keeps the pre-hydration render in sync with
+// what /api/myfxbook will return moments later, avoiding any visible flicker.
+import seedData from "@/lib/myfxbook-data.json";
+
+const LIVE_SLUGS = new Set([
+  "intelligent-portfolio",
+  "alpha-trader",
+  "alpha-x",
+  "crypto-alpha",
+  "gold-alpha",
+  "alpha-core",
+]);
+
+const ACCOUNTS: AccountData[] = seedData.accounts
+  .filter((a) => LIVE_SLUGS.has(a.slug))
+  .map((a) => ({
+    name: a.name,
+    slug: a.slug,
+    id: a.id,
+    gain: a.gain,
+    drawdown: a.drawdown,
+    url: a.url,
+    sparklineUrl: a.sparklineUrl,
+  }));
+
+const SEED_DATE = new Date(seedData.lastScraped).toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
 
 export default function Results() {
-  // Start with real data immediately — no spinner
+  // Start with seed data immediately — no spinner
   const [accounts, setAccounts] = useState<AccountData[]>(ACCOUNTS);
-  const [lastUpdated, setLastUpdated] = useState("Mar 31, 2026");
+  const [lastUpdated, setLastUpdated] = useState(SEED_DATE);
 
   // Try to fetch fresh data in the background — silently upgrade if it works
   useEffect(() => {

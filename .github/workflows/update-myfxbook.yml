@@ -1,0 +1,63 @@
+name: Update MyFXBook data
+
+on:
+  schedule:
+    # 06:00 UTC every day (~02:00 ET) — after US close, before EU open.
+    - cron: "0 6 * * *"
+  workflow_dispatch: # manual trigger from the Actions tab
+
+concurrency:
+  group: update-myfxbook
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chrome + xvfb
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          # puppeteer-real-browser bootstraps its own Chrome on first run,
+          # but a system Chrome avoids a slow first-run download.
+          wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get install -y /tmp/chrome.deb
+
+      - name: Scrape MyFXBook
+        run: xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' pnpm exec tsx scripts/scrape-myfxbook.ts
+        env:
+          # Surfaces real errors instead of swallowing them.
+          NODE_OPTIONS: --enable-source-maps
+
+      - name: Commit + push if changed
+        run: |
+          if git diff --quiet lib/myfxbook-data.json; then
+            echo "No changes — data is up to date."
+            exit 0
+          fi
+          git config user.name  "algoalpha-bot"
+          git config user.email "bot@algoalpha.co"
+          git add lib/myfxbook-data.json
+          git commit -m "chore(data): refresh MyFXBook stats $(date -u +%Y-%m-%d)"
+          git push
