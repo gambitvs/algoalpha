@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { FALLBACK_ACCOUNTS } from "@/lib/fallback-showcase-data";
 
 // ---------------------------------------------------------------------------
-// Showcase API — scrapes all 6 MyFXBook account pages for detailed stats
+// Showcase API — scrapes all 7 MyFXBook account pages for detailed stats
 // ---------------------------------------------------------------------------
 
 const ACCOUNTS = [
@@ -47,6 +47,13 @@ const ACCOUNTS = [
     id: "11980516",
     url: "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-core/11980516",
     strategy: "Portfolio; 14 pairs",
+  },
+  {
+    name: "Alpha Y",
+    slug: "alpha-y",
+    id: "11993743",
+    url: "https://www.myfxbook.com/portfolio/algo-alpha-alpha-y-funded/11993743",
+    strategy: "Conservative FX",
   },
 ];
 

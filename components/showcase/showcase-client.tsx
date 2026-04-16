@@ -26,7 +26,7 @@ const STRAIGHT_EQUITY_ORDER = [
   "alpha-x",
 ];
 
-const FUNDED_SLUGS = ["alpha-core", "alpha-x"];
+const FUNDED_SLUGS = ["alpha-core", "alpha-y", "alpha-x"];
 
 const COMING_SOON: { slug: string; name: string; strategy: string }[] = [];
 
@@ -149,7 +149,7 @@ export default function ShowcaseClient() {
       <ShowcaseHero
         aggregateStats={aggregateStats}
         lastScraped={lastScraped}
-        accountCount={6}
+        accountCount={7}
       />
 
       {/* ═══ STRAIGHT EQUITY SECTION ═══ */}

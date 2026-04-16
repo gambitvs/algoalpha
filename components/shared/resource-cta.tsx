@@ -87,7 +87,7 @@ export default function ResourceCTA() {
           <SectionEntrance delay={200}>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
               {[
-                { value: "8", label: "Trading Strategies" },
+                { value: "7", label: "Trading Strategies" },
                 { value: "30+", label: "Market Pairs" },
                 { value: "24/7", label: "Automated Trading" },
                 { value: "3rd Party", label: "Verified Results" },

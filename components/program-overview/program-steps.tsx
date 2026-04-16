@@ -145,7 +145,7 @@ export default function ProgramSteps() {
                     </div>
                     <div>
                       <p className="font-mono text-2xl font-medium text-amber">
-                        8
+                        7
                       </p>
                       <p className="font-mono text-[9px] uppercase tracking-wider text-text-muted mt-0.5">
                         Strategies
