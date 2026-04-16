@@ -1,5 +1,5 @@
 {
-  "lastScraped": "2026-04-16T16:00:28.050Z",
+  "lastScraped": "2026-04-16T19:46:06.799Z",
   "accounts": [
     {
       "name": "Intelligent Portfolio",
@@ -8,7 +8,7 @@
       "strategy": "Multi-Strategy Portfolio",
       "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-intelligent-portfolio/11755904",
       "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11755904",
-      "gain": "190.93",
+      "gain": "190.71",
       "drawdown": "15.32",
       "absGain": "+178.54%",
       "daily": "0.12%",
@@ -60,7 +60,7 @@
       "strategy": "Trend Following",
       "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-trader/11756098",
       "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11756098",
-      "gain": "411.69",
+      "gain": "411.77",
       "drawdown": "19.55",
       "absGain": "+382.45%",
       "daily": "0.18%",
@@ -216,7 +216,7 @@
       "strategy": "Long HFT",
       "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-gold-alpha/11972920",
       "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11972920",
-      "gain": "12.62",
+      "gain": "13.11",
       "drawdown": "3.68",
       "absGain": "+11.84%",
       "daily": "0.10%",
