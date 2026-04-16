@@ -18,12 +18,35 @@ import path from "node:path";
 
 const PROFILE_URL = "https://www.myfxbook.com/members/AlgoAlpha";
 const DATA_PATH = path.join(process.cwd(), "lib/myfxbook-data.json");
-const TURNSTILE_TIMEOUT_MS = 60_000;
+const GOTO_TIMEOUT_MS = 90_000;
+const CONTENT_TIMEOUT_MS = 180_000; // GH runners on CF datacenter IPs need longer for managed challenge
+const DEBUG_DIR = path.join(process.cwd(), "scripts/.debug");
 
 interface Scraped {
   id: string;
   gain: string;
   drawdown: string;
+}
+
+async function saveDebug(
+  page: {
+    content: () => Promise<string>;
+    screenshot: (o: { path: string; fullPage?: boolean }) => Promise<unknown>;
+  },
+  label: string,
+) {
+  try {
+    await fs.mkdir(DEBUG_DIR, { recursive: true });
+    const html = await page.content();
+    await fs.writeFile(path.join(DEBUG_DIR, `${label}.html`), html);
+    await page.screenshot({
+      path: path.join(DEBUG_DIR, `${label}.png`),
+      fullPage: true,
+    });
+    console.log(`Saved diagnostics: ${label}.html + ${label}.png`);
+  } catch (err) {
+    console.warn(`Failed to save debug (${label}):`, err);
+  }
 }
 
 async function scrape(): Promise<Scraped[]> {
@@ -38,27 +61,33 @@ async function scrape(): Promise<Scraped[]> {
   try {
     await page.goto(PROFILE_URL, {
       waitUntil: "domcontentloaded",
-      timeout: TURNSTILE_TIMEOUT_MS,
+      timeout: GOTO_TIMEOUT_MS,
     });
 
-    // Wait for the systems table to render after Turnstile resolves.
-    // The profile lists systems via links to /members/AlgoAlpha/<slug>/<id>.
-    await page.waitForFunction(
-      () =>
-        document.body?.innerText?.includes("Systems by") ||
-        !!document.querySelector('a[href*="/members/AlgoAlpha/"]'),
-      { timeout: TURNSTILE_TIMEOUT_MS },
-    );
+    // Save post-load state for debugging regardless of whether content arrives.
+    await saveDebug(page, "01-after-goto");
+
+    // Poll for the systems table (or a known account link). puppeteer-real-browser
+    // handles Turnstile automatically but on datacenter IPs the challenge can
+    // cycle through a retry — just wait longer.
+    try {
+      await page.waitForFunction(
+        () =>
+          !!document.querySelector(
+            'a[href*="/members/AlgoAlpha/algo-alpha-"]',
+          ) || (document.body?.innerText ?? "").includes("11755904"),
+        { timeout: CONTENT_TIMEOUT_MS, polling: 2_000 },
+      );
+    } catch {
+      await saveDebug(page, "02-wait-timeout");
+      throw new Error(
+        `Systems list did not appear within ${CONTENT_TIMEOUT_MS}ms — likely still on Turnstile challenge. See scripts/.debug/02-wait-timeout.{html,png}`,
+      );
+    }
 
     // Give the table a beat to fully populate numeric columns.
     await new Promise((r) => setTimeout(r, 5_000));
-
-    // Diagnostic: dump the rendered HTML so we can iterate on selectors if the
-    // extraction pass finds nothing. Committed under scripts/.debug/ (gitignored).
-    const html = await page.content();
-    const debugDir = path.join(process.cwd(), "scripts/.debug");
-    await fs.mkdir(debugDir, { recursive: true });
-    await fs.writeFile(path.join(debugDir, "profile.html"), html);
+    await saveDebug(page, "03-before-extract");
 
     const results = await page.evaluate(() => {
       const out: {
@@ -108,8 +137,7 @@ async function scrape(): Promise<Scraped[]> {
         }
       }
 
-      // Strategy 2: Fallback — regex sweep of body text. For each known id,
-      // locate it and capture the nearest two % values.
+      // Strategy 2: Fallback — regex sweep of body text.
       if (out.length === 0) {
         const body = document.body.innerText;
         const ids = [
@@ -124,7 +152,6 @@ async function scrape(): Promise<Scraped[]> {
         for (const id of ids) {
           const idx = body.indexOf(id);
           if (idx === -1) continue;
-          // Look 500 chars after the id (typical row width).
           const slice = body.slice(idx, idx + 800);
           const pcts = Array.from(
             slice.matchAll(/([+-]?\d[\d,]*\.?\d*)\s*%/g),
@@ -163,7 +190,7 @@ async function main() {
   const raw = await fs.readFile(DATA_PATH, "utf8");
   const data = JSON.parse(raw) as {
     lastScraped: string;
-    accounts: Array<Record<string, unknown> & { id: string }>;
+    accounts: Array<Record<string, unknown> & { id: string; name?: string }>;
   };
 
   let updated = 0;
