@@ -41,5 +41,5 @@ yarn-error.log*
 next-env.d.ts
 .gstack/
 
-# scraper diagnostics (HTML dump for selector debugging)
-scripts/.debug/
+# scraper diagnostics (HTML + PNG dumps for selector debugging)
+scripts/debug/

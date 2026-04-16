@@ -20,7 +20,7 @@ const PROFILE_URL = "https://www.myfxbook.com/members/AlgoAlpha";
 const DATA_PATH = path.join(process.cwd(), "lib/myfxbook-data.json");
 const GOTO_TIMEOUT_MS = 90_000;
 const CONTENT_TIMEOUT_MS = 180_000; // GH runners on CF datacenter IPs need longer for managed challenge
-const DEBUG_DIR = path.join(process.cwd(), "scripts/.debug");
+const DEBUG_DIR = path.join(process.cwd(), "scripts/debug");
 
 interface Scraped {
   id: string;
@@ -81,7 +81,7 @@ async function scrape(): Promise<Scraped[]> {
     } catch {
       await saveDebug(page, "02-wait-timeout");
       throw new Error(
-        `Systems list did not appear within ${CONTENT_TIMEOUT_MS}ms — likely still on Turnstile challenge. See scripts/.debug/02-wait-timeout.{html,png}`,
+        `Systems list did not appear within ${CONTENT_TIMEOUT_MS}ms — likely still on Turnstile challenge. See scripts/debug/02-wait-timeout.{html,png}`,
       );
     }
 
