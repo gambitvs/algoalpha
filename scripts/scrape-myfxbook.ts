@@ -67,21 +67,36 @@ async function scrape(): Promise<Scraped[]> {
     // Save post-load state for debugging regardless of whether content arrives.
     await saveDebug(page, "01-after-goto");
 
-    // Poll for the systems table (or a known account link). puppeteer-real-browser
-    // handles Turnstile automatically but on datacenter IPs the challenge can
-    // cycle through a retry — just wait longer.
-    try {
-      await page.waitForFunction(
-        () =>
-          !!document.querySelector(
-            'a[href*="/members/AlgoAlpha/algo-alpha-"]',
-          ) || (document.body?.innerText ?? "").includes("11755904"),
-        { timeout: CONTENT_TIMEOUT_MS, polling: 2_000 },
-      );
-    } catch {
+    // puppeteer-real-browser resolves Turnstile in-place but the challenge
+    // navigation destroys the JS execution context — waitForFunction from
+    // OUR code pointing at that frame will time out even after the real page
+    // loads. Instead, poll from outside by calling page.$eval periodically,
+    // which re-attaches to whatever frame is current.
+    const pollStart = Date.now();
+    let contentReady = false;
+    while (Date.now() - pollStart < CONTENT_TIMEOUT_MS) {
+      await new Promise((r) => setTimeout(r, 3_000));
+      try {
+        const linkCount = await page.$$eval(
+          'a[href*="/members/AlgoAlpha/algo-alpha-"]',
+          (els) => els.length,
+        );
+        if (linkCount >= 6) {
+          console.log(
+            `Systems list ready — ${linkCount} account links visible`,
+          );
+          contentReady = true;
+          break;
+        }
+      } catch {
+        // Execution context destroyed during CF redirect — ignore, try again.
+      }
+    }
+
+    if (!contentReady) {
       await saveDebug(page, "02-wait-timeout");
       throw new Error(
-        `Systems list did not appear within ${CONTENT_TIMEOUT_MS}ms — likely still on Turnstile challenge. See scripts/debug/02-wait-timeout.{html,png}`,
+        `Systems list did not appear within ${CONTENT_TIMEOUT_MS}ms. See scripts/debug/02-wait-timeout.{html,png}`,
       );
     }
 
