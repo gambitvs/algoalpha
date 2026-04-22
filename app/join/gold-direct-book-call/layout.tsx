@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Gold Alpha — Direct Book a Call",
+  title: "Gold Alpha — Book a Private Call",
   description:
-    "For high-net-worth executives: install our Gold AI trading algorithm and generate monthly profits with hands-off management.",
+    "Install the Gold Alpha algorithm into your portfolio. Capital stays in your name. Our team runs the software. Book a private call.",
 };
 
 export default function GoldDirectBookCallLayout({
