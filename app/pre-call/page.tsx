@@ -176,56 +176,6 @@ function FunnelHeader() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Animated checkmark
-// ─────────────────────────────────────────────────────────────────────────────
-
-function AnimatedCheck() {
-  const reduced = useReducedMotion();
-  if (reduced) {
-    return (
-      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-amber/40 bg-amber/10">
-        <Check className="h-7 w-7 text-amber" />
-      </div>
-    );
-  }
-  return (
-    <motion.svg
-      width="64"
-      height="64"
-      viewBox="0 0 80 80"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="mx-auto"
-      aria-hidden="true"
-    >
-      <motion.circle
-        cx="40"
-        cy="40"
-        r="36"
-        stroke="var(--aa-amber)"
-        strokeWidth="2"
-        strokeLinecap="round"
-        fill="none"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 1 }}
-        transition={{ duration: 0.9, ease: EASE_OUT_EXPO, delay: 0.1 }}
-      />
-      <motion.path
-        d="M24 42L34 52L56 30"
-        stroke="var(--aa-amber)"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 1 }}
-        transition={{ duration: 0.5, ease: EASE_OUT_EXPO, delay: 0.9 }}
-      />
-    </motion.svg>
-  );
-}
-
 function FadeIn({
   children,
   delay = 0,
@@ -263,33 +213,27 @@ function Hero() {
       />
 
       <div className="relative mx-auto max-w-4xl px-6 text-center">
-        <AnimatedCheck />
-
-        <div className="mt-8">
-          <FadeIn delay={0.2}>
-            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-amber">
-              Consultation Confirmed
-            </p>
-          </FadeIn>
-        </div>
-
-        <FadeIn delay={0.3}>
-          <h1 className="mt-5 font-serif text-h1 text-text-primary leading-[1.05]">
-            Your call is booked.
-            <br />
-            <span className="text-amber">Now let&apos;s make it count.</span>
-          </h1>
-        </FadeIn>
-
-        <FadeIn delay={0.45}>
-          <p className="mx-auto mt-6 max-w-xl text-body text-text-secondary leading-relaxed">
-            The most productive consultations start with context. Watch the
-            modules below before we meet — so we can skip the basics and focus
-            entirely on your portfolio.
+        <FadeIn delay={0}>
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-amber">
+            Pre-Call Resources
           </p>
         </FadeIn>
 
-        <FadeIn delay={0.6}>
+        <FadeIn delay={0.15}>
+          <h1 className="mt-5 font-serif text-h1 text-text-primary leading-[1.05] text-balance">
+            Watch these before we meet.
+          </h1>
+        </FadeIn>
+
+        <FadeIn delay={0.3}>
+          <p className="mx-auto mt-6 max-w-xl text-body text-text-secondary leading-relaxed">
+            A short curriculum to bring you up to speed on how Algo Alpha works.
+            Watching in advance lets us skip the basics on your call and spend
+            the time on your portfolio.
+          </p>
+        </FadeIn>
+
+        <FadeIn delay={0.45}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] font-mono uppercase tracking-[0.15em] text-text-muted">
             <span className="inline-flex items-center gap-2">
               <BookOpen className="h-3.5 w-3.5 text-amber" />7 Modules
