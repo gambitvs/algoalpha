@@ -16,10 +16,35 @@ import PageDisclaimer from "@/components/shared/page-disclaimer";
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 
+// ── Video sources ────────────────────────────────────────────────────────────
+// Real video URLs lifted from https://lp.algoalpha.co/pre-call (YouTube IDs,
+// Wistia ID, and hosted MP4 URLs served from the original LP's CDN).
+
+type VideoSource =
+  | { kind: "youtube"; id: string }
+  | { kind: "wistia"; id: string; thumbnail: string }
+  | { kind: "mp4"; url: string };
+
+function thumbnailFor(src: VideoSource): string | null {
+  if (src.kind === "youtube")
+    return `https://img.youtube.com/vi/${src.id}/maxresdefault.jpg`;
+  if (src.kind === "wistia") return src.thumbnail;
+  return null; // mp4 — render first frame via <video poster>/preload
+}
+
 // ── Featured (welcome) video ─────────────────────────────────────────────────
 
-const FEATURED_VIDEO = {
-  youtubeId: "ds7NboBXslM",
+const FEATURED_VIDEO: {
+  source: VideoSource;
+  eyebrow: string;
+  title: string;
+  description: string;
+  duration: string;
+} = {
+  source: {
+    kind: "mp4",
+    url: "https://storage.googleapis.com/msgsndr/91ZHtcGEPL5GQmtTCTib/media/697a5fa2e1783cba78286a07.mp4",
+  },
   eyebrow: "Watch first",
   title: "A Personal Welcome from Robert Miller, CEO",
   description:
@@ -33,7 +58,7 @@ type Module = {
   number: string;
   title: string;
   description: string;
-  youtubeId: string;
+  source: VideoSource;
   duration: string;
 };
 
@@ -43,7 +68,10 @@ const MODULES: Module[] = [
     title: "Where Do Algorithms Fit In Your Portfolio?",
     description:
       "Capital allocation, risk bucketing, and why algorithmic strategies belong next to — not instead of — your core holdings.",
-    youtubeId: "vsup7V6v-Zo",
+    source: {
+      kind: "mp4",
+      url: "https://assets.cdn.filesafe.space/91ZHtcGEPL5GQmtTCTib/media/69b59155bfc81f2b3719c78f.mp4",
+    },
     duration: "4 min",
   },
   {
@@ -51,7 +79,7 @@ const MODULES: Module[] = [
     title: "How to Approach Algorithmic Trading in Your Portfolio",
     description:
       "The founder's framework for integrating automated strategies alongside equities, real estate, and alternatives.",
-    youtubeId: "Dannp9g6Fjs",
+    source: { kind: "youtube", id: "1bftpeOmFak" },
     duration: "5 min",
   },
   {
@@ -59,7 +87,10 @@ const MODULES: Module[] = [
     title: "About Algo Alpha",
     description:
       "Company overview — who we are, the strategies we run, and how we verify every live account through MyFXBook.",
-    youtubeId: "ds7NboBXslM",
+    source: {
+      kind: "mp4",
+      url: "https://assets.cdn.filesafe.space/91ZHtcGEPL5GQmtTCTib/media/69d52fc7ebf1a60843020546.mp4",
+    },
     duration: "4 min",
   },
   {
@@ -67,7 +98,12 @@ const MODULES: Module[] = [
     title: "How Easy Is Management After Setup?",
     description:
       "A walkthrough of the private client portal — configure an account, monitor performance, pull reports in seconds.",
-    youtubeId: "vsup7V6v-Zo",
+    source: {
+      kind: "wistia",
+      id: "c58qtx8rgr",
+      thumbnail:
+        "https://embed-ssl.wistia.com/deliveries/df61546ea61dba9e66d65ca95ab602f4b297a277.jpg?image_crop_resized=960x540",
+    },
     duration: "3 min",
   },
   {
@@ -75,15 +111,16 @@ const MODULES: Module[] = [
     title: "Commonly Asked Questions",
     description:
       "CEO Robert Miller addresses the questions every investor asks before committing capital.",
-    youtubeId: "Dannp9g6Fjs",
+    source: { kind: "youtube", id: "EpcbkY2I6rw" },
     duration: "6 min",
   },
   {
     number: "06",
-    title: "Algorithmic Trading, Live in a Portfolio",
+    title:
+      "What Does It Look Like to Have Algorithmic Trading in Your Portfolio?",
     description:
       "A real account demonstration — what you'll actually see inside the dashboard once the algorithm is running.",
-    youtubeId: "ds7NboBXslM",
+    source: { kind: "youtube", id: "1x5MVnXicRI" },
     duration: "4 min",
   },
   {
@@ -91,7 +128,7 @@ const MODULES: Module[] = [
     title: "Is Your Portfolio Modernized?",
     description:
       "Portfolio shifts, de-dollarization trends, and why diversification outside traditional assets matters in 2026.",
-    youtubeId: "vsup7V6v-Zo",
+    source: { kind: "youtube", id: "VDw8ndCi4bs" },
     duration: "5 min",
   },
 ];
@@ -273,6 +310,77 @@ function Hero() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Universal video player — handles youtube / wistia / mp4
+// ─────────────────────────────────────────────────────────────────────────────
+
+function VideoPlayer({
+  source,
+  title,
+}: {
+  source: VideoSource;
+  title: string;
+}) {
+  if (source.kind === "youtube") {
+    return (
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${source.id}?autoplay=1&rel=0`}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        className="absolute inset-0 h-full w-full"
+      />
+    );
+  }
+  if (source.kind === "wistia") {
+    return (
+      <iframe
+        src={`https://fast.wistia.net/embed/iframe/${source.id}?autoplay=1&rel=0`}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+        allowFullScreen
+        className="absolute inset-0 h-full w-full"
+      />
+    );
+  }
+  return (
+    <video
+      controls
+      autoPlay
+      playsInline
+      preload="metadata"
+      className="absolute inset-0 h-full w-full bg-black object-contain"
+    >
+      <source src={source.url} type="video/mp4" />
+    </video>
+  );
+}
+
+function VideoCoverImage({
+  source,
+  className,
+}: {
+  source: VideoSource;
+  className?: string;
+}) {
+  if (source.kind === "mp4") {
+    // Show first frame via a muted preloaded <video>
+    return (
+      <video
+        src={source.url}
+        muted
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+        className={className}
+      />
+    );
+  }
+  const thumb = thumbnailFor(source)!;
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={thumb} alt="" className={className} />;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Featured video
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -281,8 +389,6 @@ function FeaturedVideo() {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   const [playing, setPlaying] = useState(false);
   const reduced = useReducedMotion();
-
-  const thumbnail = `https://img.youtube.com/vi/${FEATURED_VIDEO.youtubeId}/maxresdefault.jpg`;
 
   return (
     <section className="relative py-14 lg:py-20">
@@ -323,12 +429,9 @@ function FeaturedVideo() {
         >
           {playing ? (
             <div className="relative aspect-video w-full">
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${FEATURED_VIDEO.youtubeId}?autoplay=1&rel=0`}
+              <VideoPlayer
+                source={FEATURED_VIDEO.source}
                 title={FEATURED_VIDEO.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="absolute inset-0 h-full w-full"
               />
             </div>
           ) : (
@@ -338,9 +441,8 @@ function FeaturedVideo() {
               className="group relative block aspect-video w-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber/50"
               aria-label={`Play: ${FEATURED_VIDEO.title}`}
             >
-              <img
-                src={thumbnail}
-                alt=""
+              <VideoCoverImage
+                source={FEATURED_VIDEO.source}
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/30 transition-colors duration-500 group-hover:from-black/50" />
@@ -383,8 +485,6 @@ function ModuleCard({ module, index }: { module: Module; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
-  const thumbnail = `https://img.youtube.com/vi/${module.youtubeId}/hqdefault.jpg`;
-
   return (
     <motion.div
       ref={ref}
@@ -408,13 +508,7 @@ function ModuleCard({ module, index }: { module: Module; index: number }) {
             transition={{ duration: 0.3 }}
           >
             <div className="relative aspect-video w-full">
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${module.youtubeId}?autoplay=1&rel=0`}
-                title={module.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="absolute inset-0 h-full w-full"
-              />
+              <VideoPlayer source={module.source} title={module.title} />
             </div>
             <div className="flex items-center justify-between gap-4 p-5">
               <div className="min-w-0">
@@ -457,9 +551,8 @@ function ModuleCard({ module, index }: { module: Module; index: number }) {
 
             {/* Thumbnail */}
             <div className="relative aspect-video w-40 shrink-0 overflow-hidden rounded-md sm:w-52">
-              <img
-                src={thumbnail}
-                alt=""
+              <VideoCoverImage
+                source={module.source}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-bg-deep/40 via-transparent to-transparent" />
