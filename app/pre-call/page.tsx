@@ -330,17 +330,15 @@ function VideoCoverImage({
 // ─────────────────────────────────────────────────────────────────────────────
 
 function FeaturedVideo() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
   const [playing, setPlaying] = useState(false);
   const reduced = useReducedMotion();
 
   return (
     <section className="relative py-12 sm:py-14 lg:py-20">
-      <div ref={ref} className="mx-auto max-w-5xl px-5 sm:px-6">
+      <div className="mx-auto max-w-5xl px-5 sm:px-6">
         <motion.div
           initial={reduced ? {} : { opacity: 0, y: 14 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: EASE_OUT_EXPO }}
           className="mb-6 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
         >
@@ -359,7 +357,7 @@ function FeaturedVideo() {
 
         <motion.p
           initial={reduced ? {} : { opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.1 }}
           className="mb-6 max-w-2xl text-body text-text-secondary leading-relaxed"
         >
@@ -368,7 +366,7 @@ function FeaturedVideo() {
 
         <motion.div
           initial={reduced ? {} : { opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 0.15 }}
           className="relative overflow-hidden rounded-lg border border-border bg-bg-surface"
         >
