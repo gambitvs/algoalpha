@@ -17,6 +17,7 @@ const NO_CHROME_ROUTES = [
   "/calendar",
   "/dq",
   "/referral-submission",
+  "/join",
 ];
 
 /**
