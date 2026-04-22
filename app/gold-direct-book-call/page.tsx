@@ -16,14 +16,21 @@ const VSL_VIDEO_ID = "ds7NboBXslM";
 // Page-level grain overlay — fixed, pointer-events-none, very low opacity
 // ─────────────────────────────────────────────────────────────────────────────
 
+// URL-encoded so it survives HTML attribute serialization. Raw `<` chars
+// in the SVG caused a hydration-breaking parse error that froze all
+// framer-motion animations on the page.
+const GRAIN_SVG =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.9 0 0 0 0 0.75 0 0 0 0 0.4 0 0 0 1 0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>`,
+  );
+
 function GrainOverlay() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[1] opacity-[0.035] mix-blend-overlay"
-      style={{
-        backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.75 0 0 0 0 0.4 0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")`,
-      }}
+      className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay"
+      style={{ backgroundImage: `url("${GRAIN_SVG}")` }}
     />
   );
 }
@@ -35,13 +42,14 @@ function GrainOverlay() {
 function FunnelHeader() {
   return (
     <header className="relative z-10 border-b border-border">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3 sm:px-6 sm:py-4">
         <Link
           href="/"
-          className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-text-muted transition-colors hover:text-text-primary"
+          className="-ml-2 inline-flex min-h-[44px] items-center gap-2 px-2 font-mono text-[11px] uppercase tracking-wider text-text-muted transition-colors hover:text-text-primary"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          Back to Home
+          <span className="hidden sm:inline">Back to Home</span>
+          <span className="sm:hidden">Home</span>
         </Link>
         <Image
           src="/images/logo-header.png"
@@ -180,7 +188,7 @@ function FadeIn({
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-14 pb-20 lg:pt-20 lg:pb-28">
+    <section className="relative overflow-hidden pb-16 pt-10 sm:pt-14 sm:pb-20 lg:pt-20 lg:pb-28">
       {/* Off-center radial glow — breaks the symmetry */}
       <div
         aria-hidden="true"
@@ -191,7 +199,7 @@ function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-6">
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
         {/* Eyebrow sits aligned left, not centered */}
         <FadeIn delay={0}>
           <div className="flex items-center gap-3">
@@ -232,10 +240,10 @@ function Hero() {
             </FadeIn>
 
             <FadeIn delay={0.45}>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                 <a
                   href="/apply"
-                  className="group inline-flex h-14 items-center gap-3 bg-amber px-8 text-sm font-medium uppercase tracking-wide text-bg-deep transition-all hover:bg-amber-glow hover:gap-5 active:translate-y-px"
+                  className="group inline-flex h-14 w-full items-center justify-center gap-3 bg-amber px-8 text-sm font-medium uppercase tracking-wide text-bg-deep transition-all hover:bg-amber-glow hover:gap-5 active:translate-y-px sm:w-auto sm:justify-start"
                 >
                   Book a private call
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -307,7 +315,7 @@ function StatsStrip() {
 
   return (
     <section className="relative border-y border-border bg-bg-surface/30">
-      <div className="mx-auto max-w-6xl px-6 py-12 lg:py-14">
+      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-6 sm:py-12 lg:py-14">
         <div className="grid grid-cols-2 gap-y-8 gap-x-6 lg:grid-cols-4">
           {stats.map((s, i) => (
             <motion.div
@@ -387,8 +395,8 @@ const PILLARS = [
 
 function WhyGoldAlpha() {
   return (
-    <section className="relative py-20 lg:py-28">
-      <div className="mx-auto max-w-6xl px-6">
+    <section className="relative py-16 sm:py-20 lg:py-28">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           {/* LEFT — sticky header */}
           <div className="lg:sticky lg:top-10 lg:self-start">
@@ -480,9 +488,9 @@ function HowItWorks() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden border-y border-border bg-bg-surface/30 py-20 lg:py-28"
+      className="relative overflow-hidden border-y border-border bg-bg-surface/30 py-16 sm:py-20 lg:py-28"
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <div className="mb-16 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div className="max-w-xl">
             <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
@@ -604,8 +612,8 @@ const INCLUDES = [
 
 function Includes() {
   return (
-    <section className="py-20 lg:py-28">
-      <div className="mx-auto max-w-5xl px-6">
+    <section className="py-16 sm:py-20 lg:py-28">
+      <div className="mx-auto max-w-5xl px-5 sm:px-6">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
           <div>
             <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
@@ -620,7 +628,7 @@ function Includes() {
             </p>
             <a
               href="/apply"
-              className="group mt-8 inline-flex items-center gap-2 border-b border-amber/40 pb-1 font-mono text-[11px] uppercase tracking-[0.2em] text-amber transition-all hover:border-amber hover:gap-3"
+              className="group mt-6 inline-flex min-h-[44px] items-center gap-2 border-b border-amber/40 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-amber transition-all hover:border-amber hover:gap-3 sm:mt-8"
             >
               Schedule onboarding call
               <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
@@ -660,7 +668,7 @@ function Includes() {
 
 function FinalCTA() {
   return (
-    <section className="relative overflow-hidden bg-warm-white py-24 text-bg-deep lg:py-32">
+    <section className="relative overflow-hidden bg-warm-white py-20 text-bg-deep sm:py-24 lg:py-32">
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-[0.035]"
@@ -679,7 +687,7 @@ function FinalCTA() {
             "radial-gradient(ellipse 60% 40% at 50% 0%, oklch(0.75 0.16 65 / 0.08), transparent 60%)",
         }}
       />
-      <div className="relative mx-auto max-w-4xl px-6 text-center">
+      <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-6">
         <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.22em] text-amber-dim">
           Ready when you are
         </p>
@@ -694,7 +702,7 @@ function FinalCTA() {
         <div className="mt-10">
           <a
             href="/apply"
-            className="group inline-flex h-14 items-center gap-3 bg-bg-deep px-10 text-sm font-medium uppercase tracking-wide text-warm-white transition-all hover:gap-5 active:translate-y-px"
+            className="group inline-flex h-14 w-full items-center justify-center gap-3 bg-bg-deep px-10 text-sm font-medium uppercase tracking-wide text-warm-white transition-all hover:gap-5 active:translate-y-px sm:w-auto"
           >
             Book a private call
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

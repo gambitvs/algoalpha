@@ -149,13 +149,14 @@ const CHECKLIST = [
 function FunnelHeader() {
   return (
     <header className="border-b border-border">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3 sm:px-6 sm:py-4">
         <Link
           href="/"
-          className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-text-muted transition-colors hover:text-text-primary"
+          className="-ml-2 inline-flex min-h-[44px] items-center gap-2 px-2 font-mono text-[11px] uppercase tracking-wider text-text-muted transition-colors hover:text-text-primary"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          Back to Home
+          <span className="hidden sm:inline">Back to Home</span>
+          <span className="sm:hidden">Home</span>
         </Link>
         <Image
           src="/images/logo-header.png"
@@ -202,7 +203,7 @@ function FadeIn({
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-20 pb-20 lg:pt-28 lg:pb-24">
+    <section className="relative overflow-hidden pb-16 pt-14 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-28">
       {/* Subtle radial glow */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -212,7 +213,7 @@ function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-4xl px-6 text-center">
+      <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-6">
         <FadeIn delay={0}>
           <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-amber">
             Pre-Call Resources
@@ -234,7 +235,7 @@ function Hero() {
         </FadeIn>
 
         <FadeIn delay={0.45}>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] font-mono uppercase tracking-[0.15em] text-text-muted">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 font-mono text-[11px] uppercase tracking-[0.15em] text-text-muted sm:mt-10 sm:gap-x-8">
             <span className="inline-flex items-center gap-2">
               <BookOpen className="h-3.5 w-3.5 text-amber" />7 Modules
             </span>
@@ -335,19 +336,19 @@ function FeaturedVideo() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative py-14 lg:py-20">
-      <div ref={ref} className="mx-auto max-w-5xl px-6">
+    <section className="relative py-12 sm:py-14 lg:py-20">
+      <div ref={ref} className="mx-auto max-w-5xl px-5 sm:px-6">
         <motion.div
           initial={reduced ? {} : { opacity: 0, y: 14 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: EASE_OUT_EXPO }}
-          className="mb-6 flex items-baseline justify-between gap-4"
+          className="mb-6 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
         >
-          <div>
+          <div className="min-w-0 flex-1">
             <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
               {FEATURED_VIDEO.eyebrow}
             </p>
-            <h2 className="font-serif text-h3 text-text-primary">
+            <h2 className="font-serif text-h3 leading-tight text-text-primary text-balance">
               {FEATURED_VIDEO.title}
             </h2>
           </div>
@@ -393,21 +394,21 @@ function FeaturedVideo() {
 
               {/* Play circle */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-amber/90 transition-transform duration-500 group-hover:scale-110">
+                <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-amber/90 transition-transform duration-500 group-hover:scale-110 sm:h-20 sm:w-20">
                   <span className="absolute inset-0 rounded-full bg-amber/30 blur-xl" />
                   <Play
-                    className="relative ml-1 h-7 w-7 text-bg-deep"
+                    className="relative ml-1 h-6 w-6 text-bg-deep sm:h-7 sm:w-7"
                     fill="currentColor"
                   />
                 </span>
               </div>
 
               {/* Bottom meta strip */}
-              <div className="absolute bottom-0 inset-x-0 flex items-center justify-between p-5">
+              <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 p-4 sm:p-5">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/80">
                   Play featured video
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/60">
+                <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.15em] text-white/60">
                   {FEATURED_VIDEO.duration}
                 </span>
               </div>
@@ -481,27 +482,31 @@ function ModuleCard({ module, index }: { module: Module; index: number }) {
             exit={reduced ? {} : { opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={() => setExpanded(true)}
-            className="group flex w-full items-stretch gap-5 p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber/50"
+            className="group flex w-full flex-col p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber/50 sm:flex-row sm:items-stretch sm:gap-5 sm:p-5"
           >
-            {/* Number badge */}
-            <div className="flex w-14 shrink-0 flex-col items-center justify-center border-r border-border/60 pr-5">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted">
+            {/* Number badge — row above thumbnail on mobile, column on sm+ */}
+            <div className="mb-4 flex items-baseline gap-3 sm:mb-0 sm:w-14 sm:shrink-0 sm:flex-col sm:items-center sm:justify-center sm:gap-0 sm:border-r sm:border-border/60 sm:pr-5">
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-text-muted">
                 Module
               </span>
-              <span className="mt-1 font-serif text-2xl text-amber">
+              <span className="font-serif text-2xl text-amber sm:mt-1">
                 {module.number}
+              </span>
+              <span className="ml-auto inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted sm:hidden">
+                <Clock className="h-3 w-3" />
+                {module.duration}
               </span>
             </div>
 
-            {/* Thumbnail */}
-            <div className="relative aspect-video w-40 shrink-0 overflow-hidden rounded-md sm:w-52">
+            {/* Thumbnail — full width on mobile, fixed width sm+ */}
+            <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-md sm:w-48 lg:w-52">
               <VideoCoverImage
                 source={module.source}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-bg-deep/40 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-bg-deep/50 via-transparent to-transparent sm:bg-gradient-to-r sm:from-bg-deep/40" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-amber/90 transition-transform duration-300 group-hover:scale-110">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-amber/90 transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10">
                   <Play
                     className="ml-0.5 h-4 w-4 text-bg-deep"
                     fill="currentColor"
@@ -511,14 +516,14 @@ function ModuleCard({ module, index }: { module: Module; index: number }) {
             </div>
 
             {/* Content */}
-            <div className="flex min-w-0 flex-1 flex-col justify-center">
-              <h3 className="font-serif text-lg text-text-primary leading-snug sm:text-[20px]">
+            <div className="mt-4 flex min-w-0 flex-1 flex-col justify-center sm:mt-0">
+              <h3 className="font-serif text-[19px] leading-snug text-text-primary sm:text-[20px]">
                 {module.title}
               </h3>
-              <p className="mt-1.5 line-clamp-2 text-small text-text-secondary leading-relaxed">
+              <p className="mt-2 line-clamp-3 text-small leading-relaxed text-text-secondary sm:line-clamp-2">
                 {module.description}
               </p>
-              <div className="mt-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted">
+              <div className="mt-3 hidden items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted sm:flex">
                 <Clock className="h-3 w-3" />
                 {module.duration}
               </div>
@@ -536,17 +541,17 @@ function ModuleCard({ module, index }: { module: Module; index: number }) {
 
 function Curriculum() {
   return (
-    <section className="relative py-14 lg:py-20">
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="mb-10 flex items-end justify-between gap-6 border-b border-border pb-6">
+    <section className="relative py-12 sm:py-14 lg:py-20">
+      <div className="mx-auto max-w-5xl px-5 sm:px-6">
+        <div className="mb-8 flex items-end justify-between gap-6 border-b border-border pb-5 sm:mb-10 sm:pb-6">
           <div>
             <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
               Pre-Call Curriculum
             </p>
-            <h2 className="font-serif text-h2 text-text-primary">
+            <h2 className="font-serif text-h2 leading-tight text-text-primary text-balance">
               Seven modules. One goal.
             </h2>
-            <p className="mt-3 max-w-xl text-body text-text-secondary leading-relaxed">
+            <p className="mt-3 max-w-xl text-body leading-relaxed text-text-secondary">
               Everything you need to walk into your consultation ready to go
               deep. No fluff, no filler.
             </p>
@@ -556,7 +561,7 @@ function Curriculum() {
           </span>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {MODULES.map((m, i) => (
             <ModuleCard key={m.number} module={m} index={i} />
           ))}
@@ -576,18 +581,18 @@ function Checklist() {
   const reduced = useReducedMotion();
 
   return (
-    <section ref={ref} className="relative py-14 lg:py-20">
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="rounded-xl border border-border bg-bg-surface p-8 lg:p-12">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+    <section ref={ref} className="relative py-12 sm:py-14 lg:py-20">
+      <div className="mx-auto max-w-5xl px-5 sm:px-6">
+        <div className="rounded-xl border border-border bg-bg-surface p-6 sm:p-8 lg:p-12">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
             <div>
               <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
                 Come Prepared
               </p>
-              <h2 className="font-serif text-h3 text-text-primary leading-tight">
+              <h2 className="font-serif text-h3 leading-tight text-text-primary text-balance">
                 What to have ready for your call.
               </h2>
-              <p className="mt-4 text-body text-text-secondary leading-relaxed">
+              <p className="mt-4 text-body leading-relaxed text-text-secondary">
                 None of this is required — but bringing it turns a 30-minute
                 intro into a strategic working session.
               </p>
@@ -604,7 +609,7 @@ function Checklist() {
                     ease: EASE_OUT_EXPO,
                     delay: 0.1 + i * 0.08,
                   }}
-                  className="flex items-start gap-4 border-b border-border/60 pb-3 text-body text-text-secondary last:border-b-0 last:pb-0"
+                  className="flex items-start gap-3 border-b border-border/60 pb-3 text-body text-text-secondary last:border-b-0 last:pb-0 sm:gap-4"
                 >
                   <span className="mt-[0.35em] flex h-5 w-5 shrink-0 items-center justify-center border border-amber/40 bg-amber/5">
                     <Check className="h-3 w-3 text-amber" />
@@ -626,19 +631,19 @@ function Checklist() {
 
 function SignOff() {
   return (
-    <section className="py-14 lg:py-20">
-      <div className="mx-auto max-w-3xl px-6 text-center">
+    <section className="py-12 sm:py-14 lg:py-20">
+      <div className="mx-auto max-w-3xl px-5 text-center sm:px-6">
         <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.25em] text-amber">
           See you soon
         </p>
-        <p className="font-serif text-h3 text-text-primary leading-tight">
+        <p className="font-serif text-h3 leading-tight text-text-primary text-balance">
           We&apos;re looking forward to your call.
         </p>
-        <p className="mx-auto mt-4 max-w-lg text-body text-text-secondary leading-relaxed">
+        <p className="mx-auto mt-4 max-w-lg text-body leading-relaxed text-text-secondary">
           Need to reschedule or have a question before we meet? Reach out to{" "}
           <a
             href="mailto:support@algoalpha.co"
-            className="text-amber underline underline-offset-4 transition-colors hover:text-amber-glow"
+            className="inline-block py-1 text-amber underline underline-offset-4 transition-colors hover:text-amber-glow"
           >
             support@algoalpha.co
           </a>
