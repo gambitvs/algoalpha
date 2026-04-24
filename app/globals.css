@@ -222,6 +222,14 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+    /* Exempt marquees — they rely on sustained animation for content to be
+       visible. Disabling them removes meaningful UI, so we keep them running.
+       Specificity: [data-marquee-row] (0,1,0) beats the universal * (0,0,0)
+       when both use !important. */
+    [data-marquee-row] {
+      animation-duration: var(--marquee-speed, 45s) !important;
+      animation-iteration-count: infinite !important;
+    }
   }
 }
 

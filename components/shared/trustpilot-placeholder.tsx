@@ -214,14 +214,23 @@ function MarqueeRow({
       className="group"
       style={{ width: "100%", overflow: "hidden" }}
       aria-label="Scrolling reviews"
+      data-marquee
     >
       <div
         className="flex gap-4"
-        style={{
-          width: "max-content",
-          animation: `marquee-${direction} ${speed}s linear infinite`,
-          willChange: "transform",
-        }}
+        data-marquee
+        data-marquee-row
+        style={
+          {
+            width: "max-content",
+            animationName: `marquee-${direction}`,
+            animationTimingFunction: "linear",
+            animationDuration: `${speed}s`,
+            animationIterationCount: "infinite",
+            willChange: "transform",
+            "--marquee-speed": `${speed}s`,
+          } as React.CSSProperties
+        }
         onMouseEnter={(e) => {
           e.currentTarget.style.animationPlayState = "paused";
         }}
@@ -253,7 +262,7 @@ export default function TrustpilotReviews() {
                 Trustpilot Reviews
               </h2>
               <p className="mt-2 text-small text-text-secondary">
-                {trustpilotReviews.length} verified reviews from real clients
+                Verified reviews from real clients
               </p>
             </div>
             <a

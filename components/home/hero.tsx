@@ -1,41 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import HeroChart from "@/components/home/hero-chart";
 import { Waves } from "@/components/ui/wave-background";
 
-const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
 function MotionFade({
   children,
-  delay = 0,
   className,
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
 }) {
-  const prefersReducedMotion = useReducedMotion();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.6,
-        ease: EASE_OUT_EXPO,
-        delay: delay / 1000,
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 export default function Hero() {

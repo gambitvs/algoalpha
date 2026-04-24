@@ -2,15 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Play, Check, Volume2 } from "lucide-react";
 
 import TrustpilotReviews from "@/components/shared/trustpilot-placeholder";
 import PageDisclaimer from "@/components/shared/page-disclaimer";
 
-const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
-const VSL_VIDEO_ID = "ds7NboBXslM";
+const VSL_HLS_URL =
+  "https://content.apisystem.tech/hls/medias/91ZHtcGEPL5GQmtTCTib/media/transcoded_videos/cts-e3f61770c2b85aa9_,360,480,720,1080,p.mp4.urlset/master.m3u8";
+
+const CALENDLY_URL =
+  "https://calendly.com/algo-alpha-advisory-team/alpha-investor-consultation-call-clone";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Page-level grain overlay — fixed, pointer-events-none, very low opacity
@@ -75,86 +77,140 @@ function FunnelHeader() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function VSLVideo() {
-  const [playing, setPlaying] = useState(false);
-  const thumbnail = `https://img.youtube.com/vi/${VSL_VIDEO_ID}/maxresdefault.jpg`;
+  const [soundOn, setSoundOn] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  if (playing) {
-    return (
-      <div className="relative aspect-video w-full overflow-hidden rounded-md bg-black">
-        <iframe
-          src={`https://www.youtube-nocookie.com/embed/${VSL_VIDEO_ID}?autoplay=1&rel=0`}
-          title="Gold Alpha — A message from the founder"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="absolute inset-0 h-full w-full"
-        />
-      </div>
-    );
-  }
+  // Load HLS + start muted autoplay on mount
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let hlsInstance: { destroy: () => void } | null = null;
+
+    const startPlayback = () => {
+      video.muted = true;
+      video.play().catch(() => undefined);
+    };
+
+    if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      // Safari — native HLS
+      video.src = VSL_HLS_URL;
+      startPlayback();
+    } else {
+      // Chrome/Firefox — hls.js from CDN
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js";
+      script.async = true;
+      script.onload = () => {
+        const HlsCtor = (window as unknown as { Hls?: unknown }).Hls as
+          | (new () => {
+              loadSource: (u: string) => void;
+              attachMedia: (v: HTMLVideoElement) => void;
+              on: (ev: string, cb: () => void) => void;
+              destroy: () => void;
+            })
+          | undefined;
+        if (HlsCtor && video) {
+          const hls = new HlsCtor();
+          hls.loadSource(VSL_HLS_URL);
+          hls.attachMedia(video);
+          hls.on("hlsManifestParsed", () => startPlayback());
+          hlsInstance = hls;
+        }
+      };
+      document.head.appendChild(script);
+    }
+
+    return () => {
+      if (hlsInstance) hlsInstance.destroy();
+    };
+  }, []);
+
+  const enableSound = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = false;
+    video.currentTime = 0;
+    video.play().catch(() => undefined);
+    setSoundOn(true);
+  };
 
   return (
-    <button
-      type="button"
-      onClick={() => setPlaying(true)}
-      className="group relative block aspect-video w-full overflow-hidden rounded-md border border-border bg-bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber/50"
-      aria-label="Play the Gold Alpha presentation"
-    >
-      {/* Inner refraction ring */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-10 rounded-md ring-1 ring-inset ring-white/[0.04]"
+    <div className="relative aspect-video w-full overflow-hidden rounded-md border border-border bg-black">
+      {/* Video — always rendered, autoplays muted */}
+      <video
+        ref={videoRef}
+        className="absolute inset-0 h-full w-full object-cover"
+        muted
+        autoPlay
+        playsInline
+        controls={soundOn}
+        preload="auto"
       />
 
-      {/* Thumbnail */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={thumbnail}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.015]"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/30" />
+      {/* Overlay — visible until user enables sound */}
+      {!soundOn && (
+        <button
+          type="button"
+          onClick={enableSound}
+          className="group absolute inset-0 z-10 flex h-full w-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber/50"
+          aria-label="Enable sound and watch the Gold Alpha presentation"
+        >
+          {/* Dim + vignette so overlay text reads over the playing footage */}
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/65"
+          />
+          <span
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle 180px at 50% 50%, oklch(0.75 0.16 65 / 0.22), transparent 70%)",
+            }}
+          />
 
-      {/* Play — rounded-square with concentric rings */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="relative flex h-20 w-20 items-center justify-center">
-          {/* Outer animated ring */}
-          <span className="absolute inset-0 rounded-full border border-amber/40 transition-transform duration-500 group-hover:scale-[1.35]" />
-          <span className="absolute inset-0 rounded-full border border-amber/20 transition-transform duration-700 group-hover:scale-[1.7]" />
-          {/* Core */}
-          <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-amber transition-all duration-300 group-hover:bg-amber-glow">
-            <Play
-              className="ml-0.5 h-5 w-5 text-bg-deep"
-              fill="currentColor"
-              strokeWidth={0}
-            />
+          {/* Top meta */}
+          <span className="absolute left-0 top-0 z-10 flex items-center gap-2 p-5">
+            <span className="flex h-1.5 w-1.5 animate-pulse rounded-full bg-amber shadow-[0_0_8px_theme(colors.amber)]" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/90">
+              Founder presentation · Muted preview
+            </span>
           </span>
-        </span>
-      </div>
 
-      {/* Top meta — small "LIVE" indicator */}
-      <div className="absolute left-0 top-0 z-10 flex items-center gap-2 p-5">
-        <span className="flex h-1.5 w-1.5 animate-pulse rounded-full bg-amber shadow-[0_0_8px_theme(colors.amber)]" />
-        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/85">
-          Presentation · 12 min
-        </span>
-      </div>
+          {/* Center play button */}
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="relative flex h-20 w-20 items-center justify-center">
+              <span className="absolute inset-0 rounded-full border border-amber/50 transition-transform duration-500 group-hover:scale-[1.35]" />
+              <span className="absolute inset-0 rounded-full border border-amber/25 transition-transform duration-700 group-hover:scale-[1.7]" />
+              <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-amber transition-all duration-300 group-hover:bg-amber-glow">
+                <Play
+                  className="ml-0.5 h-5 w-5 text-bg-deep"
+                  fill="currentColor"
+                  strokeWidth={0}
+                />
+              </span>
+            </span>
+          </span>
 
-      {/* Bottom strip */}
-      <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5">
-        <div className="min-w-0">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber/90">
-            Founder note
-          </p>
-          <p className="mt-1 font-serif text-xl leading-tight text-white text-balance lg:text-2xl">
-            Why we built Gold Alpha, and who it&apos;s for.
-          </p>
-        </div>
-        <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/25 bg-black/35 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-white/90 backdrop-blur">
-          <Volume2 className="h-3 w-3" />
-          Enable sound
-        </span>
-      </div>
-    </button>
+          {/* Bottom strip */}
+          <span className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5">
+            <span className="min-w-0">
+              <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-amber/90">
+                Watch first
+              </span>
+              <span className="mt-1 block font-serif text-xl leading-tight text-white text-balance lg:text-2xl">
+                Why we built Gold Alpha, and who it&apos;s for.
+              </span>
+            </span>
+            <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/30 bg-black/45 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-white transition-colors group-hover:bg-amber group-hover:text-bg-deep group-hover:border-amber backdrop-blur">
+              <Volume2 className="h-3 w-3" />
+              Click for sound
+            </span>
+          </span>
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -162,24 +218,8 @@ function VSLVideo() {
 // FadeIn wrapper
 // ─────────────────────────────────────────────────────────────────────────────
 
-function FadeIn({
-  children,
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  delay?: number;
-}) {
-  const reduced = useReducedMotion();
-  if (reduced) return <>{children}</>;
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay }}
-    >
-      {children}
-    </motion.div>
-  );
+function FadeIn({ children }: { children: React.ReactNode; delay?: number }) {
+  return <>{children}</>;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -188,114 +228,107 @@ function FadeIn({
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden pb-16 pt-10 sm:pt-14 sm:pb-20 lg:pt-20 lg:pb-28">
-      {/* Off-center radial glow — breaks the symmetry */}
+    <section className="relative overflow-hidden pb-10 pt-6 sm:pt-8 sm:pb-12 lg:pt-10 lg:pb-14">
+      {/* Top-center radial glow behind the VSL */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
-            "radial-gradient(ellipse 70% 60% at 85% 20%, oklch(0.75 0.16 65 / 0.09), transparent 60%)",
+            "radial-gradient(ellipse 65% 50% at 50% 18%, oklch(0.75 0.16 65 / 0.1), transparent 65%)",
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
-        {/* Eyebrow sits aligned left, not centered */}
-        <FadeIn delay={0}>
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full border border-amber/30 bg-amber/[0.04] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-amber">
-              <span className="h-1 w-1 rounded-full bg-amber" />
-              For high-net-worth investors
-            </span>
-            <span className="hidden h-px flex-1 bg-gradient-to-r from-border via-border/40 to-transparent sm:block" />
-          </div>
-        </FadeIn>
-
-        <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
-          {/* LEFT — copy */}
-          <div className="flex flex-col">
-            <FadeIn delay={0.15}>
-              <h1
-                className="font-serif leading-[1.02] tracking-tight text-text-primary text-balance"
-                style={{ fontSize: "clamp(2.75rem, 5.2vw, 4.5rem)" }}
-              >
-                Install the{" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10 text-amber">Gold Alpha</span>
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-0 bottom-[0.12em] h-[0.28em] bg-amber/10"
-                  />
-                </span>{" "}
-                algorithm into your portfolio. Keep the profits.
-              </h1>
-            </FadeIn>
-
-            <FadeIn delay={0.3}>
-              <p className="mt-6 max-w-[58ch] text-body text-text-secondary leading-relaxed">
-                A mean-reversion gold-trading algorithm installed on your own
-                brokerage account. Your capital stays in your name. Our team
-                runs the software.
-              </p>
-            </FadeIn>
-
-            <FadeIn delay={0.45}>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                <a
-                  href="/apply"
-                  className="group inline-flex h-14 w-full items-center justify-center gap-3 bg-amber px-8 text-sm font-medium uppercase tracking-wide text-bg-deep transition-all hover:bg-amber-glow hover:gap-5 active:translate-y-px sm:w-auto sm:justify-start"
-                >
-                  Book a private call
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </a>
-                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-text-muted">
-                  30 min · No obligation
-                </span>
-              </div>
-            </FadeIn>
-
-            {/* Trust micro-strip — replaces the weak "Gold" watermark */}
-            <FadeIn delay={0.6}>
-              <dl className="mt-10 grid max-w-md grid-cols-3 gap-6 border-t border-border/60 pt-6">
-                <div>
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
-                    Verified by
-                  </dt>
-                  <dd className="mt-1.5 font-serif text-base text-text-primary">
-                    MyFXBook
-                  </dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
-                    Live since
-                  </dt>
-                  <dd className="mt-1.5 font-serif text-base text-text-primary tabular-nums">
-                    2018
-                  </dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
-                    Total return
-                  </dt>
-                  <dd className="mt-1.5 font-serif text-base text-amber tabular-nums">
-                    1,306%
-                    <sup className="ml-0.5 text-[0.5em] text-text-muted">ⓘ</sup>
-                  </dd>
-                </div>
-              </dl>
-            </FadeIn>
-          </div>
-
-          {/* RIGHT — video */}
-          <FadeIn delay={0.35}>
-            <div className="lg:pt-2">
-              <VSLVideo />
-              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
-                Robert Miller, CEO · 12 min
-              </p>
-            </div>
-          </FadeIn>
+      <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-6">
+        {/* Eyebrow */}
+        <div className="flex justify-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-amber/30 bg-amber/[0.04] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-amber">
+            <span className="h-1 w-1 rounded-full bg-amber" />
+            Exclusive for high-net-worth executives...
+          </span>
         </div>
+
+        {/* H1 */}
+        <h1
+          className="mx-auto mt-5 max-w-[22ch] font-serif leading-[1.08] tracking-tight text-text-primary text-balance sm:max-w-[26ch] lg:mt-6 lg:max-w-[32ch]"
+          style={{ fontSize: "clamp(1.625rem, 3vw, 2.625rem)" }}
+        >
+          Install Our{" "}
+          <span className="relative inline-block">
+            <span className="relative z-10 text-amber">
+              Gold AI Trading Algorithm
+            </span>
+            <span
+              aria-hidden="true"
+              className="absolute inset-x-0 bottom-[0.12em] h-[0.28em] bg-amber/10"
+            />
+          </span>{" "}
+          to Your Portfolio That Generates Monthly Profits With
+          &apos;Hands-Off&apos; Management
+        </h1>
+
+        {/* Subhead */}
+        <p className="mx-auto mt-4 max-w-[58ch] text-small text-text-secondary leading-relaxed sm:text-body">
+          A mean-reversion gold-trading algorithm installed on your own
+          brokerage account. Your capital stays in your name. Our team runs the
+          software.
+        </p>
+      </div>
+
+      {/* Video — centered, sized to fit the fold on laptop viewports */}
+      <div className="relative mx-auto mt-6 max-w-2xl px-4 sm:mt-8 sm:px-6 lg:mt-8">
+        <VSLVideo />
+        <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
+          Robert Miller, CEO · Founder presentation
+        </p>
+      </div>
+
+      {/* CTA directly under the video */}
+      <div className="relative mx-auto mt-6 flex max-w-3xl flex-col items-center gap-3 px-5 sm:mt-8 sm:px-6">
+        <a
+          href="#book-a-call"
+          className="group inline-flex h-12 w-full max-w-md items-center justify-center gap-3 bg-amber px-8 text-sm font-medium uppercase tracking-wide text-bg-deep transition-all hover:bg-amber-glow hover:gap-5 active:translate-y-px sm:h-14 sm:text-[15px]"
+        >
+          Book a private call
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </a>
+        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-text-muted">
+          30 min · No obligation
+        </span>
+      </div>
+
+      {/* Trust microstrip — centered rule above, stacked */}
+      <div className="relative mx-auto mt-10 max-w-3xl px-5 sm:mt-12 sm:px-6">
+        <div className="mx-auto h-px w-48 bg-gradient-to-r from-transparent via-border to-transparent lg:w-64" />
+        <dl className="mt-7 grid grid-cols-3 gap-6">
+          <div className="text-center">
+            <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
+              Verified by
+            </dt>
+            <dd className="mt-1.5 font-serif text-base text-text-primary">
+              MyFXBook
+            </dd>
+          </div>
+          <div className="text-center">
+            <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
+              Live since
+            </dt>
+            <dd className="mt-1.5 font-serif text-base text-text-primary tabular-nums">
+              2018
+            </dd>
+          </div>
+          <div className="text-center">
+            <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
+              Total return
+            </dt>
+            <dd className="mt-1.5 font-serif text-base text-amber tabular-nums">
+              1,306%
+              <span className="ml-1 text-xs font-mono text-amber/70 relative -top-1">
+                *
+              </span>
+            </dd>
+          </div>
+        </dl>
       </div>
     </section>
   );
@@ -306,59 +339,64 @@ function Hero() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function StatsStrip() {
-  const stats = [
-    { value: "1,306", unit: "%", note: "verified total return", marker: "*" },
-    { value: "2018", unit: "", note: "live track record since" },
-    { value: "24/7", unit: "", note: "automated execution" },
-    { value: "100", unit: "%", note: "you keep the profits" },
-  ];
-
   return (
     <section className="relative border-y border-border bg-bg-surface/30">
-      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-6 sm:py-12 lg:py-14">
-        <div className="grid grid-cols-2 gap-y-8 gap-x-6 lg:grid-cols-4">
-          {stats.map((s, i) => (
-            <motion.div
-              key={s.note}
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{
-                duration: 0.5,
-                ease: EASE_OUT_EXPO,
-                delay: i * 0.06,
-              }}
-              className="flex flex-col"
+      <div className="mx-auto max-w-5xl px-5 py-12 sm:px-6 sm:py-14 lg:py-16">
+        {/* Hero stat — dominant */}
+        <div className="mx-auto max-w-md text-center">
+          <div className="flex items-baseline justify-center font-serif tracking-tight text-amber">
+            <span
+              className="tabular-nums"
+              style={{ fontSize: "clamp(3.5rem, 7vw, 5.5rem)" }}
             >
-              <div className="flex items-baseline font-serif tracking-tight text-text-primary">
-                <span
-                  className="tabular-nums"
-                  style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
-                >
-                  {s.value}
-                </span>
-                {s.unit ? (
-                  <span
-                    className="ml-0.5 text-text-secondary"
-                    style={{ fontSize: "clamp(1.25rem, 2.2vw, 1.75rem)" }}
-                  >
-                    {s.unit}
-                  </span>
-                ) : null}
-                {s.marker ? (
-                  <sup className="ml-1 font-mono text-[11px] text-amber">
-                    {s.marker}
-                  </sup>
-                ) : null}
-              </div>
-              <div className="mt-2 font-mono text-[11px] uppercase tracking-[0.18em] text-text-muted">
-                {s.note}
-              </div>
-            </motion.div>
-          ))}
+              1,306
+            </span>
+            <span
+              className="ml-1 text-amber/80"
+              style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+            >
+              %
+            </span>
+            <span className="ml-1 font-mono text-sm text-amber/60 relative -top-8">
+              *
+            </span>
+          </div>
+          <div className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">
+            Verified total return
+          </div>
         </div>
-        <p className="mt-8 font-mono text-[10px] italic text-text-muted">
-          <sup className="mr-0.5 not-italic text-amber">*</sup>
+
+        {/* Supporting stats — smaller, on a hairline rule */}
+        <div className="mx-auto mt-10 grid max-w-3xl grid-cols-3 gap-6 border-t border-border/60 pt-8">
+          <div className="text-center">
+            <div className="font-serif text-2xl text-text-primary tabular-nums sm:text-3xl">
+              2018
+            </div>
+            <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
+              Live track record since
+            </div>
+          </div>
+          <div className="text-center">
+            <div className="font-serif text-2xl text-text-primary tabular-nums sm:text-3xl">
+              24/7
+            </div>
+            <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
+              Automated execution
+            </div>
+          </div>
+          <div className="text-center">
+            <div className="font-serif text-2xl text-text-primary tabular-nums sm:text-3xl">
+              100
+              <span className="text-text-secondary">%</span>
+            </div>
+            <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-text-muted">
+              You keep the profits
+            </div>
+          </div>
+        </div>
+
+        <p className="mt-8 text-center font-mono text-[10px] italic text-text-muted">
+          <span className="mr-0.5 not-italic text-amber">*</span>
           Verified through MyFXBook. Past performance is not indicative of
           future results.
         </p>
@@ -395,42 +433,31 @@ const PILLARS = [
 
 function WhyGoldAlpha() {
   return (
-    <section className="relative py-16 sm:py-20 lg:py-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-6">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-          {/* LEFT — sticky header */}
-          <div className="lg:sticky lg:top-10 lg:self-start">
-            <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
-              Why Gold Alpha
-            </p>
-            <h2 className="font-serif text-h2 leading-[1.08] tracking-tight text-text-primary text-balance">
-              Built for the investor who already has a portfolio — and wants a
-              better one.
-            </h2>
-            <p className="mt-5 max-w-[46ch] text-body text-text-secondary leading-relaxed">
-              Three reasons clients choose Gold Alpha as the algorithmic sleeve
-              of their portfolio.
-            </p>
-          </div>
+    <section className="relative py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-3xl px-5 text-center sm:px-6">
+        <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
+          Why Gold Alpha
+        </p>
+        <h2 className="font-serif text-h2 leading-[1.08] tracking-tight text-text-primary text-balance">
+          Built for the investor who already has a portfolio — and wants a
+          better one.
+        </h2>
+        <p className="mx-auto mt-5 max-w-[52ch] text-body text-text-secondary leading-relaxed">
+          Three reasons clients choose Gold Alpha as the algorithmic sleeve of
+          their portfolio.
+        </p>
+      </div>
 
-          {/* RIGHT — typographic list, no icons, no cards */}
-          <div>
-            {PILLARS.map((p, i) => (
-              <motion.article
-                key={p.n}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{
-                  duration: 0.65,
-                  ease: EASE_OUT_EXPO,
-                  delay: i * 0.06,
-                }}
-                className={[
-                  "grid grid-cols-[auto_1fr] gap-x-6 py-10 first:pt-0",
-                  i < PILLARS.length - 1 ? "border-b border-border/70" : "",
-                ].join(" ")}
-              >
+      <div className="mx-auto mt-12 max-w-3xl px-5 sm:mt-14 sm:px-6">
+        <div>
+          {PILLARS.map((p, i) => (
+            <article
+              key={p.n}
+              className={[
+                "grid grid-cols-[auto_1fr] gap-x-6 py-7 first:pt-0 sm:py-8",
+                i < PILLARS.length - 1 ? "border-b border-border/70" : "",
+              ].join(" ")}
+            >
                 <div className="flex flex-col items-start">
                   <span
                     className="font-serif leading-none text-amber/45"
@@ -446,13 +473,12 @@ function WhyGoldAlpha() {
                   <h3 className="mt-2 font-serif text-[22px] leading-snug text-text-primary text-balance lg:text-2xl">
                     {p.title}
                   </h3>
-                  <p className="mt-3 max-w-[58ch] text-body text-text-secondary leading-relaxed">
-                    {p.body}
-                  </p>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+                <p className="mt-3 max-w-[58ch] text-body text-text-secondary leading-relaxed">
+                  {p.body}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -482,27 +508,16 @@ const STEPS = [
 ];
 
 function HowItWorks() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.25 });
-
   return (
-    <section
-      ref={ref}
-      className="relative overflow-hidden border-y border-border bg-bg-surface/30 py-16 sm:py-20 lg:py-28"
-    >
+    <section className="relative overflow-hidden border-y border-border bg-bg-surface/30 py-16 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
-        <div className="mb-16 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-          <div className="max-w-xl">
-            <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
-              How it works
-            </p>
-            <h2 className="font-serif text-h2 leading-tight text-text-primary text-balance">
-              First call to live trading — in under 30 minutes of your time.
-            </h2>
-          </div>
-          <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-text-muted">
-            Three steps
-          </span>
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
+            How it works
+          </p>
+          <h2 className="font-serif text-h2 leading-tight text-text-primary text-balance">
+            First call to live trading — in under 30 minutes of your time.
+          </h2>
         </div>
 
         {/* Desktop — horizontal timeline */}
@@ -513,25 +528,15 @@ function HowItWorks() {
               aria-hidden="true"
               className="absolute left-[16.67%] right-[16.67%] top-[1.25rem] h-px bg-border"
             />
-            <motion.div
+            <div
               aria-hidden="true"
-              className="absolute left-[16.67%] top-[1.25rem] h-px origin-left bg-amber"
+              className="absolute left-[16.67%] top-[1.25rem] h-px bg-amber"
               style={{ width: "66.67%" }}
-              initial={{ scaleX: 0 }}
-              animate={isInView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1.4, ease: EASE_OUT_EXPO, delay: 0.2 }}
             />
 
-            {STEPS.map((step, i) => (
-              <motion.div
+            {STEPS.map((step) => (
+              <div
                 key={step.n}
-                initial={{ opacity: 0, y: 14 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.6,
-                  ease: EASE_OUT_EXPO,
-                  delay: 0.3 + i * 0.18,
-                }}
                 className="relative flex flex-col items-center text-center px-6"
               >
                 {/* Dot */}
@@ -547,7 +552,7 @@ function HowItWorks() {
                 <p className="mt-3 max-w-[38ch] text-body text-text-secondary leading-relaxed">
                   {step.body}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -560,17 +565,9 @@ function HowItWorks() {
               className="absolute left-[1.25rem] top-4 bottom-4 w-px bg-border"
             />
             <div className="space-y-10">
-              {STEPS.map((step, i) => (
-                <motion.div
+              {STEPS.map((step) => (
+                <div
                   key={step.n}
-                  initial={{ opacity: 0, x: -12 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{
-                    duration: 0.5,
-                    ease: EASE_OUT_EXPO,
-                    delay: i * 0.08,
-                  }}
                   className="relative grid grid-cols-[auto_1fr] gap-5"
                 >
                   <span className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-amber bg-bg-deep">
@@ -587,7 +584,7 @@ function HowItWorks() {
                       {step.body}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -612,50 +609,42 @@ const INCLUDES = [
 
 function Includes() {
   return (
-    <section className="py-16 sm:py-20 lg:py-28">
-      <div className="mx-auto max-w-5xl px-5 sm:px-6">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
-          <div>
-            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
-              What&apos;s included
-            </p>
-            <h2 className="font-serif text-h3 leading-tight text-text-primary text-balance">
-              Installed, monitored, and maintained by our team.
-            </h2>
-            <p className="mt-4 max-w-[52ch] text-body text-text-secondary leading-relaxed">
-              Gold Alpha ships as a fully-managed install. Your call covers
-              pricing, brokerage setup, and the exact onboarding timeline.
-            </p>
-            <a
-              href="/apply"
-              className="group mt-6 inline-flex min-h-[44px] items-center gap-2 border-b border-amber/40 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-amber transition-all hover:border-amber hover:gap-3 sm:mt-8"
-            >
-              Schedule onboarding call
-              <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
-            </a>
-          </div>
+    <section className="py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-3xl px-5 text-center sm:px-6">
+        <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
+          What&apos;s included
+        </p>
+        <h2 className="font-serif text-h3 leading-tight text-text-primary text-balance">
+          Installed, monitored, and maintained by our team.
+        </h2>
+        <p className="mx-auto mt-4 max-w-[52ch] text-body text-text-secondary leading-relaxed">
+          Gold Alpha ships as a fully-managed install. Your call covers
+          pricing, brokerage setup, and the exact onboarding timeline.
+        </p>
+      </div>
 
-          <ul className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-            {INCLUDES.map((item, i) => (
-              <motion.li
-                key={item}
-                initial={{ opacity: 0, x: 6 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{
-                  duration: 0.45,
-                  ease: EASE_OUT_EXPO,
-                  delay: i * 0.05,
-                }}
-                className="flex items-start gap-3 border-b border-border/50 pb-4 text-body text-text-secondary"
-              >
-                <span className="mt-[0.35em] flex h-4 w-4 shrink-0 items-center justify-center bg-amber/[0.07]">
-                  <Check className="h-3 w-3 text-amber" strokeWidth={2.5} />
-                </span>
-                <span className="leading-relaxed">{item}</span>
-              </motion.li>
-            ))}
-          </ul>
+      <div className="mx-auto mt-12 max-w-2xl px-5 sm:mt-14 sm:px-6">
+        <ul className="divide-y divide-border/60 border-y border-border/60">
+          {INCLUDES.map((item) => (
+            <li
+              key={item}
+              className="flex items-start gap-4 py-4 text-body text-text-secondary"
+            >
+              <span className="mt-[0.35em] flex h-4 w-4 shrink-0 items-center justify-center bg-amber/[0.07]">
+                <Check className="h-3 w-3 text-amber" strokeWidth={2.5} />
+              </span>
+              <span className="leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-10 flex justify-center">
+          <a
+            href="#book-a-call"
+            className="group inline-flex min-h-[44px] items-center gap-2 border-b border-amber/40 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-amber transition-all hover:border-amber hover:gap-3"
+          >
+            Schedule onboarding call
+            <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+          </a>
         </div>
       </div>
     </section>
@@ -666,9 +655,23 @@ function Includes() {
 // Final CTA — warm-white inversion (site's existing light-section pattern)
 // ─────────────────────────────────────────────────────────────────────────────
 
-function FinalCTA() {
+function CalendlyEmbed() {
+  const [loaded, setLoaded] = useState(false);
+  const [hostname, setHostname] = useState("algoalpha.co");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHostname(window.location.hostname);
+    }
+  }, []);
+
+  const url = `${CALENDLY_URL}?embed_domain=${hostname}&embed_type=Inline&hide_event_type_details=1&hide_gdpr_banner=1&primary_color=cd6600&background_color=f6f2ea&text_color=1a1a1a`;
+
   return (
-    <section className="relative overflow-hidden bg-warm-white py-20 text-bg-deep sm:py-24 lg:py-32">
+    <section
+      id="book-a-call"
+      className="relative overflow-hidden bg-warm-white py-20 text-bg-deep sm:py-24 lg:py-28"
+    >
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-[0.035]"
@@ -678,7 +681,6 @@ function FinalCTA() {
           backgroundSize: "56px 56px",
         }}
       />
-      {/* Soft radial for warmth */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -687,28 +689,53 @@ function FinalCTA() {
             "radial-gradient(ellipse 60% 40% at 50% 0%, oklch(0.75 0.16 65 / 0.08), transparent 60%)",
         }}
       />
-      <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-6">
-        <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.22em] text-amber-dim">
-          Ready when you are
-        </p>
-        <h2 className="font-serif text-h2 leading-[1.05] tracking-tight text-bg-deep text-balance">
-          Book a private call with our team.
-        </h2>
-        <p className="mx-auto mt-5 max-w-xl text-body text-bg-deep/65 leading-relaxed">
-          Thirty minutes. Zero pressure. By the end of the call you&apos;ll know
-          exactly how Gold Alpha fits — or doesn&apos;t fit — into your
-          portfolio.
-        </p>
-        <div className="mt-10">
-          <a
-            href="/apply"
-            className="group inline-flex h-14 w-full items-center justify-center gap-3 bg-bg-deep px-10 text-sm font-medium uppercase tracking-wide text-warm-white transition-all hover:gap-5 active:translate-y-px sm:w-auto"
-          >
-            Book a private call
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </a>
+
+      <div className="relative mx-auto max-w-5xl px-5 sm:px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.22em] text-amber-dim">
+            Ready when you are
+          </p>
+          <h2 className="font-serif text-h2 leading-[1.05] tracking-tight text-bg-deep text-balance">
+            Book a private call with our team.
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-body text-bg-deep/60 leading-relaxed">
+            Thirty minutes. Zero pressure. By the end of the call you&apos;ll
+            know exactly how Gold Alpha fits — or doesn&apos;t fit — into your
+            portfolio.
+          </p>
         </div>
-        <p className="mt-6 font-mono text-[10px] italic text-bg-deep/40">
+
+        <div className="mx-auto mt-10 w-full">
+          <div
+            className="relative overflow-hidden rounded-lg border border-bg-deep/10 shadow-[0_12px_40px_-20px_oklch(0.12_0.01_60/0.25)]"
+            style={{ backgroundColor: "#f6f2ea" }}
+          >
+            {/* Skeleton until iframe loads */}
+            {!loaded && (
+              <div className="absolute inset-0 z-10 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center">
+                    <span className="absolute h-10 w-10 animate-ping rounded-full border border-amber/40" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-amber" />
+                  </div>
+                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-bg-deep/60">
+                    Loading your calendar…
+                  </p>
+                </div>
+              </div>
+            )}
+            <iframe
+              src={url}
+              title="Book a call with the Algo Alpha team"
+              className="relative z-0 h-[720px] w-full"
+              frameBorder={0}
+              loading="lazy"
+              onLoad={() => setLoaded(true)}
+            />
+          </div>
+        </div>
+
+        <p className="mx-auto mt-6 text-center font-mono text-[11px] italic text-bg-deep/60">
           Past performance is not indicative of future results.
         </p>
       </div>
@@ -724,14 +751,13 @@ export default function GoldDirectBookCallPage() {
   return (
     <main className="relative min-h-screen bg-bg-deep text-text-primary">
       <GrainOverlay />
-      <FunnelHeader />
       <Hero />
       <StatsStrip />
       <WhyGoldAlpha />
       <HowItWorks />
       <TrustpilotReviews />
       <Includes />
-      <FinalCTA />
+      <CalendlyEmbed />
       <PageDisclaimer />
     </main>
   );
