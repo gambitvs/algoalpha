@@ -20,10 +20,10 @@ export const metadata: Metadata = {
     siteName: "Algo Alpha",
     images: [
       {
-        url: "/images/og-home.jpg",
+        url: "/images/og-algoalpha.png",
         width: 1200,
         height: 630,
-        alt: "Algo Alpha - Institutional Trading Technology",
+        alt: "Algo Alpha — Your Portfolio, Empowered by Institutional Trading Algorithms",
       },
     ],
   },

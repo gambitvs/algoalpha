@@ -6,6 +6,29 @@ export const metadata: Metadata = {
   description:
     "Install Our Gold AI Trading Algorithm to Your Portfolio That Generates Monthly Profits With 'Hands-Off' Management. Exclusive for high-net-worth executives.",
   robots: { index: false, follow: true },
+  icons: { icon: "/favicon.png" },
+  openGraph: {
+    type: "website",
+    siteName: "Algo Alpha",
+    title: "Gold Alpha — Book a Private Call",
+    description:
+      "Install Our Gold AI Trading Algorithm to Your Portfolio. Exclusive for high-net-worth executives.",
+    images: [
+      {
+        url: "/images/og-algoalpha.png",
+        width: 1200,
+        height: 630,
+        alt: "Algo Alpha — Your Portfolio, Empowered by Institutional Trading Algorithms",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gold Alpha — Book a Private Call",
+    description:
+      "Install Our Gold AI Trading Algorithm to Your Portfolio. Exclusive for high-net-worth executives.",
+    images: ["/images/og-algoalpha.png"],
+  },
 };
 
 const GTM_ID = "GTM-WCCRS5V";
