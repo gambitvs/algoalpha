@@ -17,7 +17,7 @@ const NO_CHROME_ROUTES = [
   "/calendar",
   "/dq",
   "/referral-submission",
-  "/gold-direct-book-call",
+  "/gold-call",
 ];
 
 /**
