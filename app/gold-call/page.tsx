@@ -238,17 +238,36 @@ function Hero() {
 // Calendly booking
 // ─────────────────────────────────────────────────────────────────────────────
 
+const UTM_KEYS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+] as const;
+
 function CalendlyEmbed() {
   const [loaded, setLoaded] = useState(false);
   const [hostname, setHostname] = useState("algoalpha.co");
+  const [utmQuery, setUtmQuery] = useState("");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setHostname(window.location.hostname);
+    if (typeof window === "undefined") return;
+    setHostname(window.location.hostname);
+
+    // Forward incoming UTM params into the Calendly embed so they flow into
+    // booking events, webhooks, and downstream attribution (GA4, Hyros, FB).
+    const params = new URLSearchParams(window.location.search);
+    const forwarded = new URLSearchParams();
+    for (const key of UTM_KEYS) {
+      const value = params.get(key);
+      if (value) forwarded.set(key, value);
     }
+    const qs = forwarded.toString();
+    if (qs) setUtmQuery(`&${qs}`);
   }, []);
 
-  const url = `${CALENDLY_URL}?embed_domain=${hostname}&embed_type=Inline&hide_event_type_details=1&hide_gdpr_banner=1&primary_color=cd6600&background_color=f6f2ea&text_color=1a1a1a`;
+  const url = `${CALENDLY_URL}?embed_domain=${hostname}&embed_type=Inline&hide_event_type_details=1&hide_gdpr_banner=1&primary_color=cd6600&background_color=f6f2ea&text_color=1a1a1a${utmQuery}`;
 
   return (
     <section
