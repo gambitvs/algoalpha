@@ -10,7 +10,7 @@ const VSL_HLS_URL =
   "https://content.apisystem.tech/hls/medias/91ZHtcGEPL5GQmtTCTib/media/transcoded_videos/cts-e3f61770c2b85aa9_,360,480,720,1080,p.mp4.urlset/master.m3u8";
 
 const CALENDLY_URL =
-  "https://calendly.com/algo-alpha-advisory-team/alpha-investor-consultation-call-clone";
+  "https://calendly.com/algo-alpha-advisory-team/alpha-investor-consultation-call-clone-1";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Page-level grain overlay
@@ -267,7 +267,7 @@ function CalendlyEmbed() {
     if (qs) setUtmQuery(`&${qs}`);
   }, []);
 
-  const url = `${CALENDLY_URL}?embed_domain=${hostname}&embed_type=Inline&hide_event_type_details=1&hide_gdpr_banner=1&primary_color=cd6600&background_color=f6f2ea&text_color=1a1a1a${utmQuery}`;
+  const url = `${CALENDLY_URL}?embed_domain=${hostname}&embed_type=Inline&hide_event_type_details=1&hide_gdpr_banner=1&primary_color=b45f05&background_color=f6f2ea&text_color=1a1a1a${utmQuery}`;
 
   return (
     <section
