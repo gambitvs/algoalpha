@@ -1,5 +1,5 @@
 {
-  "lastScraped": "2026-05-03T07:00:34.599Z",
+  "lastScraped": "2026-05-04T07:15:13.063Z",
   "accounts": [
     {
       "name": "Intelligent Portfolio",
@@ -8,7 +8,7 @@
       "strategy": "Multi-Strategy Portfolio",
       "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-intelligent-portfolio/11755904",
       "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11755904",
-      "gain": "184.47",
+      "gain": "184.87",
       "drawdown": "15.32",
       "absGain": "+178.54%",
       "daily": "0.12%",
@@ -60,7 +60,7 @@
       "strategy": "Trend Following",
       "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-trader/11756098",
       "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11756098",
-      "gain": "414.51",
+      "gain": "414.81",
       "drawdown": "19.55",
       "absGain": "+382.45%",
       "daily": "0.18%",
@@ -112,7 +112,7 @@
       "strategy": "Portfolio; 21 pairs",
       "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-alpha-x/11758658",
       "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11758658",
-      "gain": "88.53",
+      "gain": "88.65",
       "drawdown": "6.24",
       "absGain": "+82.14%",
       "daily": "0.08%",
@@ -164,7 +164,7 @@
       "strategy": "Dual Asset Long & Short",
       "url": "https://www.myfxbook.com/members/AlgoAlpha/algo-alpha-crypto-alpha/11758739",
       "sparklineUrl": "https://widgets.myfxbook.com/system-spark.png?id=11758739",
-      "gain": "742.61",
+      "gain": "739.98",
       "drawdown": "19.02",
       "absGain": "+694.12%",
       "daily": "0.22%",
