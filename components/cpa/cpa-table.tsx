@@ -33,7 +33,7 @@ const strategies: Strategy[] = [
   {
     name: "Alpha Y",
     status: "verified",
-    href: "https://cdn.prod.website-files.com/65bc6f55990ebb3f0ef246f5/69cfcb6fa69f163598ab7ca1_Algo%20Alpha%20Report%20-%20Alpha%20Y%202026_Q1.pdf",
+    href: "https://drive.google.com/file/d/1rmg5MDd6KDYX3hSO4sn4K1e6qFojquLf/view?usp=drive_link",
   },
   { name: "Gold Alpha", status: "in-progress", href: null },
 ];
