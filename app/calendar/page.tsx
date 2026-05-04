@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { CalendarDays, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
+
+import CalendarBookingEmbed from "@/components/calendar/calendar-booking-embed";
 
 export const metadata: Metadata = {
   title: "Book Consultation",
@@ -13,22 +15,7 @@ export default function CalendarPage() {
           Book Your Consultation
         </h1>
 
-        {/* Calendar embed placeholder */}
-        <div className="rounded-2xl border border-border bg-bg-surface p-12 flex flex-col items-center justify-center min-h-[400px] text-center">
-          <CalendarDays
-            className="size-16 text-amber-dim mb-6"
-            strokeWidth={1}
-          />
-
-          <p className="text-body text-text-secondary mb-2">
-            Calendar integration will be configured with your scheduling tool.
-          </p>
-
-          <p className="text-small text-text-muted">
-            Once connected, you will be able to select a date and time for your
-            private consultation directly on this page.
-          </p>
-        </div>
+        <CalendarBookingEmbed />
 
         <div className="mt-8 flex items-center justify-center gap-2 text-text-muted text-small">
           <Mail className="size-4" />
